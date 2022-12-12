@@ -1,0 +1,17 @@
+Route: / 
+AUTH ? dashboard : login
+
+Route: bookings
+/bookings
+/bookings/:bookingId
+
+Route: rooms
+/rooms
+/rooms/:roomId
+
+Route: users
+/users
+/users/:userId
+
+Route: contact
+/contact
