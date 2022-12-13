@@ -12,6 +12,12 @@ import SingleUser from "./pages/users/SingleUser";
 import Contact from "./pages/contact/Contact";
 import Login from "./pages/login/Login";
 
+// Components
+import Sidebar from "./components/sidebar/Sidebar";
+import Topbar from "./components/topbar/Topbar";
+import Layout from "./components/Layout";
+import { ProtectRoute } from "./components/ProtectedRoute";
+
 function App() {
   const [auth, setAuth] = useState(false);
 
@@ -23,41 +29,40 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={auth ? <Dashboard /> : <Navigate to="login" />}
-        />
-        <Route
-          path="/bookings"
-          element={auth ? <Bookings /> : <Navigate to="login" />}
-        />
-        <Route
-          path="bookings/:bookingId"
-          element={auth ? <SingleBooking /> : <Navigate to="login" />}
-        />
-        <Route
-          path="/rooms"
-          element={auth ? <Rooms /> : <Navigate to="login" />}
-        />
-        <Route
-          path="rooms/:roomId"
-          element={auth ? <SingleRoom /> : <Navigate to="login" />}
-        />
-        <Route
-          path="/users"
-          element={auth ? <Users /> : <Navigate to="login" />}
-        />
-        <Route
-          path="users/:userId"
-          element={auth ? <SingleUser /> : <Navigate to="login" />}
-        />
-        <Route
-          path="/contact"
-          element={auth ? <Contact /> : <Navigate to="login" />}
-        />
-        <Route path="/login" element={auth ? <Navigate to="/" /> : <Login />} />
-      </Routes>
+      <Layout>
+        {auth ? <Sidebar /> : <></>}
+
+        {/* I need this div here as Layout is flex. Like this I can separate sideBar from the rest of the page */}
+        <div className="window-container">
+          {auth ? <Topbar setAuth={setAuth} /> : <></>}
+          <Routes>
+            <Route
+              path="/login"
+              element={
+                auth ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Login auth={auth} setAuth={setAuth} />
+                )
+              }
+            />
+            <Route
+              path="/"
+              element={auth ? <Dashboard /> : <Navigate to="/login" replace />}
+            />
+
+            <Route path="*" element={<ProtectRoute auth={auth} />}>
+              <Route path="bookings" element={<Bookings />} />
+              <Route path="bookings/:bookingId" element={<SingleBooking />} />
+              <Route path="rooms" element={<Rooms />} />
+              <Route path="rooms/:roomId" element={<SingleRoom />} />
+              <Route path="users" element={<Users />} />
+              <Route path="users/:userId" element={<SingleUser />} />
+              <Route path="contact" element={<Contact />} />
+            </Route>
+          </Routes>
+        </div>
+      </Layout>
     </BrowserRouter>
   );
 }
