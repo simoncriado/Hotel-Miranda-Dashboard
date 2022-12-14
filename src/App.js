@@ -1,3 +1,4 @@
+// React & Router
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
@@ -7,6 +8,7 @@ import Bookings from "./pages/bookings/Bookings";
 import SingleBooking from "./pages/bookings/SingleBooking";
 import Rooms from "./pages/rooms/Rooms";
 import SingleRoom from "./pages/rooms/SingleRoom";
+import NewRoom from "./pages/rooms/NewRoom";
 import Users from "./pages/users/Users";
 import SingleUser from "./pages/users/SingleUser";
 import Contact from "./pages/contact/Contact";
@@ -56,6 +58,7 @@ function App() {
               <Route path="bookings/:bookingId" element={<SingleBooking />} />
               <Route path="rooms" element={<Rooms />} />
               <Route path="rooms/:roomId" element={<SingleRoom />} />
+              <Route path="newRoom" element={<NewRoom />} />
               <Route path="users" element={<Users />} />
               <Route path="users/:userId" element={<SingleUser />} />
               <Route path="contact" element={<Contact />} />

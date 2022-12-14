@@ -1,0 +1,172 @@
+[
+  {
+    "id": "7796",
+    "room_number": "1",
+    "photo": "https://images.unsplash.com/photo-1424847262089-18a6858bd7e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    "bed_type": "Single Bed",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 50.73,
+    "room_offer": 81.71,
+    "room_status": "Available"
+  },
+  {
+    "id": "358",
+    "room_number": "2",
+    "photo": "https://images.unsplash.com/photo-1572803090136-5247de70532f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80",
+    "bed_type": "Suite",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 33.74,
+    "room_offer": 88.54,
+    "room_status": "Available"
+  },
+  {
+    "id": "66939",
+    "room_number": "3",
+    "photo": "https://images.unsplash.com/photo-1530334565651-210b286480b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80",
+    "bed_type": "Double Bed",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 90.37,
+    "room_offer": 52.62,
+    "room_status": "Booked"
+  },
+  {
+    "id": "15384",
+    "room_number": "4",
+    "photo": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    "bed_type": "Double Superior",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 65.18,
+    "room_offer": 8.42,
+    "room_status": "Available"
+  },
+  {
+    "id": "15231",
+    "room_number": "5",
+    "photo": "https://images.unsplash.com/photo-1572803090136-5247de70532f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80",
+    "bed_type": "Suite",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 48.77,
+    "room_offer": 49.77,
+    "room_status": "Available"
+  },
+  {
+    "id": "941",
+    "room_number": "6",
+    "photo": "https://images.unsplash.com/photo-1424847262089-18a6858bd7e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    "bed_type": "Single Bed",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 12.56,
+    "room_offer": 90.27,
+    "room_status": "Booked"
+  },
+  {
+    "id": "637",
+    "room_number": "7",
+    "photo": "https://images.unsplash.com/photo-1424847262089-18a6858bd7e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    "bed_type": "Single Bed",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 4.99,
+    "room_offer": 85.1,
+    "room_status": "Booked"
+  },
+  {
+    "id": "788",
+    "room_number": "8",
+    "photo": "https://images.unsplash.com/photo-1530334565651-210b286480b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80",
+    "bed_type": "Double Bed",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 48.2,
+    "room_offer": 84.03,
+    "room_status": "Available"
+  },
+  {
+    "id": "398",
+    "room_number": "9",
+    "photo": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    "bed_type": "Double Superior",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 1.54,
+    "room_offer": 43.17,
+    "room_status": "Booked"
+  },
+  {
+    "id": "9248",
+    "room_number": "10",
+    "photo": "https://images.unsplash.com/photo-1530334565651-210b286480b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80",
+    "bed_type": "Double Bed",
+    "room_facilities": [
+      "WIFI",
+      "Nespresso Machine",
+      "TV",
+      "AC",
+      "Bathtub",
+      "Towels"
+    ],
+    "room_rate": 7.95,
+    "room_offer": 5.77,
+    "room_status": "Available"
+  }
+]

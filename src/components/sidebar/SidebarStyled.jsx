@@ -83,7 +83,7 @@ const Link = styled.li`
           return "#799283";
         }
       }};
-      font-family: "Poppins";
+      font-family: var(--font-poppins);
       font-size: 1.8rem;
       text-decoration: none;
     }
@@ -101,7 +101,18 @@ const Link = styled.li`
 
 const NewRoom = styled.div`
   height: ${(props) => props.newRoom};
-  transition: height 0.4s ease-out;
+  transition: height 0.3s ease-out;
+  overflow: hidden;
+  font-family: var(--font-poppins);
+  font-size: 1.8rem;
+  display: relative;
+  border-radius: 6px;
+  cursor: pointer;
+  padding-left: 13rem;
+  color: #799283;
+  :hover {
+    color: #e23428;
+  }
 `;
 
 const UserCard = styled.div`

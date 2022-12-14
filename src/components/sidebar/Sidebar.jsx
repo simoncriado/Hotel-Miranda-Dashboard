@@ -35,7 +35,6 @@ const Sidebar = () => {
   const [display, setDisplay] = useState(false);
   const [newRoom, setNewRoom] = useState(false);
   const location = useLocation();
-  console.log(display);
 
   const displayMenu = () => {
     setDisplay(!display);
@@ -92,11 +91,7 @@ const Sidebar = () => {
             </NavLink>
           </Link>
 
-          <Link
-            route="/rooms"
-            current={location.pathname}
-            onClick={displayNewRoom}
-          >
+          <Link route="/rooms" current={location.pathname}>
             <NavLink to="/rooms">
               <div></div>
               <svg
@@ -113,11 +108,15 @@ const Sidebar = () => {
                 height="30"
                 width="30"
                 viewBox="0 0 48 48"
+                style={{ paddingLeft: 20 }}
+                onClick={displayNewRoom}
               >
                 <path d="m24 30.75-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z" />
               </svg>
-              {/* <NewRoom newRoom={!newRoom ? "30px" : "0px"}>New Room</NewRoom> */}
             </NavLink>
+            {/* <NavLink newRoom={!newRoom ? "30px" : "0px"} to="newRoom">
+              New Room
+            </NavLink> */}
           </Link>
 
           <Link route="/contact" current={location.pathname}>
