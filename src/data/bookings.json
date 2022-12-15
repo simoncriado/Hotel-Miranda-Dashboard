@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "bookingID": 135478,
+    "user": {
+      "name": "Roger Waters",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Oct 30th 2022 02:21 AM",
+    "checkIn": {
+      "date": "Dec 12th 2022",
+      "hour": "3:30 AM"
+    },
+    "checkOut": {
+      "date": "Nov 2nd 2022",
+      "hour": "9:41 PM"
+    },
+    "specialRequest": null,
+    "roomType": "Single Bed - 2",
+    "status": "Check Out"
+  },
+  {
+    "id": 2,
+    "bookingID": 3460,
+    "user": {
+      "name": "Lilly Potter",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Nov 21th 2022 08:51 PM",
+    "checkIn": {
+      "date": "Nov 2nd 2022",
+      "hour": "10:06 AM"
+    },
+    "checkOut": {
+      "date": "Nov 7th 2022",
+      "hour": "8:43 AM"
+    },
+    "specialRequest": null,
+    "roomType": "Suite - 13",
+    "status": "In Progress"
+  },
+  {
+    "id": 3,
+    "bookingID": 9915,
+    "user": {
+      "name": "Mark Hatchett",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Oct 30th 2022 08:51 PM",
+    "checkIn": {
+      "date": "Nov 2nd 2022",
+      "hour": "12:25 PM"
+    },
+    "checkOut": {
+      "date": "Nov 15th 2022",
+      "hour": "12:18 AM"
+    },
+    "specialRequest": null,
+    "roomType": "Double Bed - 34",
+    "status": "Check Out"
+  },
+  {
+    "id": 4,
+    "bookingID": 49121,
+    "user": {
+      "name": "Ashil Thorius",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Oct 30th 2022 08:51 PM",
+    "checkIn": {
+      "date": "Nov 3nd 2022",
+      "hour": "1:42 AM"
+    },
+    "checkOut": {
+      "date": "Dec 1st 2022",
+      "hour": "8:32 AM"
+    },
+    "specialRequest": null,
+    "roomType": "Single Bed - 52",
+    "status": "Check In"
+  },
+  {
+    "id": 5,
+    "bookingID": 5683,
+    "user": {
+      "name": "Montague Cawthorn",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Jun 21th 2022 08:24 PM",
+    "checkIn": {
+      "date": "Dec 12th 2022",
+      "hour": "3:42 PM"
+    },
+    "checkOut": {
+      "date": "Nov 2nd 2022",
+      "hour": "5:11 PM"
+    },
+    "specialRequest": null,
+    "roomType": "Double Superior - 7",
+    "status": "Check Out"
+  },
+  {
+    "id": 6,
+    "bookingID": 78432,
+    "user": {
+      "name": "Arnie Ganny",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Oct 30th 2022 08:51 PM",
+    "checkIn": {
+      "date": "Nov 29th 2022",
+      "hour": "7:21 PM"
+    },
+    "checkOut": {
+      "date": "Nov 4th 2022",
+      "hour": "9:44 AM"
+    },
+    "specialRequest": "I would need a second pillow. I suffer from neck pain if I dont sleep with enough support for my head. Thank you!",
+    "roomType": "Double Bed - 60",
+    "status": "Check In"
+  },
+  {
+    "id": 7,
+    "bookingID": 26362,
+    "user": {
+      "name": "Wilton Gammade",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Jun 21th 2022 08:24 PM",
+    "checkIn": {
+      "date": "Nov 3nd 2022",
+      "hour": "6:05 PM"
+    },
+    "checkOut": {
+      "date": "Nov 15th 2022",
+      "hour": "4:19 AM"
+    },
+    "specialRequest": null,
+    "roomType": "Suite - 10",
+    "status": "In Progress"
+  },
+  {
+    "id": 8,
+    "bookingID": 41938,
+    "user": {
+      "name": "Mendel Kembry",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Nov 21th 2022 12:51 PM",
+    "checkIn": {
+      "date": "Nov 29th 2022",
+      "hour": "10:38 AM"
+    },
+    "checkOut": {
+      "date": "Dec 1st 2022",
+      "hour": "3:30 PM"
+    },
+    "specialRequest": "Would it be possible to have a hair dryer in the room? Thanks",
+    "roomType": "Single Bed - 17",
+    "status": "In Progress"
+  },
+  {
+    "id": 9,
+    "bookingID": 20981,
+    "user": {
+      "name": "Sheppard Huffer",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Oct 30th 2022 02:21 AM",
+    "checkIn": {
+      "date": "Nov 4th 2022",
+      "hour": "10:42 AM"
+    },
+    "checkOut": {
+      "date": "Nov 4th 2022",
+      "hour": "11:56 AM"
+    },
+    "specialRequest": "We would need a bowl to give water to our dog. Would that be possible? Thanks in advance!",
+    "roomType": "Double Bed - 4",
+    "status": "In Progress"
+  },
+  {
+    "id": 10,
+    "bookingID": 97761,
+    "user": {
+      "name": "Westleigh Cato",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Oct 30th 2022 02:21 AM",
+    "checkIn": {
+      "date": "Nov 4th 2022",
+      "hour": "10:07 PM"
+    },
+    "checkOut": {
+      "date": "Dec 1st 2022",
+      "hour": "9:15 PM"
+    },
+    "specialRequest": null,
+    "roomType": "Double Superior - 11",
+    "status": "In Progress"
+  }
+]

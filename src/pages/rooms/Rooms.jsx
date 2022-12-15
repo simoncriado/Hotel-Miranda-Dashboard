@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 
 // DnD
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 // Local data
 import RoomsList from "../../data/rooms";
@@ -19,7 +19,7 @@ import { RoomRow } from "../../components/rooms/RoomRow";
 const Rooms = () => {
   const [rooms, setRooms] = useState(RoomsList);
 
-  // a little function to help us with reordering the result
+  // Function to help with reordering the result after dragging
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -28,17 +28,22 @@ const Rooms = () => {
     return result;
   };
 
+  // Function to manage the drag event
   const onDragEnd = (result) => {
-    // dropped outside the list
-    if (!result.destination) {
+    const { source, destination } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      source.index === destination.index &&
+      source.droppableId === destination.droppableId
+    ) {
       return;
     }
 
-    const items = reorder(rooms, result.source.index, result.destination.index);
-
-    setRooms({
-      items,
-    });
+    setRooms((prevRooms) =>
+      reorder(prevRooms, source.index, destination.index)
+    );
   };
 
   return (
@@ -55,18 +60,26 @@ const Rooms = () => {
               <HeaderTitle>Status</HeaderTitle>
             </tr>
           </thead>
-
-          <tbody>
-            {rooms.length > 0 &&
-              rooms.map((room, index) => (
-                <RoomRow
-                  key={room.id}
-                  index={index}
-                  room={room}
-                  number={room.id}
-                />
-              ))}
-          </tbody>
+          <Droppable droppableId="rooms">
+            {(droppableProvided) => (
+              <tbody
+                {...droppableProvided.droppableProps}
+                ref={droppableProvided.innerRef}
+                className="task-container"
+              >
+                {rooms.length > 0 &&
+                  rooms.map((room, index) => (
+                    <RoomRow
+                      key={room.id}
+                      index={index}
+                      room={room}
+                      number={room.id}
+                    />
+                  ))}
+                {droppableProvided.placeholder}
+              </tbody>
+            )}
+          </Droppable>
         </Table>
       </Container>
     </DragDropContext>

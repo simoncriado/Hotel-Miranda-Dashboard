@@ -74,6 +74,14 @@ const CalendarAndGraphSubcontainer = styled.div`
   width: 50%;
   background-color: grey;
   border-radius: 2rem;
+  p {
+    text-align: center;
+    margin-top: 20rem;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 3rem;
+    color: #393939;
+  }
 `;
 
 const Reviews = styled.div`
@@ -82,6 +90,14 @@ const Reviews = styled.div`
   background-color: grey;
   box-shadow: 0px 4px 4px #00000005;
   border-radius: 2rem;
+  p {
+    text-align: center;
+    margin-top: 20rem;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 3rem;
+    color: #393939;
+  }
 `;
 
 export {

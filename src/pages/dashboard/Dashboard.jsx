@@ -74,10 +74,16 @@ const Dashboard = () => {
         </KPIContainer>
       </KPI>
       <CalendarAndGraph>
-        <CalendarAndGraphSubcontainer></CalendarAndGraphSubcontainer>
-        <CalendarAndGraphSubcontainer></CalendarAndGraphSubcontainer>
+        <CalendarAndGraphSubcontainer>
+          <p>Calendar under construction...</p>
+        </CalendarAndGraphSubcontainer>
+        <CalendarAndGraphSubcontainer>
+          <p>Stadistics under construction...</p>
+        </CalendarAndGraphSubcontainer>
       </CalendarAndGraph>
-      <Reviews></Reviews>
+      <Reviews>
+        <p>Reviews under construction...</p>
+      </Reviews>
     </DashboardContainer>
   );
 };
