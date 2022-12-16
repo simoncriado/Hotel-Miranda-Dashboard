@@ -19,7 +19,7 @@ const SingleRoom = () => {
   if (filteredRoom[0]) {
     return (
       <div style={{ fontSize: 30 }}>
-        This are the details for room <strong>{filteredRoom[0].id}</strong>
+        This are the details for ROOM <strong>{filteredRoom[0].id}</strong>
       </div>
     );
   } else {

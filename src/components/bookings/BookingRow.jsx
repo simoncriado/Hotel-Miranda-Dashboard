@@ -1,5 +1,6 @@
 // React & Router
 import React from "react";
+import { useNavigate } from "react-router";
 
 // Styles
 import {
@@ -15,6 +16,12 @@ import {
 
 // Component that creates a table row for the bookings table
 export const BookingRow = ({ booking, handleOpenModal }) => {
+  const navigate = useNavigate();
+
+  const goToSingleBooking = (id) => {
+    navigate("/bookings/" + id);
+  };
+
   return (
     <Row>
       <td>
@@ -59,7 +66,11 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
         <Status $type={booking.status}>{booking.status}</Status>
       </td>
       <DataContainerButton>
-        <button>
+        <button
+          onClick={() => {
+            goToSingleBooking(booking.bookingID);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="30"

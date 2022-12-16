@@ -62,10 +62,7 @@ const DataContainerButton = styled.td`
     margin-top: 15px;
     width: 24px;
     height: 24px;
-    .icon {
-      width: 25px;
-      height: 25px;
-    }
+    cursor: pointer;
   }
 `;
 
