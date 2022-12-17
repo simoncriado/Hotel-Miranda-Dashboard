@@ -1,6 +1,7 @@
 // React
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 // DnD
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -9,15 +10,67 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import RoomsList from "../../data/rooms";
 
 // Styles
-import { Table, HeaderTitle } from "../../components/styled/Tables";
+import {
+  Table,
+  HeaderTitle,
+  TableActions,
+  TableFilters,
+  FilterButton,
+  TableButtons,
+} from "../../components/styled/Tables";
 import { Container } from "../../components/styled/Containers";
+import { CreateButton } from "../../components/styled/Buttons";
+import { DropdownMenu } from "../../components/styled/DropdownMenu";
 
 // Components
 import { RoomRow } from "../../components/rooms/RoomRow";
+import { Pagination } from "../../components/pagination/Pagination";
 
 // Component that creates a table and add a row for each item in the data base
 const Rooms = () => {
   const [rooms, setRooms] = useState(RoomsList);
+  const [activeFilter, setActiveFilter] = useState("Room Nr.");
+  const [currentRooms, setCurrentRooms] = useState([]);
+
+  const getAllRooms = () => {
+    setRooms(RoomsList);
+  };
+
+  const filterByType = (type) => {
+    setRooms(RoomsList.filter((room) => room.room_status === type));
+  };
+
+  useEffect(() => {
+    // Filtering by dropdown selection based on the filtered by search input array (in case the user used the search bar)
+    const orderedRooms = [...RoomsList];
+    switch (activeFilter) {
+      case "Room Nr.":
+        orderedRooms.sort((a, b) => a.room_number - b.room_number);
+        break;
+      case "Highest rate first":
+        orderedRooms.sort((a, b) => b.room_rate - a.room_rate);
+        break;
+      case "Lowest rate first":
+        orderedRooms.sort((a, b) => a.room_rate - b.room_rate);
+        break;
+      default:
+        break;
+    }
+    setRooms(orderedRooms);
+  }, [activeFilter]);
+
+  // Variables for the pagination component
+  const [currentPage, setCurrentPage] = useState(1);
+  const [roomsPerPage] = useState(10);
+  const indexOfLastImage = currentPage * roomsPerPage; // For example: let´s say we have 17 pages. indexOfLastImage = 17 * roomsPerPage
+  const indexOfFirstImage = indexOfLastImage - roomsPerPage; // Following same example: indexOfFirstImage = indexOfLastPage – roomsPerPage
+  // Setting the current displayed images
+  useEffect(() => {
+    setCurrentRooms(rooms.slice(indexOfFirstImage, indexOfLastImage));
+  }, [rooms, indexOfFirstImage, indexOfLastImage]);
+
+  // Images to be displayed on the current page. slice(96, 102) will return images from index 96 to 101
+  const nPages = Math.ceil(rooms.length / roomsPerPage);
 
   // Function to help with reordering the result after dragging
   const reorder = (list, startIndex, endIndex) => {
@@ -48,6 +101,27 @@ const Rooms = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      <TableActions>
+        <TableFilters>
+          <FilterButton onClick={getAllRooms}>All Rooms</FilterButton>
+          <FilterButton onClick={() => filterByType("Available")}>
+            Available Rooms
+          </FilterButton>
+          <FilterButton onClick={() => filterByType("Booked")}>
+            Booked Rooms
+          </FilterButton>
+        </TableFilters>
+        <TableButtons>
+          <CreateButton>
+            <NavLink to="/newRoom">+ New Room</NavLink>
+          </CreateButton>
+          <DropdownMenu
+            setActiveFilter={setActiveFilter}
+            type="white"
+            options={["Room Nr.", "Highest rate first", "Lowest rate first"]}
+          ></DropdownMenu>
+        </TableButtons>
+      </TableActions>
       <Container>
         <Table>
           <thead>
@@ -67,8 +141,8 @@ const Rooms = () => {
                 ref={droppableProvided.innerRef}
                 className="task-container"
               >
-                {rooms.length > 0 &&
-                  rooms.map((room, index) => (
+                {currentRooms.length > 0 &&
+                  currentRooms.map((room, index) => (
                     <RoomRow
                       key={room.id}
                       index={index}
@@ -82,6 +156,14 @@ const Rooms = () => {
           </Droppable>
         </Table>
       </Container>
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalRooms={rooms.length}
+        indexOfFirstImage={indexOfFirstImage}
+        indexOfLastImage={indexOfLastImage}
+      />
     </DragDropContext>
   );
 };

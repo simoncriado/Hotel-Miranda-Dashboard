@@ -48,7 +48,6 @@ const Navigation = styled.nav`
 
 const Link = styled.li`
   width: 70%;
-
   transition: all 0.2s;
   &:hover p,
   &:hover svg {

@@ -15,4 +15,49 @@ const HeaderTitle = styled.th`
   padding: 2.2rem 0 2.2rem 4rem;
 `;
 
-export { Table, HeaderTitle };
+const TableActions = styled.div`
+  display: flex;
+  margin: 4rem 2% 3rem 2%;
+`;
+
+const TableFilters = styled.div`
+  display: flex;
+  width: 60%;
+  margin-bottom: 50px;
+`;
+
+const TableButtons = styled.div`
+  display: flex;
+  width: 40%;
+  margin-left: 50px;
+  justify-content: flex-end;
+  gap: 20px;
+`;
+
+const FilterButton = styled.button`
+  font-family: var(--font-poppins);
+  color: #6e6e6e;
+  font-weight: 500;
+  padding: 12px 30px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d4d4d4;
+  cursor: pointer;
+  :hover {
+    color: #135846;
+  }
+  &:focus {
+    color: #135846;
+    border-bottom: 2px solid #135846;
+    outline: none;
+  }
+`;
+
+export {
+  Table,
+  HeaderTitle,
+  TableActions,
+  TableFilters,
+  FilterButton,
+  TableButtons,
+};

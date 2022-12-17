@@ -1,6 +1,9 @@
 // React
 import React from "react";
 
+// Components
+import ReviewsSwiper from "../../components/reviews/Reviews";
+
 // Styles
 import {
   DashboardContainer,
@@ -82,7 +85,8 @@ const Dashboard = () => {
         </CalendarAndGraphSubcontainer>
       </CalendarAndGraph>
       <Reviews>
-        <p>Reviews under construction...</p>
+        <p>Latest Reviews by Customers</p>
+        <ReviewsSwiper></ReviewsSwiper>
       </Reviews>
     </DashboardContainer>
   );

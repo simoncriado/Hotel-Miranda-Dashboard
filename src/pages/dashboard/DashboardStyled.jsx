@@ -85,19 +85,75 @@ const CalendarAndGraphSubcontainer = styled.div`
 `;
 
 const Reviews = styled.div`
-  height: 43rem;
-  widht: 100%;
-  background-color: grey;
+  position: relative;
+  background-color: #FFFFFF;
   box-shadow: 0px 4px 4px #00000005;
   border-radius: 2rem;
+  overflow: hidden;
   p {
-    text-align: center;
-    margin-top: 20rem;
+    margin: 3rem 0 0 3rem;
     font-family: "Poppins";
-    font-weight: 600;
-    font-size: 3rem;
+    font-weight: 400;
+    font-size: 2rem;
     color: #393939;
   }
+  .swiper {
+    .swiper-button-prev, .swiper-button-next {
+      background-color: #135846;
+      color: white;
+      height: 5.6rem;
+      width: 5.6rem;
+      border: 1px solid #FFFFFF;
+      border-radius: 12px;
+      & .swiper-button-disabled{
+        opacity: 0;
+      }
+      :after{
+        font-size: 2rem;
+        font-weight: 600;
+      }
+    }
+    .swiper-button-prev{
+      left: 0;
+    }
+    .swiper-button-next{
+      right: 0;
+    }
+    .swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled{
+      opacity: 0;
+    }
+  }
+  .swiper-wrapper{
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 2rem;
+    animation: all 2s;
+    margin: 3rem 2% 7rem 2%;
+    width: 29.1% !important;
+    min-width: 26rem;
+    :hover{
+      box-shadow: 0px 16px 30px #00000014;
+    }
+    p{
+      font-size: 1.6rem;
+      font-weight: 400;
+      color:#4E4E4E;
+      margin: 3rem
+    }
+    .reviewUser{
+      text-align: left;
+      margin-bottom: 3rem;
+      margin-right: 3rem;
+      justify-content: space-between;
+      
+      p{
+        margin: 0;
+      }
+    }
 `;
 
 export {

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Layout = styled.div`
   display: flex;
   background-color: #f8f8f8;
-  width: fit-content;
+  width: 100%;
   min-width: 100%;
   min-height: 100vh;
   height: 100%;
