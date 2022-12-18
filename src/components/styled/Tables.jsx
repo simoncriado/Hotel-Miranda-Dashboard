@@ -5,7 +5,9 @@ const Table = styled.table`
   background-color: #ffffff;
   border-radius: 20px;
   width: 100%;
+  display: block !important;
 `;
+// CHECK THE TD WIDTH AND PADDING CAUSE IT MAKES THE TABLE OVERFLOW ITS PARENT CONTAINER
 
 const HeaderTitle = styled.th`
   font-family: var(--font-poppins);

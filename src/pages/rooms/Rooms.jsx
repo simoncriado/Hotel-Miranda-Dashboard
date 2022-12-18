@@ -1,7 +1,6 @@
 // React
-import React from "react";
-import { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 // DnD
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -160,6 +159,7 @@ const Rooms = () => {
         nPages={nPages}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        dataDisplayed={"rooms"}
         totalRooms={rooms.length}
         indexOfFirstImage={indexOfFirstImage}
         indexOfLastImage={indexOfLastImage}

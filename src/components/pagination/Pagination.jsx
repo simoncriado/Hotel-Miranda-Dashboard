@@ -15,6 +15,7 @@ const Pagination = ({
   nPages,
   currentPage,
   setCurrentPage,
+  dataDisplayed,
   totalRooms,
   indexOfLastImage,
   indexOfFirstImage,
@@ -33,8 +34,9 @@ const Pagination = ({
   return (
     <Nav aria-label="Page navigation example relative ">
       <Text>
-        Showing rooms {indexOfFirstImage} to {indexOfLastImage} from a total of{" "}
-        {totalRooms} Rooms{" "}
+        Showing {dataDisplayed} {indexOfFirstImage} to{" "}
+        {indexOfLastImage > totalRooms ? totalRooms : indexOfLastImage} from a
+        total of {totalRooms} {dataDisplayed}
       </Text>
       <Ul>
         <LiNext>
