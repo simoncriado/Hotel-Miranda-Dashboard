@@ -19,6 +19,7 @@ import { DropdownMenu } from "../../components/styled/DropdownMenu";
 // Components
 import { BookingRow } from "../../components/bookings/BookingRow";
 import { Modal } from "../../components/styled/Modal";
+import { Pagination } from "../../components/pagination/Pagination";
 
 // Component that creates a table and add a row for each item in the data base
 const Bookings = () => {
@@ -26,8 +27,8 @@ const Bookings = () => {
   const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState("");
   const [request, setRequest] = useState("");
-  const [activeFilter, setActiveFilter] = useState("Order Date");
-  const [currentRooms, setCurrentRooms] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("Guest");
+  const [currentBookings, setCurrentBookings] = useState([]);
 
   const getAllBookings = () => {
     setBookings(BookingsList);
@@ -38,12 +39,11 @@ const Bookings = () => {
   };
 
   useEffect(() => {
-    // Filtering by dropdown selection based on the filtered by search input array (in case the user used the search bar)
+    // STILL WORKING ON THE FILTERS BY DATE! ONLY THE ONE BY GUESTNAME WORDS ATM!
     const orderedBookings = [...BookingsList];
     switch (activeFilter) {
       case "Order Date":
         orderedBookings.sort((a, b) => {
-          // Convert string dates into `Date` objects
           const date1 = new Date("Oct 30th 2022");
           const date2 = new Date(b.orderDate);
 
@@ -51,7 +51,17 @@ const Bookings = () => {
         });
         break;
       case "Guest":
-        orderedBookings.sort((a, b) => b.room_rate - a.room_rate);
+        orderedBookings.sort((a, b) => {
+          const nameA = a.user.name.toUpperCase().replace(/\s/g, "");
+          const nameB = b.user.name.toUpperCase().replace(/\s/g, "");
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
         break;
       case "Check In":
         orderedBookings.sort((a, b) => a.room_rate - b.room_rate);
@@ -62,7 +72,7 @@ const Bookings = () => {
       default:
         break;
     }
-    // setBookings(orderedBookings);
+    setBookings(orderedBookings);
   }, [activeFilter]);
 
   const closeModal = () => {
@@ -74,6 +84,19 @@ const Bookings = () => {
     setName(name);
     setRequest(request);
   };
+
+  // Variables for the pagination component
+  const [currentPage, setCurrentPage] = useState(1);
+  const [bookingsPerPage] = useState(10);
+  const indexOfLastImage = currentPage * bookingsPerPage; // For example: let´s say we have 17 pages. indexOfLastImage = 17 * roomsPerPage
+  const indexOfFirstImage = indexOfLastImage - bookingsPerPage; // Following same example: indexOfFirstImage = indexOfLastPage – roomsPerPage
+  // Setting the current displayed images
+  useEffect(() => {
+    setCurrentBookings(bookings.slice(indexOfFirstImage, indexOfLastImage));
+  }, [bookings, indexOfFirstImage, indexOfLastImage]);
+
+  // Images to be displayed on the current page. slice(96, 102) will return images from index 96 to 101
+  const nPages = Math.ceil(bookings.length / bookingsPerPage);
 
   return (
     <>
@@ -94,7 +117,8 @@ const Bookings = () => {
           <DropdownMenu
             setActiveFilter={setActiveFilter}
             type="white"
-            options={["Order Date", "Guest", "Check In", "Check Out"]}
+            // options={["Order Date", "Guest", "Check In", "Check Out"]}
+            options={["Guest"]}
           ></DropdownMenu>
         </TableButtons>
       </TableActions>
@@ -115,8 +139,8 @@ const Bookings = () => {
             </tr>
           </thead>
           <tbody>
-            {bookings.length > 0 &&
-              bookings.map((booking, index) => (
+            {currentBookings.length > 0 &&
+              currentBookings.map((booking, index) => (
                 <BookingRow
                   key={booking.id}
                   index={index}
@@ -128,6 +152,15 @@ const Bookings = () => {
           </tbody>
         </Table>
       </Container>
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        dataDisplayed={"bookings"}
+        totalRooms={bookings.length}
+        indexOfFirstImage={indexOfFirstImage}
+        indexOfLastImage={indexOfLastImage}
+      />
     </>
   );
 };

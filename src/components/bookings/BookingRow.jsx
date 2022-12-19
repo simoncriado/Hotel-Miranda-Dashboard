@@ -23,7 +23,11 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
   };
 
   return (
-    <Row>
+    <Row
+      onClick={() => {
+        goToSingleBooking(booking.bookingID);
+      }}
+    >
       <td>
         <GuestContainer>
           <img src={booking.user.picture} alt="User portrait" />
@@ -66,11 +70,7 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
         <Status $type={booking.status}>{booking.status}</Status>
       </td>
       <DataContainerButton>
-        <button
-          onClick={() => {
-            goToSingleBooking(booking.bookingID);
-          }}
-        >
+        <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="30"

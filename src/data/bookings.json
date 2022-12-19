@@ -198,5 +198,25 @@
     "specialRequest": null,
     "roomType": "Double Superior - 11",
     "status": "In Progress"
+  },
+  {
+    "id": 11,
+    "bookingID": 94721,
+    "user": {
+      "name": "Wesley So",
+      "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    "orderDate": "Oct 30th 2022 02:21 AM",
+    "checkIn": {
+      "date": "Nov 4th 2022",
+      "hour": "10:07 PM"
+    },
+    "checkOut": {
+      "date": "Dec 1st 2022",
+      "hour": "9:15 PM"
+    },
+    "specialRequest": "High floor please",
+    "roomType": "Double Superior - 11",
+    "status": "Check In"
   }
 ]
