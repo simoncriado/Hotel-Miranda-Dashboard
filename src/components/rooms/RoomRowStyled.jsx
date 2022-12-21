@@ -42,7 +42,6 @@ const RoomNumber = styled.p`
 
 const DataContainer = styled.td`
   vertical-align: bottom;
-  max-width: 0;
 `;
 
 const DataContainerButton = styled.td`
