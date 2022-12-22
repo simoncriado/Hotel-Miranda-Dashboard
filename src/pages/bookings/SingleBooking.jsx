@@ -17,6 +17,7 @@ import {
   Divider,
   Facilities,
   SwiperContainer,
+  Tag,
 } from "./SingleBookingStyled";
 import {
   GuestContainer,
@@ -82,7 +83,6 @@ const SingleBooking = () => {
                 <span> /night</span>
               </Data>
             </BookingDataSubcontainer>
-            <BookingDataSubcontainer></BookingDataSubcontainer>
           </BookingDataContainer>
           <Text>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -94,7 +94,7 @@ const SingleBooking = () => {
             culpa qui officia deserunt mollit anim id est laborum
           </Text>
           <BookingDataContainer>
-            <BookingDataSubcontainer>
+            <BookingDataSubcontainer style={{ width: "100%" }}>
               <Title>Facilities</Title>
               <Facilities>
                 <div>
@@ -139,7 +139,9 @@ const SingleBooking = () => {
         </Subcontainer>
         <Subcontainer style={{ padding: 0 }}>
           <SwiperContainer>
-            <div className="tag">BOOKED</div>
+            <Tag $type={filteredBooking[0].status} className="tag">
+              {filteredBooking[0].status}
+            </Tag>
             <SingleBookingSwiper />
             <div className="roomData">
               <h2>Bed Room</h2>

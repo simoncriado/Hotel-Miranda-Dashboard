@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Subcontainer = styled.div`
   width: 50%;
@@ -16,6 +16,7 @@ const BookingDataContainer = styled.div`
 const BookingDataSubcontainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 50%;
 `;
 
 const Title = styled.p`
@@ -87,19 +88,7 @@ const SwiperContainer = styled.div`
   overflow: hidden;
   align-items: stretch;
   justify-content: stretch;
-  .tag {
-    background-color: red;
-    position: absolute;
-    right: -6rem;
-    top: 2rem;
-    font-family: var(--font-poppins);
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #ffffff;
-    padding: 1rem 7rem;
-    transform: rotate(45deg);
-    z-index: 2;
-  }
+
   .roomData {
     position: relative;
     font-family: var(--font-poppins);
@@ -167,6 +156,41 @@ const SwiperContainer = styled.div`
   }
 `;
 
+const Tag = styled.div`
+  position: absolute;
+  right: -6rem;
+  top: 2rem;
+  font-family: var(--font-poppins);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding: 1rem 7rem;
+  transform: rotate(45deg);
+  z-index: 2;
+  ${(props) => {
+    switch (props.$type) {
+      case "Check In":
+        return css`
+          background-color: green;
+        `;
+      case "Check Out":
+        return css`
+          background-color: red;
+        `;
+      case "In Progress":
+        return css`
+          background-color: #fce205;
+          color: #363636;
+        `;
+      default:
+        return css`
+          background-color: pink;
+          color: white;
+        `;
+    }
+  }}
+`;
+
 export {
   Subcontainer,
   BookingDataContainer,
@@ -177,4 +201,5 @@ export {
   Text,
   Facilities,
   SwiperContainer,
+  Tag,
 };

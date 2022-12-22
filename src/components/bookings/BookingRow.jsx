@@ -55,8 +55,8 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
           type={booking.specialRequest}
           text="View Notes"
           enabled={booking.description}
-          onClick={() => {
-            handleOpenModal(booking.user.name, booking.specialRequest);
+          onClick={(e) => {
+            handleOpenModal(booking.user.name, booking.specialRequest, e);
           }}
         >
           {booking.specialRequest == null ? "No Notes" : "View Notes"}
@@ -76,6 +76,10 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
             height="30"
             width="30"
             viewBox="0 0 48 48"
+            onClick={(e) => {
+              if (e && e.stopPropagation) e.stopPropagation();
+              console.log(`Deleting row with ID: ${booking.bookingID}`);
+            }}
           >
             <path d="M24.05 41.7q-1.25 0-2.125-.875t-.875-2.075q0-1.2.875-2.1.875-.9 2.075-.9 1.25 0 2.1.9.85.9.85 2.1 0 1.2-.85 2.075-.85.875-2.05.875Zm0-14.75q-1.25 0-2.125-.875T21.05 24q0-1.25.875-2.1.875-.85 2.075-.85 1.25 0 2.1.85.85.85.85 2.05 0 1.25-.85 2.125t-2.05.875Zm0-14.7q-1.25 0-2.125-.875T21.05 9.25q0-1.25.875-2.125T24 6.25q1.25 0 2.1.875.85.875.85 2.125t-.85 2.125q-.85.875-2.05.875Z" />
           </svg>

@@ -79,7 +79,8 @@ const Bookings = () => {
     setOpenModal(false);
   };
 
-  const handleOpenModal = (name, request) => {
+  const handleOpenModal = (name, request, e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
     setOpenModal(true);
     setName(name);
     setRequest(request);
