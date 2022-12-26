@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 // DnD
 import { Draggable } from "react-beautiful-dnd";
 
-// Styles
+// Styled Components
 import {
   Row,
   RoomNameContainer,
@@ -32,8 +32,6 @@ export const RoomRow = ({ room, index, number }) => {
 
     // Change background colour if dragging
     backgroundColor: isDragging ? "rgba(189, 195, 199, 0.4)" : "white",
-    // CHECK HERE CAUSE WHEN DRAGGING THE STYLE BREAKS
-    // width: isDragging ? "100%" : "",
 
     // Styles we need to apply on draggables
     ...draggableStyle,

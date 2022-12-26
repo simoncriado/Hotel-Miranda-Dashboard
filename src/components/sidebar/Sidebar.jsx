@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-// Styles
+// Styled Components
 import {
   SidebarContainer,
   LogoContainer,

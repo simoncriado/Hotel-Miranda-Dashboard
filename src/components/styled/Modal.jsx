@@ -1,3 +1,4 @@
+// Styled Components
 import styled from "styled-components";
 
 const BackDrop = styled.div`
@@ -52,6 +53,7 @@ const XCloseContainer = styled.div`
   }
 `;
 
+// Opens a modal to show the user´s special request (if there is any)
 export const Modal = ({ closeModalHandler, name, request }) => {
   return (
     <div>

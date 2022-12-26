@@ -1,11 +1,10 @@
 // React
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Local data
 import UsersList from "../../data/users";
 
-// Styles
+// Styled Components
 import {
   Table,
   HeaderTitle,

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// Data
+// Local Data
 import RoomsList from "../../data/rooms";
 
 // Component that displays the data for the selected room

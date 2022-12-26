@@ -1,4 +1,7 @@
+// React
 import React from "react";
+
+// Styled Components
 import styled, { css } from "styled-components";
 
 const DropdownMenuStyled = styled.select`
@@ -31,6 +34,7 @@ const DropdownMenuStyled = styled.select`
   }
 `;
 
+// Dropdown component. It is given a number of options depending on in which page the dropdown is being used
 const DropdownMenu = ({ type, options, setActiveFilter }) => {
   return (
     <DropdownMenuStyled

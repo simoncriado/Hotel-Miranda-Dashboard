@@ -1,10 +1,7 @@
 // React
 import React from "react";
 
-// Components
-import ReviewsSwiper from "../../components/reviews/Reviews";
-
-// Styles
+// Styled Components
 import {
   DashboardContainer,
   KPI,
@@ -13,6 +10,9 @@ import {
   CalendarAndGraphSubcontainer,
   Reviews,
 } from "./DashboardStyled";
+
+// Components
+import ReviewsSwiper from "../../components/reviews/Reviews";
 
 // Dashboard page
 const Dashboard = () => {

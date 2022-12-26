@@ -4,7 +4,7 @@
   --font-poppins: "Poppins", "sans-serif";
 }
 
-/* Little REM trick: with this % I make sure that 1 rem is equal to 10px. Easier to traduce px measures into rem */
+/* Little REM trick: with this % I make sure that 1 rem is equal to 10px. Easier to translate px measures into rem ones */
 html {
   font-size: 62.5%;
 }

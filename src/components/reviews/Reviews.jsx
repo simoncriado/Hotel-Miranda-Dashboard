@@ -1,27 +1,27 @@
-// Import Swiper React components
-// Import Swiper React components
+// Swiper Components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
+// Swiper Styles
 import "swiper/css";
 import "swiper/css/navigation";
 
-// import required modules
+// Swiper Modules
 import { Navigation } from "swiper";
 
+// Styled Components
 import {
   GuestContainer,
   GuestName,
   BookingID,
 } from "../bookings/BookingRowStyled";
 
+// Latest reviews Swiper
 const ReviewsSwiper = () => {
   return (
     <Swiper
       className="mySwiper"
       navigation={true}
       modules={[Navigation]}
-      // spaceBetween={30}
       slidesPerView={3}
     >
       <SwiperSlide className="slider-container">

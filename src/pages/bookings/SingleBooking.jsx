@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// Data
+// Local Data
 import BookingsList from "../../data/bookings";
 
-// Styles
+// Styled Components
 import { Container } from "../../components/styled/Containers";
 import {
   Subcontainer,

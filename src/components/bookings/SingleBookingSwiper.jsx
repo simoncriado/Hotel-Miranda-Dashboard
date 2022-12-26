@@ -1,19 +1,20 @@
+// Swiper Components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
+// Swiper Styles
 import "swiper/css";
 import "swiper/css/navigation";
 
-// import required modules
+// Swiper Modules
 import { Navigation } from "swiper";
 
+// Images swiper for the rooms details page
 const SingleBookingSwiper = () => {
   return (
     <Swiper
       className="mySwiper"
       navigation={true}
       modules={[Navigation]}
-      // spaceBetween={30}
       slidesPerView={1}
     >
       <SwiperSlide className="slider-container">

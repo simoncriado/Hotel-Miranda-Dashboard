@@ -1,6 +1,7 @@
 // React
 import React from "react";
 
+// Styled Components
 import {
   Nav,
   Text,
@@ -10,7 +11,8 @@ import {
   LiPageNumber,
   LiPageBtn,
 } from "./PaginationStyled";
-// Component that creates a pagination. Each page contains 10 elements.
+
+// Component that creates a pagination bar. Each page contains 10 elements.
 const Pagination = ({
   nPages,
   currentPage,
@@ -33,6 +35,7 @@ const Pagination = ({
 
   return (
     <Nav aria-label="Page navigation example relative ">
+      {/* Shows the current elements (rooms, bookings, etc) that are currently been displayed */}
       <Text>
         Showing {dataDisplayed} {indexOfFirstImage} to{" "}
         {indexOfLastImage > totalRooms ? totalRooms : indexOfLastImage} from a

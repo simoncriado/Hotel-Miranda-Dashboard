@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-// Styles
+// Styled Components
 import {
   Row,
   DataContainer,
@@ -77,6 +77,7 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
             width="30"
             viewBox="0 0 48 48"
             onClick={(e) => {
+              // With this check I avoid the parents event listener to be fired when the child event listener should be fired
               if (e && e.stopPropagation) e.stopPropagation();
               console.log(`Deleting row with ID: ${booking.bookingID}`);
             }}

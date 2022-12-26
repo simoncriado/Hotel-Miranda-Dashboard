@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 
-// Styles
+// Styled Components
 import {
   LoginContainer,
   LoginCard,

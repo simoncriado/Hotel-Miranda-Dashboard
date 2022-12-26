@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Styles
+// Styled Components
 import { Card, UserName, UserEmail, LinkButton } from "./CurrentUserStyled";
 
 // User section in sidebar

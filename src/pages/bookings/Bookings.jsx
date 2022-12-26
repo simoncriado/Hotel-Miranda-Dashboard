@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 // Local data
 import BookingsList from "../../data/bookings";
 
-// Styles
+// Styled Components
 import {
   Table,
   HeaderTitle,

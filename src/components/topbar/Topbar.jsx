@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 
-// Styles
+// Styled Components
 import {
   TopbarContainer,
   TopbarTitle,

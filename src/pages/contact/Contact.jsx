@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 // Local data
 import ReviewsList from "../../data/reviews";
 
-// Styles
+// Styled Components
 import { Reviews } from "../dashboard/DashboardStyled";
 import { Container } from "../../components/styled/Containers";
 import {

@@ -1,7 +1,7 @@
 // React
 import React from "react";
 
-// Styles
+// Styled Components
 import { LogoStyled, LogoIcon, LogoLetter, LogoText } from "./LogoStyled";
 
 // Logo section in sidebar

@@ -1,20 +1,12 @@
 // React & Router
 import React from "react";
 
-// Styles
-import {
-  Row,
-  DataContainer,
-  DataContainerButton,
-  GuestContainer,
-  GuestName,
-  BookingID,
-  Status,
-  NotesButton,
-} from "./ReviewRowStyled";
+// Styled Components
+import { Row, DataContainer, DataContainerButton } from "./ReviewRowStyled";
 
 // Component that creates a table row for the bookings table
 export const ReviewRow = ({ review }) => {
+  // Here I display a star based on the user´s given rating
   const stars = [];
   let i = 0;
   while (i < review.stars) {
@@ -30,6 +22,7 @@ export const ReviewRow = ({ review }) => {
     );
     i++;
   }
+
   return (
     <Row>
       <DataContainer className="data-container__text">

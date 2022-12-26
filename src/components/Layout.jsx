@@ -1,3 +1,4 @@
+// Styled Components
 import styled from "styled-components";
 
 // This makes the whole page a flex container. This makes possible that the sidebar appears and takes the space it needs

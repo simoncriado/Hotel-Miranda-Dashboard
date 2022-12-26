@@ -8,7 +8,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 // Local data
 import RoomsList from "../../data/rooms";
 
-// Styles
+// Styled Components
 import {
   Table,
   HeaderTitle,
