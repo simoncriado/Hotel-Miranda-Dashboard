@@ -16,6 +16,7 @@ export const ReviewRow = ({ review }) => {
         height="30"
         width="30"
         viewBox="0 0 48 48"
+        key={i}
       >
         <path d="m11.65 44 3.25-14.05L4 20.5l14.4-1.25L24 6l5.6 13.25L44 20.5l-10.9 9.45L36.35 44 24 36.55Z" />
       </svg>
@@ -24,7 +25,7 @@ export const ReviewRow = ({ review }) => {
   }
 
   return (
-    <Row>
+    <Row key={review.id}>
       <DataContainer className="data-container__text">
         <p>#{review.id}</p>
       </DataContainer>

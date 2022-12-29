@@ -18,7 +18,7 @@ const KPI = styled.div`
 
 const KPIContainer = styled.div`
   height: 100%;
-  width: 30.4rem;
+  width: 100%;
   background-color: white;
   border-radius: 12px;
   display: flex;
@@ -62,7 +62,7 @@ const KPIContainer = styled.div`
 `;
 
 const CalendarAndGraph = styled.div`
-  height: 95rem;
+  height: 100%;
   widht: 100%;
   display: flex;
   justify-content: space-between;
@@ -72,8 +72,10 @@ const CalendarAndGraph = styled.div`
 const CalendarAndGraphSubcontainer = styled.div`
   height: 100%;
   width: 50%;
-  background-color: grey;
+  max-width: 50%;
+  background-color: #ffffff;
   border-radius: 2rem;
+  padding: 2rem;
   p {
     text-align: center;
     margin-top: 20rem;
@@ -98,6 +100,7 @@ const Reviews = styled.div`
     color: #393939;
   }
   .swiper {
+    width: 96%;
     .swiper-button-prev, .swiper-button-next {
       background-color: #135846;
       color: white;
@@ -134,7 +137,6 @@ const Reviews = styled.div`
     animation: all 2s;
     margin: 3rem 2% 7rem 2%;
     width: 29.1% !important;
-    min-width: 26rem;
     :hover{
       box-shadow: 0px 16px 30px #00000014;
     }

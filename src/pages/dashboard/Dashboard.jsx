@@ -13,6 +13,8 @@ import {
 
 // Components
 import ReviewsSwiper from "../../components/reviews/Reviews";
+import { Calendar } from "../../components/calendar/Calendar";
+import BarChart from "../../components/graph/BarChart";
 
 // Dashboard page
 const Dashboard = () => {
@@ -78,10 +80,10 @@ const Dashboard = () => {
       </KPI>
       <CalendarAndGraph>
         <CalendarAndGraphSubcontainer>
-          <p>Calendar under construction...</p>
+          <Calendar></Calendar>
         </CalendarAndGraphSubcontainer>
-        <CalendarAndGraphSubcontainer>
-          <p>Stadistics under construction...</p>
+        <CalendarAndGraphSubcontainer id="parentDiv">
+          <BarChart></BarChart>
         </CalendarAndGraphSubcontainer>
       </CalendarAndGraph>
       <Reviews>
