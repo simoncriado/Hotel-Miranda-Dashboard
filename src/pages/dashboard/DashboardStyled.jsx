@@ -76,6 +76,8 @@ const CalendarAndGraphSubcontainer = styled.div`
   background-color: #ffffff;
   border-radius: 2rem;
   padding: 2rem;
+  flex: 1 1 0;
+  width: 0;
   p {
     text-align: center;
     margin-top: 20rem;

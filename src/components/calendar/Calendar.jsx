@@ -7,9 +7,18 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
-// Styled Components
-import { CalendarContainer, Divider } from "./CalendarStyled";
+// Components
+import { SingleBookingCard } from "./SingleBookingCard";
 
+// Styled Components
+import {
+  CalendarContainer,
+  Divider,
+  BookingsContainer,
+  ViewMoreBtn,
+} from "./CalendarStyled";
+
+// Local Data
 const hardCodedDates = [
   {
     checkIn: "2023-01-10",
@@ -47,6 +56,10 @@ const hardCodedDates = [
     checkIn: "2022-12-22",
     checkOut: "2022-12-26",
   },
+  {
+    checkIn: "2022-12-15",
+    checkOut: "2022-12-22",
+  },
 ];
 
 export const Calendar = () => {
@@ -54,41 +67,78 @@ export const Calendar = () => {
   const [checkOuts, setCheckOuts] = useState([]);
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState("");
+  const [viewMore, setViewMore] = useState(false);
 
+  // Function that gets the currently displayed month and checks which checkIns and checkOuts are happening in that month. This is the default displayed data under the calendar
+  const getCurrentMonthEvents = (currentMonth) => {
+    let currentMonthStart = currentMonth.activeStart;
+    let currentMonthEnd = currentMonth.activeEnd;
+    const checkInsBetweenRange = [];
+    const checkOutsBetweenRange = [];
+
+    hardCodedDates.map((date) => {
+      if (
+        new Date(date.checkIn) > currentMonthStart &&
+        new Date(date.checkIn) < currentMonthEnd
+      ) {
+        checkInsBetweenRange.push(date);
+      }
+      if (
+        new Date(date.checkOut) > currentMonthStart &&
+        new Date(date.checkOut) < currentMonthEnd
+      ) {
+        checkOutsBetweenRange.push(date);
+      }
+      return (
+        setCheckIns(checkInsBetweenRange),
+        setCheckOuts(checkOutsBetweenRange),
+        setCurrentMonth(currentMonth.title)
+      );
+    });
+  };
+
+  // Function that gets the user´s selected dates and checks which checkIns or checkOuts are between those dates
   const handleEventClick = (clickInfo) => {
     let userSelectStart = clickInfo.start;
     let userSelectEnd = clickInfo.end;
     const checkInsBetweenRange = [];
     const checkOutsBetweenRange = [];
 
-    hardCodedDates.map((obj) => {
+    hardCodedDates.map((date) => {
       if (
-        new Date(obj.checkIn) > userSelectStart &&
-        new Date(obj.checkIn) < userSelectEnd
+        new Date(date.checkIn) > userSelectStart &&
+        new Date(date.checkIn) < userSelectEnd
       ) {
-        checkInsBetweenRange.push(obj);
+        checkInsBetweenRange.push(date);
       }
       if (
-        new Date(obj.checkOut) > userSelectStart &&
-        new Date(obj.checkOut) < userSelectEnd
+        new Date(date.checkOut) > userSelectStart &&
+        new Date(date.checkOut) < userSelectEnd
       ) {
-        checkOutsBetweenRange.push(obj);
+        checkOutsBetweenRange.push(date);
       }
+      return (
+        setCheckIns(checkInsBetweenRange),
+        setCheckOuts(checkOutsBetweenRange),
+        setSelectedStartDate(userSelectStart),
+        setSelectedEndDate(userSelectEnd)
+      );
     });
-    setCheckIns(checkInsBetweenRange);
-    setCheckOuts(checkOutsBetweenRange);
-    setSelectedStartDate(userSelectStart);
-    setSelectedEndDate(userSelectEnd);
   };
 
   // Function to get the days where we only have checkIns, checkOuts or both
-  const datesCalendarGroupHandler = (data) => {
+  const datesCalendarGroupHandler = (calendarEventDates) => {
     const sameDayCheckInCheckOut = [];
     const onlyCheckIn = [];
     const onlyCheckOut = [];
 
-    const checkInDates = data.map((obj) => obj.checkIn);
-    const checkOutDates = data.map((obj) => obj.checkOut);
+    const checkInDates = calendarEventDates.map(
+      (calendarEvent) => calendarEvent.checkIn
+    );
+    const checkOutDates = calendarEventDates.map(
+      (calendarEvent) => calendarEvent.checkOut
+    );
 
     checkInDates.forEach((date) => {
       checkOutDates.includes(date)
@@ -103,9 +153,9 @@ export const Calendar = () => {
     return { sameDayCheckInCheckOut, onlyCheckIn, onlyCheckOut };
   };
 
-  const renderEventesHandler = (data) => {
+  const renderEventesHandler = (calendarEventDates) => {
     const { sameDayCheckInCheckOut, onlyCheckIn, onlyCheckOut } =
-      datesCalendarGroupHandler(data);
+      datesCalendarGroupHandler(calendarEventDates);
 
     // Creating the different events that will be displayed in the calendar
     const eventsWhenCheckInCheckOut = sameDayCheckInCheckOut.map((date) => ({
@@ -136,6 +186,11 @@ export const Calendar = () => {
     ];
   };
 
+  // Changes the state for showing more or less bookings
+  const handleViewMore = () => {
+    setViewMore(!viewMore);
+  };
+
   return (
     <>
       <CalendarContainer>
@@ -143,8 +198,7 @@ export const Calendar = () => {
         <FullCalendar
           initialView="dayGridMonth"
           // This can be changed to select the start day of the week (0 is Sunday, 1 is Monday)
-          firstDay={0}
-          locale="en"
+          firstDay={1}
           headerToolbar={{
             left: "",
             center: "",
@@ -158,46 +212,93 @@ export const Calendar = () => {
           height={450}
           showNonCurrentDates={false}
           fixedWeekCount={false}
-          dateClick={(date) => {
-            console.log(date);
+          datesSet={(arg) => {
+            getCurrentMonthEvents(arg.view);
           }}
         />
       </CalendarContainer>
-
-      {checkIns.length || checkOuts.length || selectedStartDate !== null ? (
-        <Divider />
-      ) : null}
-
-      {checkIns.length || checkOuts.length ? (
-        <div style={{ marginTop: 30 }}>
-          <p style={{ marginTop: 0 }}>
-            Between dates {selectedStartDate.toLocaleDateString()} and{" "}
-            {selectedEndDate.toLocaleDateString()} these Check Ins will take
-            place:
+      <Divider />
+      {/* If no user selection I display the checkIns and CheckOuts for the current month. If user selection I display the data corresponding to that time frame */}
+      {selectedStartDate !== null && (checkIns.length || checkOuts.length) ? (
+        <BookingsContainer viewMore={viewMore}>
+          {checkIns.length ? (
+            <>
+              <p>
+                Check Ins between {selectedStartDate.toLocaleDateString()} &{" "}
+                {selectedEndDate.toLocaleDateString()}
+              </p>
+              {checkIns.reverse().map((d, index) => (
+                <SingleBookingCard
+                  key={index}
+                  checkIn={d.checkIn}
+                  checkOut={d.checkOut}
+                ></SingleBookingCard>
+              ))}
+            </>
+          ) : null}
+          {checkOuts.length ? (
+            <>
+              <p style={{ marginTop: 10 }}>
+                Check Outs between {selectedStartDate.toLocaleDateString()} &{" "}
+                {selectedEndDate.toLocaleDateString()}
+              </p>
+              {checkOuts.reverse().map((d, index) => (
+                <SingleBookingCard
+                  key={index}
+                  checkIn={d.checkIn}
+                  checkOut={d.checkOut}
+                ></SingleBookingCard>
+              ))}
+            </>
+          ) : null}
+        </BookingsContainer>
+      ) : (
+        <BookingsContainer viewMore={viewMore}>
+          {checkIns.length ? (
+            <>
+              <p>Check Ins in {currentMonth}</p>
+              {checkIns.reverse().map((d, index) => (
+                <SingleBookingCard
+                  key={index}
+                  checkIn={d.checkIn}
+                  checkOut={d.checkOut}
+                ></SingleBookingCard>
+              ))}
+            </>
+          ) : null}
+          {checkOuts.length ? (
+            <>
+              <p style={{ marginTop: 10 }}>Check Outs</p>
+              {checkOuts.reverse().map((d, index) => (
+                <SingleBookingCard
+                  key={index}
+                  checkIn={d.checkIn}
+                  checkOut={d.checkOut}
+                ></SingleBookingCard>
+              ))}
+            </>
+          ) : null}
+        </BookingsContainer>
+      )}
+      {/* If no bookings in the current month or the selected time frame, this message is shown */}
+      {!checkIns.length && !checkOuts.length ? (
+        <BookingsContainer viewMore={viewMore}>
+          <p>
+            No Check Ins or Check Outs in the current time frame. Please select
+            a time frame manually in the calendar or go to a month where there
+            are bookings.
           </p>
-          <ul>
-            {checkIns.map((d, index) => (
-              <li key={index}>{d.checkIn}</li>
-            ))}
-          </ul>
-          <p style={{ marginTop: 0 }}>And these Check Outs:</p>
-          <ul>
-            {checkOuts.map((d, index) => (
-              <li key={index}>{d.checkOut}</li>
-            ))}
-          </ul>
-        </div>
+        </BookingsContainer>
       ) : null}
 
-      {selectedStartDate !== null && !checkIns.length && !checkOuts.length ? (
-        <div style={{ marginTop: 30 }}>
-          <p style={{ marginTop: 0 }}>
-            No Check Ins or Check Outs between dates{" "}
-            {selectedStartDate.toLocaleDateString()} and{" "}
-            {selectedEndDate.toLocaleDateString()}.
-          </p>
-        </div>
-      ) : null}
+      {/* Button to show more or less bookings */}
+      <ViewMoreBtn
+        viewMore={viewMore}
+        disabled={!checkIns.length && !checkOuts.length}
+        onClick={handleViewMore}
+      >
+        {viewMore ? "View Less" : "View More"}
+      </ViewMoreBtn>
     </>
   );
 };

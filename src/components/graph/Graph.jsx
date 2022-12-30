@@ -1,14 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+// React
+import React, { useEffect, useRef } from "react";
+
+// D3
 import { scaleLinear, select, axisBottom, scaleBand, scaleOrdinal } from "d3";
 import { axisLeft } from "d3";
 import { axisRight } from "d3";
 
-import {
-  TableActions,
-  TableFilters,
-  FilterButton,
-  TableButtons,
-} from "../styled/Tables.jsx";
+// Styled components
+import { TableFilters, FilterButton } from "../styled/Tables.jsx";
 import {
   FilterContainer,
   StatsContainer,
@@ -16,6 +15,7 @@ import {
   Square,
 } from "./GraphStyled.jsx";
 
+// Local Data
 const data = [
   {
     day: "Monday",
@@ -57,7 +57,7 @@ const data = [
 const Statistics = () => {
   // ATM the graph width is hard coded... I was trying to make it responsive but did not manage. InnerWidth gives me unexpected behaviour when resizing the window
   // const [graphWidth, setGraphWidth] = useState((window.innerWidth * 40) / 100);
-  const [graphWidth, setGraphWidth] = useState(750);
+  const graphWidth = 750;
 
   const ref = useRef();
 
@@ -79,6 +79,8 @@ const Statistics = () => {
     "Saturday",
     "Sunday",
   ];
+
+  // CAMBIAR A UN NOMBRE MAS DESCRIPTIVO
   const subgroups = ["sales", "percentage"];
 
   useEffect(() => {
@@ -126,7 +128,7 @@ const Statistics = () => {
       .attr("transform", `translate(${width + margin.left}, ${margin.top})`)
       .call(axisYRight);
 
-    // Scale for the sales and occupancy categories
+    // Scale for the sales and occupancy sub-categories
     const scaleProperties = scaleBand()
       .domain(subgroups)
       .range([0, scaleDays.bandwidth()])
@@ -222,7 +224,7 @@ const Statistics = () => {
       });
   };
 
-  // Going through the data and adding together the sales values
+  // Going through the data and adding together the sales values. For the stats at the top of the graph
   const getTotalSales = () => {
     let sales = 0;
 
@@ -232,7 +234,7 @@ const Statistics = () => {
     return sales;
   };
 
-  // Going through the data and adding together the occupancy values. Dividing it by the amount of data to get the average occupancy
+  // Going through the data and adding together the occupancy values. Dividing it by the amount of data to get the average occupancy. For the stats at the top of the graph
   const getOccupancyPercentage = () => {
     let occupancy = 0;
 
@@ -247,6 +249,8 @@ const Statistics = () => {
   // Setting the maximum that was sold on any given data. Used to set the Y scale for the sales
   const getMaxSales = () => {
     let max = 0;
+    // CHECKEAR ESTO
+    // Math.max(data)
     data.forEach((item) => {
       if (item.sales > max) {
         max = item.sales;

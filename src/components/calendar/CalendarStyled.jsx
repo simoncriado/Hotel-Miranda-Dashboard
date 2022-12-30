@@ -108,4 +108,42 @@ const Divider = styled.div`
   margin-top: 5rem;
 `;
 
-export { CalendarContainer, Divider };
+const BookingsContainer = styled.div`
+  max-height: ${(props) => (props.viewMore === true ? "150rem" : "35rem")};
+  overflow: hidden;
+  margin-top: 3rem;
+  transition: max-height 0.3s ease-in-out;
+  p {
+    margin-top: 0;
+  }
+`;
+
+const ViewMoreBtn = styled.button`
+  border: none;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  top: ${(props) => (props.viewMore === true ? "-1rem" : "-3rem")};
+  font-family: var(--font-poppins);
+  font-size: 1.6rem;
+  font-weight: 500;
+  width: 100%;
+  height: 5rem;
+  margin-top: 1rem;
+  display: block;
+  position: relative;
+  margin: auto;
+  line-height: 8rem;
+  opacity: ${(props) => (props.disabled === true ? "0.4" : "1")};
+  cursor: ${(props) => (props.disabled === true ? "auto" : "pointer")};
+  color: ${(props) => (props.viewMore === true ? "#E23428" : "#135846")};
+  transition: all 0.3s;
+  &:hover {
+    font-size: ${(props) => (props.disabled === true ? "1.6rem" : "1.9rem")};
+  }
+`;
+
+export { CalendarContainer, Divider, BookingsContainer, ViewMoreBtn };
