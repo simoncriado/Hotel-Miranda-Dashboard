@@ -91,8 +91,8 @@ export const Calendar = () => {
         checkOutsBetweenRange.push(date);
       }
       return (
-        setCheckIns(checkInsBetweenRange),
-        setCheckOuts(checkOutsBetweenRange),
+        setCheckIns(checkInsBetweenRange.reverse()),
+        setCheckOuts(checkOutsBetweenRange.reverse()),
         setCurrentMonth(currentMonth.title)
       );
     });
@@ -119,8 +119,8 @@ export const Calendar = () => {
         checkOutsBetweenRange.push(date);
       }
       return (
-        setCheckIns(checkInsBetweenRange),
-        setCheckOuts(checkOutsBetweenRange),
+        setCheckIns(checkInsBetweenRange.reverse()),
+        setCheckOuts(checkOutsBetweenRange.reverse()),
         setSelectedStartDate(userSelectStart),
         setSelectedEndDate(userSelectEnd)
       );
@@ -227,7 +227,7 @@ export const Calendar = () => {
                 Check Ins between {selectedStartDate.toLocaleDateString()} &{" "}
                 {selectedEndDate.toLocaleDateString()}
               </p>
-              {checkIns.reverse().map((d, index) => (
+              {checkIns.map((d, index) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}
@@ -242,7 +242,7 @@ export const Calendar = () => {
                 Check Outs between {selectedStartDate.toLocaleDateString()} &{" "}
                 {selectedEndDate.toLocaleDateString()}
               </p>
-              {checkOuts.reverse().map((d, index) => (
+              {checkOuts.map((d, index) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}
@@ -257,7 +257,7 @@ export const Calendar = () => {
           {checkIns.length ? (
             <>
               <p>Check Ins in {currentMonth}</p>
-              {checkIns.reverse().map((d, index) => (
+              {checkIns.map((d, index) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}
@@ -269,7 +269,7 @@ export const Calendar = () => {
           {checkOuts.length ? (
             <>
               <p style={{ marginTop: 10 }}>Check Outs</p>
-              {checkOuts.reverse().map((d, index) => (
+              {checkOuts.map((d, index) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}

@@ -80,8 +80,7 @@ const Statistics = () => {
     "Sunday",
   ];
 
-  // CAMBIAR A UN NOMBRE MAS DESCRIPTIVO
-  const subgroups = ["sales", "percentage"];
+  const dataTypes = ["sales", "percentage"];
 
   useEffect(() => {
     const svgElement = select(ref.current);
@@ -130,17 +129,17 @@ const Statistics = () => {
 
     // Scale for the sales and occupancy sub-categories
     const scaleProperties = scaleBand()
-      .domain(subgroups)
+      .domain(dataTypes)
       .range([0, scaleDays.bandwidth()])
       .padding([0.05]);
 
     // Color for the sales and occupancy
     const color = scaleOrdinal()
-      .domain(subgroups)
+      .domain(dataTypes)
       .range(["#135846", "#E23428"]);
 
     const colorHover = scaleOrdinal()
-      .domain(subgroups)
+      .domain(dataTypes)
       .range(["#4A8A76", "#E09B8D"]);
 
     // popUp to display the data related to each rect
@@ -168,7 +167,7 @@ const Statistics = () => {
       })
       .selectAll("rect")
       .data((d) => {
-        return subgroups.map((item) => {
+        return dataTypes.map((item) => {
           return {
             item: item,
             value: d[item],
@@ -182,13 +181,13 @@ const Statistics = () => {
         return scaleProperties(d.item) + margin.left + 2;
       })
       .attr("y", (d) => {
-        return d.item === subgroups[0]
+        return d.item === dataTypes[0]
           ? scaleSales(d.value) + margin.top
           : scaleOccupancy(d.value) + margin.top;
       })
       .attr("width", scaleProperties.bandwidth() - 4)
       .attr("height", (d) => {
-        return d.item === subgroups[0]
+        return d.item === dataTypes[0]
           ? height - scaleSales(d.value)
           : height - scaleOccupancy(d.value);
       })
@@ -205,7 +204,7 @@ const Statistics = () => {
         popUp.transition().duration("100").style("opacity", 1);
         popUp
           .html(
-            d.item === subgroups[0]
+            d.item === dataTypes[0]
               ? "Sales: " + d.value + " €"
               : "Occupacy: " + d.value + " %"
           )
@@ -249,8 +248,6 @@ const Statistics = () => {
   // Setting the maximum that was sold on any given data. Used to set the Y scale for the sales
   const getMaxSales = () => {
     let max = 0;
-    // CHECKEAR ESTO
-    // Math.max(data)
     data.forEach((item) => {
       if (item.sales > max) {
         max = item.sales;
@@ -263,10 +260,10 @@ const Statistics = () => {
     <div>
       <FilterContainer style={{ height: 100 }}>
         <p>Reservation stats</p>
-        <TableFilters style={{ justifyContent: "flex-end" }}>
+        {/* <TableFilters style={{ justifyContent: "flex-end" }}>
           <FilterButton>Weekly</FilterButton>
           <FilterButton>Monthly</FilterButton>
-        </TableFilters>
+        </TableFilters> */}
       </FilterContainer>
       <StatsContainer>
         <Stat>
