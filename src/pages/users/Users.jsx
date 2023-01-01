@@ -82,12 +82,12 @@ const Users = () => {
     <>
       <TableActions>
         <TableFilters>
-          <FilterButton onClick={getAllUsers}>All Employee</FilterButton>
+          <FilterButton onClick={getAllUsers}>All Employees</FilterButton>
           <FilterButton onClick={() => filterByType("ACTIVE")}>
-            Active Employee
+            Active Employees
           </FilterButton>
           <FilterButton onClick={() => filterByType("INACTIVE")}>
-            Active Employee
+            Inactive Employees
           </FilterButton>
         </TableFilters>
         <TableButtons>
