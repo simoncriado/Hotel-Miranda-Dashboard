@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from "react";
 
 // Local data
-import BookingsList from "../../data/bookings";
+// import BookingsList from "../../data/bookings";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getDataBookings } from "../../features/bookings/bookingsSlice";
 
 // Styled Components
 import {
@@ -23,24 +27,34 @@ import { Pagination } from "../../components/pagination/Pagination";
 
 // Component that creates a table and add a row for each item in the data base
 const Bookings = () => {
-  const [bookings, setBookings] = useState(BookingsList);
+  const dispatch = useDispatch();
+  const { bookingsList } = useSelector((state) => state.bookingsReducer);
+
+  const [bookings, setBookings] = useState(bookingsList);
   const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState("");
   const [request, setRequest] = useState("");
   const [activeFilter, setActiveFilter] = useState("Guest");
   const [currentBookings, setCurrentBookings] = useState([]);
 
+  useEffect(() => {
+    if (bookingsList.length === 0) {
+      dispatch(getDataBookings());
+    }
+    setBookings(bookingsList);
+  }, [bookingsList, dispatch]);
+
   const getAllBookings = () => {
-    setBookings(BookingsList);
+    setBookings(bookingsList);
   };
 
   const filterByType = (type) => {
-    setBookings(BookingsList.filter((booking) => booking.status === type));
+    setBookings(bookingsList.filter((booking) => booking.status === type));
   };
 
   useEffect(() => {
     // STILL WORKING ON THE FILTERS BY DATE! ONLY THE ONE BY GUESTNAME WORDS ATM!
-    const orderedBookings = [...BookingsList];
+    const orderedBookings = [...bookingsList];
     switch (activeFilter) {
       case "Order Date":
         orderedBookings.sort((a, b) => {
@@ -73,7 +87,7 @@ const Bookings = () => {
         break;
     }
     setBookings(orderedBookings);
-  }, [activeFilter]);
+  }, [activeFilter, bookingsList]);
 
   const closeModal = () => {
     setOpenModal(false);

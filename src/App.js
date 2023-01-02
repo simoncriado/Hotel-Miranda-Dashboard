@@ -1,6 +1,9 @@
 // React & Router
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
+// React Context
+import { useAuthContext } from "./hooks/useAuthContext";
 
 // Pages
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -20,40 +23,34 @@ import Topbar from "./components/topbar/Topbar";
 import Layout from "./components/Layout";
 import { ProtectRoute } from "./components/ProtectedRoute";
 
+// I allow routes based on the info in the context. Is any user logged in or not?
 function App() {
-  const [auth, setAuth] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("auth")) {
-      setAuth(true);
-    }
-  }, []);
+  const { authIsReady } = useAuthContext();
 
   return (
     <BrowserRouter>
       <Layout>
-        {auth ? <Sidebar /> : <></>}
+        {authIsReady ? <Sidebar /> : <></>}
 
         {/* I need this div here as Layout is flex. Like this I can separate sideBar from the rest of the page */}
         <div className="window-container">
-          {auth ? <Topbar setAuth={setAuth} /> : <></>}
+          {authIsReady ? <Topbar /> : <></>}
           <Routes>
             <Route
               path="/login"
-              element={
-                auth ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Login auth={auth} setAuth={setAuth} />
-                )
-              }
+              element={authIsReady ? <Navigate to="/" /> : <Login />}
             />
             <Route
               path="/"
-              element={auth ? <Dashboard /> : <Navigate to="/login" replace />}
+              element={
+                authIsReady ? <Dashboard /> : <Navigate to="/login" replace />
+              }
             />
 
-            <Route path="*" element={<ProtectRoute auth={auth} />}>
+            <Route
+              path="*"
+              element={<ProtectRoute authIsReady={authIsReady} />}
+            >
               <Route path="bookings" element={<Bookings />} />
               <Route path="bookings/:bookingId" element={<SingleBooking />} />
               <Route path="rooms" element={<Rooms />} />

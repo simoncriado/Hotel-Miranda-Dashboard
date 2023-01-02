@@ -7,13 +7,13 @@ import { axisLeft } from "d3";
 import { axisRight } from "d3";
 
 // Styled components
-import { TableFilters, FilterButton } from "../styled/Tables.jsx";
 import {
   FilterContainer,
   StatsContainer,
   Stat,
   Square,
 } from "./GraphStyled.jsx";
+// import { TableFilters, FilterButton } from "../styled/Tables.jsx";
 
 // Local Data
 const data = [
@@ -147,7 +147,7 @@ const Statistics = () => {
       .append("div")
       .style("opacity", 0)
       .style("background-color", "#FFFFFF")
-      .style("padding", "1rem")
+      .style("padding", "0")
       .style("border-radius", "8px")
       .style("border", "1px solid black")
       .style("box-shadow", "0px 16px 30px #00000014")
@@ -178,14 +178,14 @@ const Statistics = () => {
       .enter()
       .append("rect")
       .attr("x", (d) => {
-        return scaleProperties(d.item) + margin.left + 2;
+        return scaleProperties(d.item) + margin.left + 8;
       })
       .attr("y", (d) => {
         return d.item === dataTypes[0]
           ? scaleSales(d.value) + margin.top
           : scaleOccupancy(d.value) + margin.top;
       })
-      .attr("width", scaleProperties.bandwidth() - 4)
+      .attr("width", scaleProperties.bandwidth() - 16)
       .attr("height", (d) => {
         return d.item === dataTypes[0]
           ? height - scaleSales(d.value)
@@ -206,12 +206,13 @@ const Statistics = () => {
           .html(
             d.item === dataTypes[0]
               ? "Sales: " + d.value + " €"
-              : "Occupacy: " + d.value + " %"
+              : "Occupancy: " + d.value + " %"
           )
           .style("position", "absolute")
           .style("width", "fit-content")
           .style("left", e.pageX + 10 + "px")
-          .style("top", e.pageY - 5 + "px");
+          .style("top", e.pageY - 5 + "px")
+          .style("padding", "1rem");
       })
       .on("mouseleave", (e, d) => {
         select(e.srcElement)
@@ -273,7 +274,7 @@ const Statistics = () => {
         </Stat>
         <Stat>
           <Square color="#E23428" />
-          <p>Occupation</p>
+          <p>Occupancy</p>
           <p>{getOccupancyPercentage()} %</p>
         </Stat>
       </StatsContainer>

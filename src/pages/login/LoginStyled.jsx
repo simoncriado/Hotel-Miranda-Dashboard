@@ -40,7 +40,7 @@ const InputContainer = styled.div`
 const Input = styled.input`
   transition: all 0.1s;
   width: 100%;
-  margin: 30px 0;
+  margin: 0 0 3rem 0;
   display: block;
   font-family: var(--font-poppins);
   font-size: 1.6rem;

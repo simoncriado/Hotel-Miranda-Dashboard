@@ -152,7 +152,7 @@ const Sidebar = () => {
       </Navigation>
 
       <UserCard>
-        <CurrentUser user={user}></CurrentUser>
+        <CurrentUser photo={user}></CurrentUser>
       </UserCard>
 
       <NavigationDescription>

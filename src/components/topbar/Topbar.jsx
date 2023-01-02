@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 
+// React Context
+import { useLogout } from "../../hooks/useLogout";
+
 // Styled Components
 import {
   TopbarContainer,
@@ -10,14 +13,15 @@ import {
   Icon,
 } from "./TopbarStyled";
 
-// Topbar component. It gets the title from the url dinamically to update the current page header
-const Topbar = ({ setAuth }) => {
+// Topbar component. It gets the title from the url dinamically to update the current page header. To logOut the authContext gets used
+const Topbar = () => {
   let location = useLocation();
   const [title, setTitle] = useState("");
+  const { logout } = useLogout();
 
-  const goLogin = () => {
+  const logOut = () => {
     localStorage.removeItem("auth");
-    setAuth(false);
+    logout();
   };
 
   useEffect(() => {
@@ -77,7 +81,7 @@ const Topbar = ({ setAuth }) => {
             <p>115</p>
           </div>
         </Icon>
-        <Icon onClick={goLogin}>
+        <Icon onClick={logOut}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="3rem"

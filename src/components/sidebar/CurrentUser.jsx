@@ -1,19 +1,34 @@
 // React & Router
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+
+// React Context
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 // Styled Components
 import { Card, UserName, UserEmail, LinkButton } from "./CurrentUserStyled";
 
-// User section in sidebar
-const LoguedUser = ({ user }) => {
+// User section in sidebar. This gets updated based on the authContext
+const LoguedUser = ({ photo }) => {
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  const goToSingleUser = (id) => {
+    navigate("/users/" + id);
+  };
+
   return (
     <Card>
-      <img className="image" src={user.photo} alt="" />
-      <UserName>{user.name}</UserName>
+      <img className="image" src={photo.photo} alt="" />
+      <UserName>{user.userName}</UserName>
       <UserEmail>{user.email}</UserEmail>
-      <LinkButton>
-        <Link to={"/users/" + user.email}>Edit user</Link>
+      <LinkButton
+        onClick={() => {
+          goToSingleUser(user.email);
+        }}
+      >
+        <Link>Edit user</Link>
       </LinkButton>
     </Card>
   );
