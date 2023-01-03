@@ -1,5 +1,6 @@
-// React
+// React & Router
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 // Local data
 // import BookingsList from "../../data/bookings";
@@ -19,6 +20,8 @@ import {
 } from "../../components/styled/Tables";
 import { Container } from "../../components/styled/Containers";
 import { DropdownMenu } from "../../components/styled/DropdownMenu";
+import { Loader } from "../../components/styled/Loader";
+import { CreateButton } from "../../components/styled/Buttons";
 
 // Components
 import { BookingRow } from "../../components/bookings/BookingRow";
@@ -28,18 +31,23 @@ import { Pagination } from "../../components/pagination/Pagination";
 // Component that creates a table and add a row for each item in the data base
 const Bookings = () => {
   const dispatch = useDispatch();
-  const { bookingsList } = useSelector((state) => state.bookingsReducer);
+  const { bookingsList, status } = useSelector(
+    (state) => state.bookingsReducer
+  );
 
   const [bookings, setBookings] = useState(bookingsList);
   const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState("");
   const [request, setRequest] = useState("");
-  const [activeFilter, setActiveFilter] = useState("Guest");
+  const [activeFilter, setActiveFilter] = useState("Order Date");
   const [currentBookings, setCurrentBookings] = useState([]);
 
+  // Faking a delay on data fetch
   useEffect(() => {
     if (bookingsList.length === 0) {
-      dispatch(getDataBookings());
+      setTimeout(() => {
+        dispatch(getDataBookings());
+      }, 2000);
     }
     setBookings(bookingsList);
   }, [bookingsList, dispatch]);
@@ -58,10 +66,16 @@ const Bookings = () => {
     switch (activeFilter) {
       case "Order Date":
         orderedBookings.sort((a, b) => {
-          const date1 = new Date("Oct 30th 2022");
-          const date2 = new Date(b.orderDate);
-
-          return date1 - date2;
+          let dateA = a.orderDate.slice(0, 10);
+          let dateB = b.orderDate.slice(0, 10);
+          if (
+            dateB.split("/").reverse().join() <
+            dateA.split("/").reverse().join()
+          ) {
+            return -1;
+          } else {
+            return 1;
+          }
         });
         break;
       case "Guest":
@@ -129,53 +143,67 @@ const Bookings = () => {
           </FilterButton>
         </TableFilters>
         <TableButtons>
+          <CreateButton>
+            <NavLink to="/newBooking">+ New Booking</NavLink>
+          </CreateButton>
           <DropdownMenu
             setActiveFilter={setActiveFilter}
             type="white"
             // options={["Order Date", "Guest", "Check In", "Check Out"]}
-            options={["Guest"]}
+            options={["Order Date", "Guest"]}
           ></DropdownMenu>
         </TableButtons>
       </TableActions>
-      <Container>
-        {openModal ? (
-          <Modal name={name} request={request} closeModalHandler={closeModal} />
-        ) : null}
-        <Table>
-          <thead>
-            <tr>
-              <HeaderTitle>Guest</HeaderTitle>
-              <HeaderTitle>Order Date</HeaderTitle>
-              <HeaderTitle>Check In</HeaderTitle>
-              <HeaderTitle>Check Out</HeaderTitle>
-              <HeaderTitle>Special Request</HeaderTitle>
-              <HeaderTitle>Room type</HeaderTitle>
-              <HeaderTitle>Status</HeaderTitle>
-            </tr>
-          </thead>
-          <tbody>
-            {currentBookings.length > 0 &&
-              currentBookings.map((booking, index) => (
-                <BookingRow
-                  key={booking.id}
-                  index={index}
-                  booking={booking}
-                  number={booking.id}
-                  handleOpenModal={handleOpenModal}
-                />
-              ))}
-          </tbody>
-        </Table>
-      </Container>
-      <Pagination
-        nPages={nPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        dataDisplayed={"bookings"}
-        totalRooms={bookings.length}
-        indexOfFirstImage={indexOfFirstImage}
-        indexOfLastImage={indexOfLastImage}
-      />
+
+      {status === "loading" ? (
+        <Loader />
+      ) : (
+        <>
+          <Container>
+            {openModal ? (
+              <Modal
+                name={name}
+                request={request}
+                closeModalHandler={closeModal}
+              />
+            ) : null}
+            <Table>
+              <thead>
+                <tr>
+                  <HeaderTitle>Guest</HeaderTitle>
+                  <HeaderTitle>Order Date</HeaderTitle>
+                  <HeaderTitle>Check In</HeaderTitle>
+                  <HeaderTitle>Check Out</HeaderTitle>
+                  <HeaderTitle>Special Request</HeaderTitle>
+                  <HeaderTitle>Room type</HeaderTitle>
+                  <HeaderTitle>Status</HeaderTitle>
+                </tr>
+              </thead>
+              <tbody>
+                {currentBookings.length > 0 &&
+                  currentBookings.map((booking, index) => (
+                    <BookingRow
+                      key={booking.id}
+                      index={index}
+                      booking={booking}
+                      number={booking.id}
+                      handleOpenModal={handleOpenModal}
+                    />
+                  ))}
+              </tbody>
+            </Table>
+          </Container>
+          <Pagination
+            nPages={nPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            dataDisplayed={"bookings"}
+            totalRooms={bookings.length}
+            indexOfFirstImage={indexOfFirstImage}
+            indexOfLastImage={indexOfLastImage}
+          />
+        </>
+      )}
     </>
   );
 };

@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Local Data
-import BookingsList from "../../data/bookings";
+// import BookingsList from "../../data/bookings";
+
+// Redux
+import { useSelector } from "react-redux";
 
 // Styled Components
 import { Container } from "../../components/styled/Containers";
@@ -30,14 +33,15 @@ import SingleBookingSwiper from "../../components/bookings/SingleBookingSwiper";
 const SingleBooking = () => {
   const params = useParams();
   const { bookingId } = params;
+  const { bookingsList } = useSelector((state) => state.bookingsReducer);
   const [filteredBooking, setFilteredBooking] = useState([]);
 
   useEffect(() => {
-    const booking = BookingsList.filter(
+    const booking = bookingsList.filter(
       (booking) => booking.bookingID.toString() === bookingId
     );
     setFilteredBooking(booking);
-  }, [bookingId]);
+  }, [bookingId, bookingsList]);
 
   if (filteredBooking[0]) {
     return (
@@ -57,17 +61,11 @@ const SingleBooking = () => {
           <BookingDataContainer>
             <BookingDataSubcontainer>
               <Title>Check In</Title>
-              <Data>
-                {filteredBooking[0].checkIn.date} |{" "}
-                {filteredBooking[0].checkIn.hour}
-              </Data>
+              <Data>{filteredBooking[0].checkIn.date}</Data>
             </BookingDataSubcontainer>
             <BookingDataSubcontainer>
               <Title>Check Out</Title>
-              <Data>
-                {filteredBooking[0].checkOut.date} |{" "}
-                {filteredBooking[0].checkOut.hour}
-              </Data>
+              <Data>{filteredBooking[0].checkOut.date}</Data>
             </BookingDataSubcontainer>
           </BookingDataContainer>
           <Divider />

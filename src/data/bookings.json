@@ -6,14 +6,12 @@
       "name": "Roger Waters",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 02:21 AM",
+    "orderDate": "12/06/2022, 10:00:00",
     "checkIn": {
-      "date": "Dec 12th 2022",
-      "hour": "3:30 AM"
+      "date": "Dec 12th 2022"
     },
     "checkOut": {
-      "date": "Nov 2nd 2022",
-      "hour": "9:41 PM"
+      "date": "Nov 2nd 2022"
     },
     "specialRequest": null,
     "roomType": "Single Bed - 2",
@@ -26,14 +24,12 @@
       "name": "Lilly Potter",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Nov 21th 2022 08:51 PM",
+    "orderDate": "12/10/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 2nd 2022",
-      "hour": "10:06 AM"
+      "date": "Nov 2nd 2022"
     },
     "checkOut": {
-      "date": "Nov 7th 2022",
-      "hour": "8:43 AM"
+      "date": "Nov 7th 2022"
     },
     "specialRequest": null,
     "roomType": "Suite - 13",
@@ -46,14 +42,12 @@
       "name": "Mark Hatchett",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 08:51 PM",
+    "orderDate": "26/06/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 2nd 2022",
-      "hour": "12:25 PM"
+      "date": "Nov 2nd 2022"
     },
     "checkOut": {
-      "date": "Nov 15th 2022",
-      "hour": "12:18 AM"
+      "date": "Nov 15th 2022"
     },
     "specialRequest": null,
     "roomType": "Double Bed - 34",
@@ -66,14 +60,12 @@
       "name": "Ashil Thorius",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 08:51 PM",
+    "orderDate": "12/12/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 3nd 2022",
-      "hour": "1:42 AM"
+      "date": "Nov 3nd 2022"
     },
     "checkOut": {
-      "date": "Dec 1st 2022",
-      "hour": "8:32 AM"
+      "date": "Dec 1st 2022"
     },
     "specialRequest": null,
     "roomType": "Single Bed - 52",
@@ -86,14 +78,12 @@
       "name": "Montague Cawthorn",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Jun 21th 2022 08:24 PM",
+    "orderDate": "04/09/2022, 10:00:00",
     "checkIn": {
-      "date": "Dec 12th 2022",
-      "hour": "3:42 PM"
+      "date": "Dec 12th 2022"
     },
     "checkOut": {
-      "date": "Nov 2nd 2022",
-      "hour": "5:11 PM"
+      "date": "Nov 2nd 2022"
     },
     "specialRequest": null,
     "roomType": "Double Superior - 7",
@@ -106,14 +96,12 @@
       "name": "Arnie Ganny",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 08:51 PM",
+    "orderDate": "01/01/2023, 10:00:00",
     "checkIn": {
-      "date": "Nov 29th 2022",
-      "hour": "7:21 PM"
+      "date": "Nov 29th 2022"
     },
     "checkOut": {
-      "date": "Nov 4th 2022",
-      "hour": "9:44 AM"
+      "date": "Nov 4th 2022"
     },
     "specialRequest": "I would need a second pillow. I suffer from neck pain if I dont sleep with enough support for my head. Thank you!",
     "roomType": "Double Bed - 60",
@@ -126,14 +114,12 @@
       "name": "Wilton Gammade",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Jun 21th 2022 08:24 PM",
+    "orderDate": "04/11/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 3nd 2022",
-      "hour": "6:05 PM"
+      "date": "Nov 3nd 2022"
     },
     "checkOut": {
-      "date": "Nov 15th 2022",
-      "hour": "4:19 AM"
+      "date": "Nov 15th 2022"
     },
     "specialRequest": null,
     "roomType": "Suite - 10",
@@ -146,14 +132,12 @@
       "name": "Mendel Kembry",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Nov 21th 2022 12:51 PM",
+    "orderDate": "30/11/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 29th 2022",
-      "hour": "10:38 AM"
+      "date": "Nov 29th 2022"
     },
     "checkOut": {
-      "date": "Dec 1st 2022",
-      "hour": "3:30 PM"
+      "date": "Dec 1st 2022"
     },
     "specialRequest": "Would it be possible to have an hair dryer in the room? Thanks",
     "roomType": "Single Bed - 17",
@@ -166,14 +150,12 @@
       "name": "Sheppard Huffer",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 02:21 AM",
+    "orderDate": "24/12/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 4th 2022",
-      "hour": "10:42 AM"
+      "date": "Nov 4th 2022"
     },
     "checkOut": {
-      "date": "Nov 4th 2022",
-      "hour": "11:56 AM"
+      "date": "Nov 4th 2022"
     },
     "specialRequest": "We would need a bowl to give water to our dog. Would that be possible? Thanks in advance!",
     "roomType": "Double Bed - 4",
@@ -186,14 +168,12 @@
       "name": "Westleigh Cato",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 02:21 AM",
+    "orderDate": "04/10/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 4th 2022",
-      "hour": "10:07 PM"
+      "date": "Nov 4th 2022"
     },
     "checkOut": {
-      "date": "Dec 1st 2022",
-      "hour": "9:15 PM"
+      "date": "Dec 1st 2022"
     },
     "specialRequest": null,
     "roomType": "Double Superior - 11",
@@ -206,14 +186,12 @@
       "name": "Wesley So",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 02:21 AM",
+    "orderDate": "11/11/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 4th 2022",
-      "hour": "10:07 PM"
+      "date": "Nov 4th 2022"
     },
     "checkOut": {
-      "date": "Dec 1st 2022",
-      "hour": "9:15 PM"
+      "date": "Dec 1st 2022"
     },
     "specialRequest": "High floor please",
     "roomType": "Double Superior - 11",
@@ -226,14 +204,12 @@
       "name": "aaaaa",
       "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
-    "orderDate": "Oct 30th 2022 02:21 AM",
+    "orderDate": "31/12/2022, 10:00:00",
     "checkIn": {
-      "date": "Nov 4th 2022",
-      "hour": "10:07 PM"
+      "date": "Nov 4th 2022"
     },
     "checkOut": {
-      "date": "Dec 1st 2022",
-      "hour": "9:15 PM"
+      "date": "Dec 1st 2022"
     },
     "specialRequest": "High floor please",
     "roomType": "Double Superior - 11",

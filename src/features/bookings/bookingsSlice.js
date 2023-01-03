@@ -4,16 +4,26 @@ import { fetchData } from "../fetchData";
 export const getDataBookings = createAsyncThunk(
   "bookings/fetchBookings",
   async () => {
-    // setTimeout(() => {
-    //   return fetchData("Bookings");
-    // }, 1000);
     return await fetchData("Bookings");
+  }
+);
+
+export const createNewBooking = createAsyncThunk(
+  "bookings/CreateBooking",
+  async (newBooking) => {
+    return await newBooking;
+  }
+);
+export const deleteBooking = createAsyncThunk(
+  "bookings/DeleteBooking",
+  async (bookingID) => {
+    return await bookingID;
   }
 );
 
 const initialState = {
   bookingsList: [],
-  status: "",
+  status: "loading",
   singleBooking: null,
 };
 
@@ -22,6 +32,9 @@ export const bookingsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
+      .addCase(getDataBookings.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(getDataBookings.fulfilled, (state, action) => {
         state.status = "success";
         state.bookingsList = action.payload;
@@ -30,6 +43,16 @@ export const bookingsSlice = createSlice({
         state.status = "failed";
         console.error("Not possible to fetch the bookings");
       });
+
+    builder.addCase(createNewBooking.fulfilled, (state, action) => {
+      state.bookingsList = [...state.bookingsList, action.payload];
+    });
+
+    builder.addCase(deleteBooking.fulfilled, (state, action) => {
+      state.bookingsList = state.bookingsList.filter(
+        (booking) => booking.bookingID !== action.payload
+      );
+    });
   },
 });
 

@@ -6,7 +6,11 @@ import { NavLink } from "react-router-dom";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 // Local data
-import RoomsList from "../../data/rooms";
+// import RoomsList from "../../data/rooms";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getDataRooms } from "../../features/rooms/roomsSlice";
 
 // Styled Components
 import {
@@ -20,6 +24,7 @@ import {
 import { Container } from "../../components/styled/Containers";
 import { CreateButton } from "../../components/styled/Buttons";
 import { DropdownMenu } from "../../components/styled/DropdownMenu";
+import { Loader } from "../../components/styled/Loader";
 
 // Components
 import { RoomRow } from "../../components/rooms/RoomRow";
@@ -27,21 +32,34 @@ import { Pagination } from "../../components/pagination/Pagination";
 
 // Component that creates a table and add a row for each item in the data base
 const Rooms = () => {
-  const [rooms, setRooms] = useState(RoomsList);
+  const dispatch = useDispatch();
+  const { roomsList, status } = useSelector((state) => state.roomsReducer);
+
+  const [rooms, setRooms] = useState(roomsList);
   const [activeFilter, setActiveFilter] = useState("Room Nr.");
   const [currentRooms, setCurrentRooms] = useState([]);
 
+  // Faking a delay on data fetch
+  useEffect(() => {
+    if (roomsList.length === 0) {
+      setTimeout(() => {
+        dispatch(getDataRooms());
+      }, 2000);
+    }
+    setRooms(roomsList);
+  }, [roomsList, dispatch]);
+
   const getAllRooms = () => {
-    setRooms(RoomsList);
+    setRooms(roomsList);
   };
 
   const filterByType = (type) => {
-    setRooms(RoomsList.filter((room) => room.room_status === type));
+    setRooms(roomsList.filter((room) => room.room_status === type));
   };
 
   useEffect(() => {
     // Filtering by dropdown selection based on the filtered by search input array (in case the user used the search bar)
-    const orderedRooms = [...RoomsList];
+    const orderedRooms = [...roomsList];
     switch (activeFilter) {
       case "Room Nr.":
         orderedRooms.sort((a, b) => a.room_number - b.room_number);
@@ -56,7 +74,7 @@ const Rooms = () => {
         break;
     }
     setRooms(orderedRooms);
-  }, [activeFilter]);
+  }, [activeFilter, roomsList]);
 
   // Variables for the pagination component
   const [currentPage, setCurrentPage] = useState(1);
@@ -121,49 +139,56 @@ const Rooms = () => {
           ></DropdownMenu>
         </TableButtons>
       </TableActions>
-      <Container>
-        <Table>
-          <thead>
-            <tr>
-              <HeaderTitle>Room Name</HeaderTitle>
-              <HeaderTitle>Bed Type</HeaderTitle>
-              <HeaderTitle>Facilities</HeaderTitle>
-              <HeaderTitle>Rate</HeaderTitle>
-              <HeaderTitle>Offer Price</HeaderTitle>
-              <HeaderTitle>Status</HeaderTitle>
-            </tr>
-          </thead>
-          <Droppable droppableId="rooms">
-            {(droppableProvided) => (
-              <tbody
-                {...droppableProvided.droppableProps}
-                ref={droppableProvided.innerRef}
-                className="task-container"
-              >
-                {currentRooms.length > 0 &&
-                  currentRooms.map((room, index) => (
-                    <RoomRow
-                      key={room.id}
-                      index={index}
-                      room={room}
-                      number={room.id}
-                    />
-                  ))}
-                {droppableProvided.placeholder}
-              </tbody>
-            )}
-          </Droppable>
-        </Table>
-      </Container>
-      <Pagination
-        nPages={nPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        dataDisplayed={"rooms"}
-        totalRooms={rooms.length}
-        indexOfFirstImage={indexOfFirstImage}
-        indexOfLastImage={indexOfLastImage}
-      />
+
+      {status === "loading" ? (
+        <Loader />
+      ) : (
+        <>
+          <Container>
+            <Table>
+              <thead>
+                <tr>
+                  <HeaderTitle>Room Name</HeaderTitle>
+                  <HeaderTitle>Bed Type</HeaderTitle>
+                  <HeaderTitle>Facilities</HeaderTitle>
+                  <HeaderTitle>Rate</HeaderTitle>
+                  <HeaderTitle>Offer Price</HeaderTitle>
+                  <HeaderTitle>Status</HeaderTitle>
+                </tr>
+              </thead>
+              <Droppable droppableId="rooms">
+                {(droppableProvided) => (
+                  <tbody
+                    {...droppableProvided.droppableProps}
+                    ref={droppableProvided.innerRef}
+                    className="task-container"
+                  >
+                    {currentRooms.length > 0 &&
+                      currentRooms.map((room, index) => (
+                        <RoomRow
+                          key={room.id}
+                          index={index}
+                          room={room}
+                          number={room.id}
+                        />
+                      ))}
+                    {droppableProvided.placeholder}
+                  </tbody>
+                )}
+              </Droppable>
+            </Table>
+          </Container>
+          <Pagination
+            nPages={nPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            dataDisplayed={"rooms"}
+            totalRooms={rooms.length}
+            indexOfFirstImage={indexOfFirstImage}
+            indexOfLastImage={indexOfLastImage}
+          />
+        </>
+      )}
     </DragDropContext>
   );
 };

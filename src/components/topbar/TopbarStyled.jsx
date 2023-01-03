@@ -59,7 +59,7 @@ const Icon = styled.div`
       transform: translateX(0%);
     }
   }
-  .ring:hover {
+  .ring {
     animation: ring 7s .3s ease-in-out infinite;
   }
   @keyframes ring {

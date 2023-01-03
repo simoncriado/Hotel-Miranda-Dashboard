@@ -1,9 +1,12 @@
 // React & Router
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 
 // React Context
 import { useLogout } from "../../hooks/useLogout";
+
+// Redux
+import { useSelector } from "react-redux";
 
 // Styled Components
 import {
@@ -17,7 +20,21 @@ import {
 const Topbar = () => {
   let location = useLocation();
   const [title, setTitle] = useState("");
+  const [count, setCount] = useState(0);
   const { logout } = useLogout();
+  const ref = useRef(null);
+  const { bookingsList } = useSelector((state) => state.bookingsReducer);
+
+  useEffect(() => {
+    const ring = ref.current;
+    setCount((c) => {
+      return c + 1;
+    });
+    ring.classList.add("ring");
+    setTimeout(() => {
+      ring.classList.remove("ring");
+    }, 7000);
+  }, [bookingsList]);
 
   const logOut = () => {
     localStorage.removeItem("auth");
@@ -69,16 +86,16 @@ const Topbar = () => {
         {/* ATM THE ANIMATION IS ACTIVATED ON HOVER. LATER I WANT TO ACTIVATE THE ANIMATION WHEN A NEW NOTIFICATION COMES IN. I GUESS I WILL USE JS TO ADD THE CLASS DINAMICALLY ON INCOMING NOTIFICATION */}
         <Icon>
           <svg
+            ref={ref}
             xmlns="http://www.w3.org/2000/svg"
             height="3rem"
             width="3rem"
             viewBox="0 0 48 48"
-            className="ring"
           >
             <path d="M8 38v-3h4.2V19.7q0-4.2 2.475-7.475Q17.15 8.95 21.2 8.1V6.65q0-1.15.825-1.9T24 4q1.15 0 1.975.75.825.75.825 1.9V8.1q4.05.85 6.55 4.125t2.5 7.475V35H40v3Zm16-14.75ZM24 44q-1.6 0-2.8-1.175Q20 41.65 20 40h8q0 1.65-1.175 2.825Q25.65 44 24 44Zm-8.8-9h17.65V19.7q0-3.7-2.55-6.3-2.55-2.6-6.25-2.6t-6.275 2.6Q15.2 16 15.2 19.7Z" />
           </svg>
           <div className="hithere">
-            <p>115</p>
+            <p>{count}</p>
           </div>
         </Icon>
         <Icon onClick={logOut}>
