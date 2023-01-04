@@ -9,6 +9,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Bookings from "./pages/bookings/Bookings";
 import SingleBooking from "./pages/bookings/SingleBooking";
+import EditBooking from "./pages/bookings/EditBooking";
 import NewBooking from "./pages/bookings/NewBooking";
 import Rooms from "./pages/rooms/Rooms";
 import SingleRoom from "./pages/rooms/SingleRoom";
@@ -54,6 +55,7 @@ function App() {
             >
               <Route path="bookings" element={<Bookings />} />
               <Route path="bookings/:bookingId" element={<SingleBooking />} />
+              <Route path="editBooking/:bookingId" element={<EditBooking />} />
               <Route path="newBooking" element={<NewBooking />} />
               <Route path="rooms" element={<Rooms />} />
               <Route path="rooms/:roomId" element={<SingleRoom />} />

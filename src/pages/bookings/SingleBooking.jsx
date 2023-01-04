@@ -2,9 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// Local Data
-// import BookingsList from "../../data/bookings";
-
 // Redux
 import { useSelector } from "react-redux";
 
@@ -50,22 +47,22 @@ const SingleBooking = () => {
           <GuestContainer>
             <img
               style={{ width: 150, height: 150 }}
-              src={filteredBooking[0].user.picture}
+              src={filteredBooking[0].userPicture}
               alt="User portrait"
             />
             <div>
-              <GuestName>{filteredBooking[0].user.name}</GuestName>
+              <GuestName>{filteredBooking[0].userName}</GuestName>
               <BookingID>ID {filteredBooking[0].bookingID}</BookingID>
             </div>
           </GuestContainer>
           <BookingDataContainer>
             <BookingDataSubcontainer>
               <Title>Check In</Title>
-              <Data>{filteredBooking[0].checkIn.date}</Data>
+              <Data>{filteredBooking[0].checkIn}</Data>
             </BookingDataSubcontainer>
             <BookingDataSubcontainer>
               <Title>Check Out</Title>
-              <Data>{filteredBooking[0].checkOut.date}</Data>
+              <Data>{filteredBooking[0].checkOut}</Data>
             </BookingDataSubcontainer>
           </BookingDataContainer>
           <Divider />
@@ -82,15 +79,13 @@ const SingleBooking = () => {
               </Data>
             </BookingDataSubcontainer>
           </BookingDataContainer>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum
-          </Text>
+
+          {filteredBooking[0].specialRequest ? (
+            <Text>{filteredBooking[0].specialRequest}</Text>
+          ) : (
+            <Text>No special request was entered for this booking.</Text>
+          )}
+
           <BookingDataContainer>
             <BookingDataSubcontainer style={{ width: "100%" }}>
               <Title>Facilities</Title>
@@ -142,7 +137,7 @@ const SingleBooking = () => {
             </Tag>
             <SingleBookingSwiper />
             <div className="roomData">
-              <h2>Bed Room</h2>
+              <h2>{filteredBooking[0].roomType}</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

@@ -12,7 +12,7 @@ export const SingleBookingCard = (checkIn) => {
       <img src={RoomssList[0].photo} alt="Room img" />
       <CardData>
         <h2>{BookingssList[0].roomType}</h2>
-        <p>{BookingssList[0].user.name}</p>
+        <p>{BookingssList[0].userName}</p>
       </CardData>
       <CardData style={{ marginLeft: "auto" }}>
         <p>Check In: {checkIn.checkIn}</p>

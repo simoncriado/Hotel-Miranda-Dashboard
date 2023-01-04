@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-// Local data
-// import BookingsList from "../../data/bookings";
-
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getDataBookings } from "../../features/bookings/bookingsSlice";
@@ -80,8 +77,8 @@ const Bookings = () => {
         break;
       case "Guest":
         orderedBookings.sort((a, b) => {
-          const nameA = a.user.name.toUpperCase().replace(/\s/g, "");
-          const nameB = b.user.name.toUpperCase().replace(/\s/g, "");
+          const nameA = a.userName.toUpperCase().replace(/\s/g, "");
+          const nameB = b.userName.toUpperCase().replace(/\s/g, "");
           if (nameA < nameB) {
             return -1;
           }

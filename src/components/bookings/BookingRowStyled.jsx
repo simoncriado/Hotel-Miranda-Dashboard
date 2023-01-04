@@ -167,6 +167,37 @@ const Status = styled.p`
   margin-left: 30px;
 `;
 
+const DropDown = styled.div`
+  display: block;
+  position: absolute;
+  background-color: #777777;
+  top: 60%;
+  left: 0%;
+  z-index: 2;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      text-decoration: none;
+      button {
+        margin: 0;
+        width: 100%;
+        height: fit-content;
+        padding: 10px 15px;
+        display: block;
+        border: 1px solid #d4d4d4;
+        color: white;
+        font-family: var(--font-poppins);
+        transition: all 0.3s;
+        &:hover {
+          background-color: #c5c5c5;
+        }
+      }
+    }
+  }
+`;
+
 export {
   Row,
   GuestContainer,
@@ -176,4 +207,5 @@ export {
   DataContainerButton,
   NotesButton,
   Status,
+  DropDown,
 };

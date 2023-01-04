@@ -84,6 +84,28 @@ const LoginButton = styled.div`
   }
 `;
 
+const RadioInput = styled.input`
+  font-family: var(--font-poppins);
+  font-size: 1.6rem;
+  color: #777777;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+`;
+
+const RadioLabel = styled.label`
+  font-family: var(--font-poppins);
+  font-size: 1.6rem;
+  color: #777777;
+  margin-right: 1rem;
+`;
+
+const RadioDescription = styled.p`
+  font-family: var(--font-poppins);
+  font-size: 1.6rem;
+  color: #393939;
+  margin-top: 0;
+`;
+
 export {
   LoginContainer,
   LoginCard,
@@ -92,4 +114,7 @@ export {
   Input,
   LoginButton,
   Description,
+  RadioInput,
+  RadioLabel,
+  RadioDescription,
 };

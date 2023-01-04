@@ -7,11 +7,22 @@ export const getDataBookings = createAsyncThunk(
     return await fetchData("Bookings");
   }
 );
-
+export const getBooking = createAsyncThunk(
+  "booking/GetBookingDetails",
+  async (idBooking) => {
+    return await idBooking;
+  }
+);
 export const createNewBooking = createAsyncThunk(
   "bookings/CreateBooking",
   async (newBooking) => {
     return await newBooking;
+  }
+);
+export const editBooking = createAsyncThunk(
+  "bookings/EditBooking",
+  async (idBooking) => {
+    return await idBooking;
   }
 );
 export const deleteBooking = createAsyncThunk(
@@ -44,6 +55,12 @@ export const bookingsSlice = createSlice({
         console.error("Not possible to fetch the bookings");
       });
 
+    builder.addCase(getBooking.fulfilled, (state, action) => {
+      state.singleBooking = state.bookingsList.find(
+        (booking) => booking.bookingID === action.payload
+      );
+    });
+
     builder.addCase(createNewBooking.fulfilled, (state, action) => {
       state.bookingsList = [...state.bookingsList, action.payload];
     });
@@ -52,6 +69,14 @@ export const bookingsSlice = createSlice({
       state.bookingsList = state.bookingsList.filter(
         (booking) => booking.bookingID !== action.payload
       );
+    });
+
+    builder.addCase(editBooking.fulfilled, (state, action) => {
+      state.bookingsList = state.bookingsList.map((booking) => {
+        return booking.bookingID === action.payload.bookingID
+          ? action.payload
+          : booking;
+      });
     });
   },
 });

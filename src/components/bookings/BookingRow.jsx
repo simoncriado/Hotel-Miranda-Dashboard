@@ -1,10 +1,13 @@
 // React & Router
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { deleteBooking } from "../../features/bookings/bookingsSlice";
+import {
+  deleteBooking,
+  getBooking,
+} from "../../features/bookings/bookingsSlice";
 
 // Styled Components
 import {
@@ -16,6 +19,7 @@ import {
   BookingID,
   Status,
   NotesButton,
+  DropDown,
 } from "./BookingRowStyled";
 
 // Component that creates a table row for the bookings table
@@ -23,8 +27,15 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [showOptions, setShowOptions] = useState(false);
+
   const goToSingleBooking = (id) => {
     navigate("/bookings/" + id);
+  };
+  const editSingleBooking = (e, bookingID) => {
+    e.preventDefault();
+    dispatch(getBooking(bookingID));
+    navigate("/editBooking/" + bookingID);
   };
   const deleteCurrentBooking = (e, bookingID) => {
     e.preventDefault();
@@ -39,9 +50,9 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
     >
       <td>
         <GuestContainer>
-          <img src={booking.user.picture} alt="User portrait" />
+          <img src={booking.userPicture} alt="User portrait" />
           <div>
-            <GuestName>{booking.user.name}</GuestName>
+            <GuestName>{booking.userName}</GuestName>
             <BookingID>#{booking.bookingID}</BookingID>
           </div>
         </GuestContainer>
@@ -50,10 +61,10 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
         <p>{booking.orderDate}</p>
       </DataContainer>
       <DataContainer className="data-container__text">
-        <p>{booking.checkIn.date}</p>
+        <p>{booking.checkIn}</p>
       </DataContainer>
       <DataContainer className="data-container__text">
-        <p>{booking.checkOut.date}</p>
+        <p>{booking.checkOut}</p>
       </DataContainer>
       <td>
         <NotesButton
@@ -61,7 +72,7 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
           text="View Notes"
           enabled={booking.description}
           onClick={(e) => {
-            handleOpenModal(booking.user.name, booking.specialRequest, e);
+            handleOpenModal(booking.userName, booking.specialRequest, e);
           }}
         >
           {booking.specialRequest == null ? "No Notes" : "View Notes"}
@@ -74,7 +85,7 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
       <td>
         <Status $type={booking.status}>{booking.status}</Status>
       </td>
-      <DataContainerButton>
+      <DataContainerButton style={{ position: "relative" }}>
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -84,12 +95,39 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
             onClick={(e) => {
               // With this check I avoid the parents event listener to be fired when the child event listener should be fired
               if (e && e.stopPropagation) e.stopPropagation();
-              deleteCurrentBooking(e, booking.bookingID);
+              // deleteCurrentBooking(e, booking.bookingID);
+              setShowOptions(!showOptions);
             }}
           >
             <path d="M24.05 41.7q-1.25 0-2.125-.875t-.875-2.075q0-1.2.875-2.1.875-.9 2.075-.9 1.25 0 2.1.9.85.9.85 2.1 0 1.2-.85 2.075-.85.875-2.05.875Zm0-14.75q-1.25 0-2.125-.875T21.05 24q0-1.25.875-2.1.875-.85 2.075-.85 1.25 0 2.1.85.85.85.85 2.05 0 1.25-.85 2.125t-2.05.875Zm0-14.7q-1.25 0-2.125-.875T21.05 9.25q0-1.25.875-2.125T24 6.25q1.25 0 2.1.875.85.875.85 2.125t-.85 2.125q-.85.875-2.05.875Z" />
           </svg>
         </button>
+        {showOptions ? (
+          <DropDown>
+            <ul>
+              <li>
+                <button
+                  onClick={(e) => {
+                    if (e && e.stopPropagation) e.stopPropagation();
+                    editSingleBooking(e, booking.bookingID);
+                  }}
+                >
+                  Edit booking
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={(e) => {
+                    if (e && e.stopPropagation) e.stopPropagation();
+                    deleteCurrentBooking(e, booking.bookingID);
+                  }}
+                >
+                  Delete booking
+                </button>
+              </li>
+            </ul>
+          </DropDown>
+        ) : null}
       </DataContainerButton>
     </Row>
   );
