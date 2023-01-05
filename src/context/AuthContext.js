@@ -1,7 +1,7 @@
 // React
 import { createContext, useReducer, useEffect } from "react";
 
-// Here we create a new context. This to allow us to have access to the user data in the whole app (to be used in different components)
+// Here I create a new context. This to allow me to have access to the auth data in the whole app (to be used in different components)
 export const AuthContext = createContext();
 
 export const authReducer = (state, action) => {
@@ -19,14 +19,14 @@ export const authReducer = (state, action) => {
   }
 };
 
-// The children represents whatever this context is going to wrap in the future (in our case it will be the app components: the whole application)
+// The children represents whatever this context is going to wrap in the future (in my case it will be the app components: the whole application)
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
     authIsReady: false,
   });
 
-  // If we already logged in in the past it gets stored in localStorage and we will remain logged in when opening the page
+  // If already logged in in the past it gets stored in localStorage and we will remain logged in when opening the page
   useEffect(() => {
     if (localStorage.getItem("auth")) {
       let retrievedAuth = localStorage.getItem("auth");

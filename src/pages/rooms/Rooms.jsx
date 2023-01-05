@@ -44,7 +44,7 @@ const Rooms = () => {
     if (roomsList.length === 0) {
       setTimeout(() => {
         dispatch(getDataRooms());
-      }, 2000);
+      }, 1000);
     }
     setRooms(roomsList);
   }, [roomsList, dispatch]);

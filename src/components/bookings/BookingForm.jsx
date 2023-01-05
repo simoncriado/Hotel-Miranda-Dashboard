@@ -1,10 +1,5 @@
 // React
-import React, { useEffect, useState } from "react";
-
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { createNewBooking } from "../../features/bookings/bookingsSlice";
-import { getBooking } from "../../features/bookings/bookingsSlice";
+import React from "react";
 
 // Styled Components
 import {
@@ -12,21 +7,31 @@ import {
   LoginCard,
   InputContainer,
   Input,
-  LoginButton,
-  Description,
+  FormTitle,
   RadioInput,
   RadioLabel,
   RadioDescription,
+  InputSubmit,
 } from "../../pages/login/LoginStyled";
 
-const BookingForm = ({ currentBooking, handleInput, handleSubmit }) => {
+// This form gets used from editBooking and newBooking. If used for editing a booking it will be preloaded with the data from the currentBooking to edit
+const BookingForm = ({
+  currentBooking,
+  handleInput,
+  handleSubmit,
+  formTitle,
+}) => {
   return (
     <>
       <LoginContainer style={{ minHeight: "80%" }}>
         <LoginCard style={{ height: "fit-content", width: "90%" }}>
-          <Description>Fill the form to create a new booking</Description>
-          {/* add event onSubmit */}
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <FormTitle>{formTitle}</FormTitle>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
             <InputContainer>
               <Input
                 type="text"
@@ -52,7 +57,6 @@ const BookingForm = ({ currentBooking, handleInput, handleSubmit }) => {
                 type="date"
                 className="input-user"
                 placeholder="dd-mm-yyyy"
-                min={new Date().toISOString().slice(0, 10)}
                 name="checkIn"
                 value={currentBooking.checkIn}
                 onChange={handleInput}
@@ -120,7 +124,7 @@ const BookingForm = ({ currentBooking, handleInput, handleSubmit }) => {
                 type="radio"
                 id="checkIn"
                 value="Check In"
-                name="roomStatus"
+                name="status"
                 onClick={handleInput}
               />
               <RadioLabel htmlFor="checkIn">Check In</RadioLabel>
@@ -128,7 +132,7 @@ const BookingForm = ({ currentBooking, handleInput, handleSubmit }) => {
                 type="radio"
                 id="checkOut"
                 value="Check Out"
-                name="roomStatus"
+                name="status"
                 onClick={handleInput}
               />
               <RadioLabel htmlFor="checkOut">Check Out</RadioLabel>
@@ -136,22 +140,12 @@ const BookingForm = ({ currentBooking, handleInput, handleSubmit }) => {
                 type="radio"
                 id="inProgress"
                 value="In Progress"
-                name="roomStatus"
+                name="status"
                 onClick={handleInput}
               />
               <RadioLabel htmlFor="inProgress">In Progress</RadioLabel>
             </InputContainer>
-            {/* Cambiar por input type submit */}
-            {/* <LoginButton
-              type="login"
-              text="LOGIN"
-              onClick={(e) => {
-                editBooking(e);
-              }}
-            >
-              Save
-            </LoginButton> */}
-            <input type="submit" />
+            <InputSubmit type="submit" />
           </form>
         </LoginCard>
       </LoginContainer>

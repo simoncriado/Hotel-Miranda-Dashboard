@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getBooking } from "../../features/bookings/bookingsSlice";
 
 // Styled Components
 import { Container } from "../../components/styled/Containers";
@@ -28,48 +29,48 @@ import SingleBookingSwiper from "../../components/bookings/SingleBookingSwiper";
 
 // Component that displays the data for the selected room
 const SingleBooking = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const { bookingId } = params;
-  const { bookingsList } = useSelector((state) => state.bookingsReducer);
-  const [filteredBooking, setFilteredBooking] = useState([]);
+  const { singleBooking } = useSelector((state) => state.bookingsReducer);
+  const [currentBooking, setCurrentBooking] = useState(singleBooking);
 
   useEffect(() => {
-    const booking = bookingsList.filter(
-      (booking) => booking.bookingID.toString() === bookingId
-    );
-    setFilteredBooking(booking);
-  }, [bookingId, bookingsList]);
+    dispatch(getBooking(Number(bookingId)));
 
-  if (filteredBooking[0]) {
+    setCurrentBooking(singleBooking);
+  }, [singleBooking, dispatch, bookingId]);
+
+  if (currentBooking) {
     return (
       <Container style={{ flexDirection: "row" }}>
         <Subcontainer>
           <GuestContainer>
             <img
               style={{ width: 150, height: 150 }}
-              src={filteredBooking[0].userPicture}
+              src={currentBooking.userPicture}
               alt="User portrait"
             />
             <div>
-              <GuestName>{filteredBooking[0].userName}</GuestName>
-              <BookingID>ID {filteredBooking[0].bookingID}</BookingID>
+              <GuestName>{currentBooking.userName}</GuestName>
+              <BookingID>ID {currentBooking.bookingID}</BookingID>
             </div>
           </GuestContainer>
           <BookingDataContainer>
             <BookingDataSubcontainer>
               <Title>Check In</Title>
-              <Data>{filteredBooking[0].checkIn}</Data>
+              <Data>{currentBooking.checkIn}</Data>
             </BookingDataSubcontainer>
             <BookingDataSubcontainer>
               <Title>Check Out</Title>
-              <Data>{filteredBooking[0].checkOut}</Data>
+              <Data>{currentBooking.checkOut}</Data>
             </BookingDataSubcontainer>
           </BookingDataContainer>
           <Divider />
           <BookingDataContainer>
             <BookingDataSubcontainer>
               <Title>Room info</Title>
-              <Data>{filteredBooking[0].roomType}</Data>
+              <Data>{currentBooking.roomType}</Data>
             </BookingDataSubcontainer>
             <BookingDataSubcontainer>
               <Title>Price</Title>
@@ -80,8 +81,8 @@ const SingleBooking = () => {
             </BookingDataSubcontainer>
           </BookingDataContainer>
 
-          {filteredBooking[0].specialRequest ? (
-            <Text>{filteredBooking[0].specialRequest}</Text>
+          {currentBooking.specialRequest ? (
+            <Text>{currentBooking.specialRequest}</Text>
           ) : (
             <Text>No special request was entered for this booking.</Text>
           )}
@@ -132,12 +133,12 @@ const SingleBooking = () => {
         </Subcontainer>
         <Subcontainer style={{ padding: 0 }}>
           <SwiperContainer>
-            <Tag $type={filteredBooking[0].status} className="tag">
-              {filteredBooking[0].status}
+            <Tag $type={currentBooking.status} className="tag">
+              {currentBooking.status}
             </Tag>
             <SingleBookingSwiper />
             <div className="roomData">
-              <h2>{filteredBooking[0].roomType}</h2>
+              <h2>{currentBooking.roomType}</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

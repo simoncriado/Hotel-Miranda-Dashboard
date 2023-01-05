@@ -69,7 +69,7 @@ const DataContainerButton = styled.td`
 
 const NotesButton = styled.button`
   ${(props) => {
-    if (props.type == null) {
+    if (props.type === "") {
       return css`
         background-color: white;
         font-family: var(--font-poppins);

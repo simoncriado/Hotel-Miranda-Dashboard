@@ -38,6 +38,7 @@ const Topbar = () => {
 
   const logOut = () => {
     localStorage.removeItem("auth");
+    // Dispatch the logout action
     logout();
   };
 

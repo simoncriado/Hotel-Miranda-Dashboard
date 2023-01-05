@@ -99,8 +99,8 @@ const RoomStatus = styled.p`
 const DropDown = styled.div`
   display: block;
   position: absolute;
-  background-color: white;
-  top: 90%;
+  background-color: #777777;
+  top: 40%;
   left: 0%;
   z-index: 2;
   ul {
@@ -112,12 +112,15 @@ const DropDown = styled.div`
       button {
         margin: 0;
         width: 100%;
+        height: fit-content;
         padding: 10px 15px;
         display: block;
         border: 1px solid #d4d4d4;
+        color: white;
         font-family: var(--font-poppins);
+        transition: all 0.3s;
         &:hover {
-          background-color: #ebf1ef;
+          background-color: #c5c5c5;
         }
       }
     }

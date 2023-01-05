@@ -4,10 +4,7 @@ import { useNavigate } from "react-router";
 
 // Redux
 import { useDispatch } from "react-redux";
-import {
-  deleteBooking,
-  getBooking,
-} from "../../features/bookings/bookingsSlice";
+import { deleteBooking } from "../../features/bookings/bookingsSlice";
 
 // Styled Components
 import {
@@ -34,7 +31,6 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
   };
   const editSingleBooking = (e, bookingID) => {
     e.preventDefault();
-    dispatch(getBooking(bookingID));
     navigate("/editBooking/" + bookingID);
   };
   const deleteCurrentBooking = (e, bookingID) => {
@@ -50,7 +46,14 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
     >
       <td>
         <GuestContainer>
-          <img src={booking.userPicture} alt="User portrait" />
+          <img
+            src={
+              booking.userPicture === ""
+                ? "https://corporate.bestbuy.com/wp-content/uploads/2022/06/Image-Portrait-Placeholder.jpg"
+                : booking.userPicture
+            }
+            alt="User portrait"
+          />
           <div>
             <GuestName>{booking.userName}</GuestName>
             <BookingID>#{booking.bookingID}</BookingID>
@@ -75,7 +78,7 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
             handleOpenModal(booking.userName, booking.specialRequest, e);
           }}
         >
-          {booking.specialRequest == null ? "No Notes" : "View Notes"}
+          {booking.specialRequest === "" ? "No Notes" : "View Notes"}
         </NotesButton>
       </td>
 
@@ -95,7 +98,6 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
             onClick={(e) => {
               // With this check I avoid the parents event listener to be fired when the child event listener should be fired
               if (e && e.stopPropagation) e.stopPropagation();
-              // deleteCurrentBooking(e, booking.bookingID);
               setShowOptions(!showOptions);
             }}
           >

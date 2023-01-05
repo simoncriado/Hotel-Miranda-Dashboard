@@ -44,7 +44,7 @@ const Bookings = () => {
     if (bookingsList.length === 0) {
       setTimeout(() => {
         dispatch(getDataBookings());
-      }, 2000);
+      }, 1000);
     }
     setBookings(bookingsList);
   }, [bookingsList, dispatch]);

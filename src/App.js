@@ -14,6 +14,7 @@ import NewBooking from "./pages/bookings/NewBooking";
 import Rooms from "./pages/rooms/Rooms";
 import SingleRoom from "./pages/rooms/SingleRoom";
 import NewRoom from "./pages/rooms/NewRoom";
+import EditRoom from "./pages/rooms/EditRoom";
 import Users from "./pages/users/Users";
 import SingleUser from "./pages/users/SingleUser";
 import Contact from "./pages/contact/Contact";
@@ -59,6 +60,7 @@ function App() {
               <Route path="newBooking" element={<NewBooking />} />
               <Route path="rooms" element={<Rooms />} />
               <Route path="rooms/:roomId" element={<SingleRoom />} />
+              <Route path="editRoom/:roomId" element={<EditRoom />} />
               <Route path="newRoom" element={<NewRoom />} />
               <Route path="users" element={<Users />} />
               <Route path="users/:userId" element={<SingleUser />} />

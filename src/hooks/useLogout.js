@@ -1,7 +1,7 @@
 // Context
 import { useAuthContext } from "./useAuthContext";
 
-// Sispatch logout action
+// Dispatch logout action
 export const useLogout = () => {
   const { dispatch } = useAuthContext();
 

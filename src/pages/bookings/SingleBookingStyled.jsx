@@ -173,7 +173,15 @@ const Tag = styled.div`
         return css`
           background-color: green;
         `;
+      case "Available":
+        return css`
+          background-color: green;
+        `;
       case "Check Out":
+        return css`
+          background-color: red;
+        `;
+      case "Booked":
         return css`
           background-color: red;
         `;

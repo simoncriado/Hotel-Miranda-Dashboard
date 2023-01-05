@@ -32,6 +32,15 @@ const Description = styled.p`
   font-size: 1.4rem;
 `;
 
+const FormTitle = styled.p`
+  text-align: center;
+  font-family: var(--font-poppins);
+  font-size: 2rem;
+  font-weight: 500;
+  color: #393939;
+  margin-bottom: 4rem;
+`;
+
 const InputContainer = styled.div`
   position: relative;
   overflow: hidden;
@@ -65,6 +74,25 @@ const Input = styled.input`
 `;
 
 const LoginButton = styled.div`
+  background-color: #ebf1ef;
+  border: none;
+  border-radius: 8px;
+  width: 16rem;
+  transition: background-color 0.3s;
+  text-align: center;
+  font-family: var(--font-poppins);
+  text-decoration: none;
+  color: #135846;
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: block;
+  padding: 1.5rem;
+  margin: auto;
+  :hover {
+    background-color: rgba(19, 87, 69, 0.2);
+  }
+`;
+const InputSubmit = styled.input`
   background-color: #ebf1ef;
   border: none;
   border-radius: 8px;
@@ -117,4 +145,6 @@ export {
   RadioInput,
   RadioLabel,
   RadioDescription,
+  InputSubmit,
+  FormTitle,
 };
