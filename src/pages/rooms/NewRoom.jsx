@@ -33,25 +33,22 @@ const NewRoom = () => {
     room_facilities: [],
   });
 
-  const [amenities, setAmenities] = useState([]);
-
   const handleInput = (event) => {
-    const { name, value } = event.target;
-    if (name === "room_facilities") {
-      // if (!amenities.includes(value)) {
-      amenities.push(value);
-      // }
-
-      // This is useless but if I dont write it VSCode does not like it. Any way around this???
-      setAmenities(amenities);
-
-      setCurrentRoom((prevState) => ({
-        ...prevState,
-        [name]: amenities,
-      }));
+    const { name, value, type, checked } = event.target;
+    let valToUpdate;
+    if (type === "checkbox") {
+      const newVal = [...currentRoom[name]];
+      if (checked) {
+        newVal.push(value);
+      } else {
+        const index = newVal.indexOf(value);
+        newVal.splice(index, 1);
+      }
+      valToUpdate = newVal;
     } else {
-      setCurrentRoom((prevState) => ({ ...prevState, [name]: value }));
+      valToUpdate = value;
     }
+    setCurrentRoom((prevState) => ({ ...prevState, [name]: valToUpdate }));
   };
 
   const handleSubmit = () => {
@@ -64,7 +61,6 @@ const NewRoom = () => {
       currentRoom={currentRoom}
       handleInput={handleInput}
       handleSubmit={handleSubmit}
-      setAmenities={setAmenities}
     />
   );
 };

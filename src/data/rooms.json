@@ -8,13 +8,13 @@
     "photoFour": "",
     "photoFive": "",
     "description": "",
-    "discountPercent": "",
-    "discount": "",
+    "discountPercent": "5",
+    "discount": "Yes",
     "cancellationPolicy": "",
     "bed_type": "Single Bed",
     "room_facilities": ["Kitchen", "Grocery", "Cleaning", "Towels"],
     "room_rate": 50.73,
-    "room_offer": 81.71,
+    "room_offer": "",
     "room_status": "Available"
   },
   {
@@ -27,12 +27,12 @@
     "photoFive": "",
     "description": "",
     "discountPercent": "",
-    "discount": "",
+    "discount": "No",
     "cancellationPolicy": "",
     "bed_type": "Suite",
     "room_facilities": ["Kitchen", "Grocery", "Cleaning", "Towels"],
     "room_rate": 33.74,
-    "room_offer": 88.54,
+    "room_offer": "",
     "room_status": "Available"
   },
   {
@@ -45,12 +45,12 @@
     "photoFive": "",
     "description": "",
     "discountPercent": "",
-    "discount": "",
+    "discount": "No",
     "cancellationPolicy": "",
     "bed_type": "Double Bed",
     "room_facilities": ["Kitchen", "Grocery", "Cleaning", "Towels"],
     "room_rate": 90.37,
-    "room_offer": 52.62,
+    "room_offer": "",
     "room_status": "Booked"
   },
   {
@@ -62,13 +62,13 @@
     "photoFour": "",
     "photoFive": "",
     "description": "",
-    "discountPercent": "",
-    "discount": "",
+    "discountPercent": "10",
+    "discount": "Yes",
     "cancellationPolicy": "",
     "bed_type": "Double Superior",
     "room_facilities": ["Kitchen", "Grocery", "Cleaning", "Towels"],
     "room_rate": 65.18,
-    "room_offer": 8.42,
+    "room_offer": "",
     "room_status": "Available"
   },
   {

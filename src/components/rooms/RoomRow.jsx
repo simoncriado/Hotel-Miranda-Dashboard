@@ -105,10 +105,12 @@ export const RoomRow = ({ room, index, number }) => {
           <DataContainer>
             <RoomPrice>
               $
-              {room.room_offer
-                ? room.room_offer
-                : room.room_rate -
-                  (room.room_rate * room.discountPercent) / 100}
+              {room.discount === "Yes"
+                ? (
+                    room.room_rate -
+                    (room.room_rate * room.discountPercent) / 100
+                  ).toFixed(2)
+                : "-"}
               <span>/night</span>
             </RoomPrice>
           </DataContainer>

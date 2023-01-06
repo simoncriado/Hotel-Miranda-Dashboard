@@ -18,7 +18,7 @@ const EditRoom = () => {
   const { roomId } = params;
   const { singleRoom } = useSelector((state) => state.roomsReducer);
 
-  const [currentRoom, setCurrentRoom] = useState(singleRoom);
+  const [currentRoom, setCurrentRoom] = useState(null);
   const formTitle =
     "Here you can edit the fields needed and save them to update the original room";
 
@@ -28,31 +28,33 @@ const EditRoom = () => {
     setCurrentRoom(singleRoom);
   }, [singleRoom, dispatch, roomId]);
 
-  // I need to make that amenities is preloaded with the room_facilities comming from the currentRoom. HOW?
-  const [amenities, setAmenities] = useState([]);
-
   const handleInput = (event) => {
-    const { name, value } = event.target;
-    if (name === "room_facilities") {
-      if (currentRoom.room_facilities.includes(value)) {
-        const index = amenities.indexOf(value);
-        amenities.splice(index, 1);
+    const { name, value, type, checked } = event.target;
+    let valToUpdate;
+    if (type === "checkbox") {
+      const newVal = [...currentRoom[name]];
+      if (checked) {
+        newVal.push(value);
       } else {
-        amenities.push(value);
+        const index = newVal.indexOf(value);
+        newVal.splice(index, 1);
       }
-      setCurrentRoom((prevState) => ({
-        ...prevState,
-        [name]: amenities,
-      }));
+      valToUpdate = newVal;
     } else {
-      setCurrentRoom((prevState) => ({ ...prevState, [name]: value }));
+      valToUpdate = value;
     }
+    setCurrentRoom((prevState) => ({ ...prevState, [name]: valToUpdate }));
+  };
+
+  const handleCancel = () => {
+    setCurrentRoom({});
+    navigate("/rooms");
   };
 
   const handleSubmit = () => {
-    console.log(currentRoom.room_facilities);
-    // dispatch(editRoom(currentRoom));
-    // navigate("/rooms");
+    dispatch(editRoom(currentRoom));
+    setCurrentRoom({});
+    navigate("/rooms");
   };
 
   return !currentRoom ? (
@@ -63,6 +65,7 @@ const EditRoom = () => {
       currentRoom={currentRoom}
       handleInput={handleInput}
       handleSubmit={handleSubmit}
+      handleCancel={handleCancel}
     />
   );
 };

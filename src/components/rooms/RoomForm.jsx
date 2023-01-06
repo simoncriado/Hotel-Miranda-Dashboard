@@ -12,10 +12,17 @@ import {
   RadioLabel,
   RadioDescription,
   InputSubmit,
+  InputCancel,
 } from "../../pages/login/LoginStyled";
 
 // This form gets used from editRoom and newRoom. If used for editing a room it will be preloaded with the data from the currentRoom to edit
-const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
+const RoomForm = ({
+  currentRoom,
+  handleInput,
+  handleSubmit,
+  formTitle,
+  handleCancel,
+}) => {
   const listOfAmenities = [
     "Air Conditioner",
     "Kitchen",
@@ -47,6 +54,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
             }}
           >
             <InputContainer>
+              <RadioDescription>Photo one</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -57,6 +65,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Photo two</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -67,6 +76,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Photo three</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -77,6 +87,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Photo four</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -87,6 +98,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Photo five</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -104,6 +116,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="Single Bed"
                 name="bed_type"
                 onClick={handleInput}
+                defaultChecked={currentRoom.bed_type === "Single Bed"}
               />
               <RadioLabel htmlFor="singleBed">Single Bed</RadioLabel>
               <RadioInput
@@ -112,6 +125,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="Double Bed"
                 name="bed_type"
                 onClick={handleInput}
+                defaultChecked={currentRoom.bed_type === "Double Bed"}
               />
               <RadioLabel htmlFor="doubleBed">Double Bed</RadioLabel>
               <RadioInput
@@ -120,6 +134,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="Double Superior"
                 name="bed_type"
                 onClick={handleInput}
+                defaultChecked={currentRoom.bed_type === "Double Superior"}
               />
               <RadioLabel htmlFor="doubleSuperior">Double Superior</RadioLabel>
               <RadioInput
@@ -128,10 +143,12 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="Suite"
                 name="bed_type"
                 onClick={handleInput}
+                defaultChecked={currentRoom.bed_type === "Suite"}
               />
               <RadioLabel htmlFor="suite">Suite</RadioLabel>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Room number</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -142,6 +159,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Room description</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -159,6 +177,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="Yes"
                 name="discount"
                 onClick={handleInput}
+                defaultChecked={currentRoom.discount === "Yes"}
               />
               <RadioLabel htmlFor="yes">Yes</RadioLabel>
               <RadioInput
@@ -167,10 +186,12 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="No"
                 name="discount"
                 onClick={handleInput}
+                defaultChecked={currentRoom.discount === "No"}
               />
               <RadioLabel htmlFor="no">No</RadioLabel>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Room rate</RadioDescription>
               <Input
                 type="number"
                 className="input-user"
@@ -182,6 +203,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
             </InputContainer>
             {currentRoom.discount === "Yes" ? (
               <InputContainer>
+                <RadioDescription>Discount %</RadioDescription>
                 <Input
                   type="number"
                   className="input-user"
@@ -194,6 +216,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
             ) : null}
 
             <InputContainer>
+              <RadioDescription>Cancellation Policy</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -240,6 +263,7 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="Available"
                 name="room_status"
                 onClick={handleInput}
+                defaultChecked={currentRoom.room_status === "Available"}
               />
               <RadioLabel htmlFor="available">Available</RadioLabel>
               <RadioInput
@@ -248,10 +272,22 @@ const RoomForm = ({ currentRoom, handleInput, handleSubmit, formTitle }) => {
                 value="Booked"
                 name="room_status"
                 onClick={handleInput}
+                defaultChecked={currentRoom.room_status === "Booked"}
               />
               <RadioLabel htmlFor="booked">Booked</RadioLabel>
             </InputContainer>
-            <InputSubmit type="submit" />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "30%",
+                margin: "auto",
+                gap: "2rem",
+              }}
+            >
+              <InputSubmit type="submit" value={"Save"} />
+              <InputCancel onClick={handleCancel}>Cancel</InputCancel>
+            </div>
           </form>
         </LoginCard>
       </LoginContainer>

@@ -12,6 +12,7 @@ import {
   RadioLabel,
   RadioDescription,
   InputSubmit,
+  InputCancel,
 } from "../../pages/login/LoginStyled";
 
 // This form gets used from editBooking and newBooking. If used for editing a booking it will be preloaded with the data from the currentBooking to edit
@@ -20,11 +21,14 @@ const BookingForm = ({
   handleInput,
   handleSubmit,
   formTitle,
+  handleCancel,
 }) => {
   return (
     <>
       <LoginContainer style={{ minHeight: "80%" }}>
-        <LoginCard style={{ height: "fit-content", width: "90%" }}>
+        <LoginCard
+          style={{ height: "fit-content", margin: "2rem 0", width: "90%" }}
+        >
           <FormTitle>{formTitle}</FormTitle>
           <form
             onSubmit={(e) => {
@@ -33,6 +37,7 @@ const BookingForm = ({
             }}
           >
             <InputContainer>
+              <RadioDescription>User name</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -43,6 +48,7 @@ const BookingForm = ({
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>User picture</RadioDescription>
               <Input
                 className="input-user"
                 value={currentBooking.userPicture}
@@ -52,6 +58,7 @@ const BookingForm = ({
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Check in</RadioDescription>
               <Input
                 style={{ color: "#777777" }}
                 type="date"
@@ -63,6 +70,7 @@ const BookingForm = ({
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Check out</RadioDescription>
               <Input
                 style={{ color: "#777777" }}
                 type="date"
@@ -74,6 +82,7 @@ const BookingForm = ({
               ></Input>
             </InputContainer>
             <InputContainer>
+              <RadioDescription>Special request</RadioDescription>
               <Input
                 type="text"
                 className="input-user"
@@ -91,6 +100,7 @@ const BookingForm = ({
                 value="Single Bed"
                 name="roomType"
                 onClick={handleInput}
+                defaultChecked={currentBooking.roomType === "Single Bed"}
               />
               <RadioLabel htmlFor="singleBed">Single Bed</RadioLabel>
               <RadioInput
@@ -99,6 +109,7 @@ const BookingForm = ({
                 value="Double Bed"
                 name="roomType"
                 onClick={handleInput}
+                defaultChecked={currentBooking.roomType === "Double Bed"}
               />
               <RadioLabel htmlFor="doubleBed">Double Bed</RadioLabel>
               <RadioInput
@@ -107,6 +118,7 @@ const BookingForm = ({
                 value="Double Superior"
                 name="roomType"
                 onClick={handleInput}
+                defaultChecked={currentBooking.roomType === "Double Superior"}
               />
               <RadioLabel htmlFor="doubleSuperior">Double Superior</RadioLabel>
               <RadioInput
@@ -115,6 +127,7 @@ const BookingForm = ({
                 value="Suite"
                 name="roomType"
                 onClick={handleInput}
+                defaultChecked={currentBooking.roomType === "Suite"}
               />
               <RadioLabel htmlFor="suite">Suite</RadioLabel>
             </InputContainer>
@@ -126,6 +139,7 @@ const BookingForm = ({
                 value="Check In"
                 name="status"
                 onClick={handleInput}
+                defaultChecked={currentBooking.status === "Check In"}
               />
               <RadioLabel htmlFor="checkIn">Check In</RadioLabel>
               <RadioInput
@@ -134,6 +148,7 @@ const BookingForm = ({
                 value="Check Out"
                 name="status"
                 onClick={handleInput}
+                defaultChecked={currentBooking.status === "Check Out"}
               />
               <RadioLabel htmlFor="checkOut">Check Out</RadioLabel>
               <RadioInput
@@ -142,10 +157,22 @@ const BookingForm = ({
                 value="In Progress"
                 name="status"
                 onClick={handleInput}
+                defaultChecked={currentBooking.status === "In Progress"}
               />
               <RadioLabel htmlFor="inProgress">In Progress</RadioLabel>
             </InputContainer>
-            <InputSubmit type="submit" />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "30%",
+                margin: "auto",
+                gap: "2rem",
+              }}
+            >
+              <InputSubmit type="submit" value={"Save"} />
+              <InputCancel onClick={handleCancel}>Cancel</InputCancel>
+            </div>
           </form>
         </LoginCard>
       </LoginContainer>

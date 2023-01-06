@@ -78,6 +78,9 @@ export const roomsSlice = createSlice({
       state.roomsList = state.roomsList.map((room) => {
         return room.id === action.payload.id ? action.payload : room;
       });
+      // CAUTION!! Is this even allowed? When finishing editing I remove the singleRoom data because otherwise when I try to edit the same room, the singleRoom data is still available
+      // and it gets used to render the edit form
+      state.singleRoom = null;
     });
   },
 });

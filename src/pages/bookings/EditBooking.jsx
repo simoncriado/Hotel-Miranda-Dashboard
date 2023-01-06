@@ -19,7 +19,7 @@ const EditBooking = () => {
   const { singleBooking } = useSelector((state) => state.bookingsReducer);
 
   // const { singleBooking } = useSelector((state) => state.bookingsReducer);
-  const [currentBooking, setCurrentBooking] = useState(singleBooking);
+  const [currentBooking, setCurrentBooking] = useState(null);
   const formTitle =
     "Here you can edit the fields needed and save them to update the original booking";
 
@@ -34,8 +34,14 @@ const EditBooking = () => {
     setCurrentBooking((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleCancel = () => {
+    setCurrentBooking({});
+    navigate("/bookings");
+  };
+
   const handleSubmit = () => {
     dispatch(editBooking(currentBooking));
+    setCurrentBooking({});
     navigate("/bookings");
   };
   return !currentBooking ? (
@@ -46,6 +52,7 @@ const EditBooking = () => {
       currentBooking={currentBooking}
       handleInput={handleInput}
       handleSubmit={handleSubmit}
+      handleCancel={handleCancel}
     />
   );
 };
