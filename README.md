@@ -18,4 +18,4 @@ React, React Router, Redux, Styled Components (will be completed as the project 
 
 ## You can visit the website by clicking the link below
 
-[Hotel Miranda Admin Dashboard](https://simoncriado.github.io/)
+[Hotel Miranda Admin Dashboard](https://simoncriado.github.io/Hotel-Miranda-Dashboard/)
