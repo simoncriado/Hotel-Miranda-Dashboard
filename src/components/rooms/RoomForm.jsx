@@ -286,7 +286,13 @@ const RoomForm = ({
               }}
             >
               <InputSubmit type="submit" value={"Save"} />
-              <InputCancel onClick={handleCancel}>Cancel</InputCancel>
+              <InputCancel
+                onClick={(e) => {
+                  handleCancel(e);
+                }}
+              >
+                Cancel
+              </InputCancel>
             </div>
           </form>
         </LoginCard>

@@ -46,7 +46,8 @@ const EditRoom = () => {
     setCurrentRoom((prevState) => ({ ...prevState, [name]: valToUpdate }));
   };
 
-  const handleCancel = () => {
+  const handleCancel = (e) => {
+    e.preventDefault();
     setCurrentRoom({});
     navigate("/rooms");
   };

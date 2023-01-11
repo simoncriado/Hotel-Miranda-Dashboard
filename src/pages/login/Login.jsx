@@ -58,7 +58,7 @@ const Login = () => {
           <InputContainer>
             <Input
               type="text"
-              className="input-user"
+              className="input-userName"
               value={userName}
               placeholder="User Name"
               onChange={(e) => setUserName(e.target.value)}
@@ -67,7 +67,7 @@ const Login = () => {
           <InputContainer>
             <Input
               type="text"
-              className="input-user"
+              className="input-email"
               value={email}
               placeholder="E-mail"
               onChange={(e) => setEmail(e.target.value)}
