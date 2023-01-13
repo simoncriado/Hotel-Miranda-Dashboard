@@ -5,9 +5,6 @@ import { NavLink } from "react-router-dom";
 // DnD
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-// Local data
-// import RoomsList from "../../data/rooms";
-
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getDataRooms } from "../../features/rooms/roomsSlice";

@@ -1,8 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchData } from "../fetchData";
 
+// function fakeDelay(data, time = 1000) {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(data);
+//     }, time);
+//   });
+// }
+
 export const getDataRooms = createAsyncThunk("rooms/fetchRooms", async () => {
   return await fetchData("Rooms");
+  // return await fakeDelay(fetchData("Rooms"));
 });
 
 export const getRoom = createAsyncThunk("room/GetRoomDetails", async (id) => {

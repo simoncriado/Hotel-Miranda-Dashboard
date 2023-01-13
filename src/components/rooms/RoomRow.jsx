@@ -116,6 +116,7 @@ export const RoomRow = ({ room, index, number }) => {
           </DataContainer>
           <td>
             <RoomStatus
+              id="testingStatus"
               status={room.room_status === "Available" ? "#5AD07A" : "#E23428"}
             >
               {room.room_status}
