@@ -72,8 +72,6 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
       <td>
         <NotesButton
           type={booking.specialRequest}
-          text="View Notes"
-          enabled={booking.description}
           onClick={(e) => {
             handleOpenModal(booking.userName, booking.specialRequest, e);
           }}
