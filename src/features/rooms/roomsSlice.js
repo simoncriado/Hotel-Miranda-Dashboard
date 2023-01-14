@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchData } from "../fetchData";
 
+// This could be an alternative to have the fake delay in the rooms page
 // function fakeDelay(data, time = 1000) {
 //   return new Promise((resolve) => {
 //     setTimeout(() => {
