@@ -19,17 +19,17 @@ import {
 import { LogoIcon, LogoLetter } from "../../components/logo/LogoStyled";
 
 // Login page. Checks if the entered data is equal to the hard coded one. If yes it gets stored in localStorage so that I can make the dynamic routes in App.js. The context gets also updated
-const Login = () => {
+const Login = (): JSX.Element => {
   const { login } = useLogin();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
 
-  const hardCodedMail = "test@test.com";
-  const hardCodedPassword = "12345";
+  const hardCodedMail: string = "test@test.com";
+  const hardCodedPassword: string = "12345";
 
-  const validateLogin = () => {
+  const validateLogin = (): void => {
     if (hardCodedMail === email && hardCodedPassword === password) {
       login(userName, email);
       localStorage.setItem(
@@ -82,9 +82,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             ></Input>
           </InputContainer>
-          <LoginButton type="login" text="LOGIN" onClick={validateLogin}>
-            Login
-          </LoginButton>
+          <LoginButton onClick={validateLogin}>Login</LoginButton>
         </form>
       </LoginCard>
     </LoginContainer>
