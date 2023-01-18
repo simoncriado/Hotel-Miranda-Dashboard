@@ -1,9 +1,8 @@
 // React & Router
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import { getBooking } from "../../features/bookings/bookingsSlice";
 
 // Styled Components
@@ -27,13 +26,25 @@ import {
 } from "../../components/bookings/BookingRowStyled";
 import SingleBookingSwiper from "../../components/bookings/SingleBookingSwiper";
 
+// TypeScript
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { BookingInt } from "../../interfaces/BookingInt";
+
+type BookingsType = {
+  singleBooking: BookingInt | null | undefined;
+};
+
 // Component that displays the data for the selected room
 const SingleBooking = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const params = useParams();
   const { bookingId } = params;
-  const { singleBooking } = useSelector((state) => state.bookingsReducer);
-  const [currentBooking, setCurrentBooking] = useState(singleBooking);
+  const { singleBooking } = useAppSelector<BookingsType>(
+    (state) => state.bookingsReducer
+  );
+  const [currentBooking, setCurrentBooking] = useState<BookingInt | any>(
+    singleBooking
+  );
 
   useEffect(() => {
     dispatch(getBooking(Number(bookingId)));
@@ -133,7 +144,7 @@ const SingleBooking = () => {
         </Subcontainer>
         <Subcontainer style={{ padding: 0 }}>
           <SwiperContainer>
-            <Tag $type={currentBooking.status} className="tag">
+            <Tag currentStatus={currentBooking.status} className="tag">
               {currentBooking.status}
             </Tag>
             <SingleBookingSwiper />

@@ -1,26 +1,35 @@
 // React
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import { getBooking, editBooking } from "../../features/bookings/bookingsSlice";
 
 // Components
 import BookingForm from "../../components/bookings/BookingForm";
 import { Loader } from "../../components/styled/Loader";
 
+// TypeScript
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { BookingInt } from "../../interfaces/BookingInt";
+
+type BookingsType = {
+  singleBooking: BookingInt | null | undefined;
+};
+
 const EditBooking = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const { bookingId } = params;
-  const { singleBooking } = useSelector((state) => state.bookingsReducer);
+  const { singleBooking } = useAppSelector<BookingsType>(
+    (state) => state.bookingsReducer
+  );
 
   // const { singleBooking } = useSelector((state) => state.bookingsReducer);
-  const [currentBooking, setCurrentBooking] = useState(null);
-  const formTitle =
+  const [currentBooking, setCurrentBooking] = useState<BookingInt | any>(null);
+  const formTitle: string =
     "Here you can edit the fields needed and save them to update the original booking";
 
   useEffect(() => {
@@ -29,21 +38,25 @@ const EditBooking = () => {
     setCurrentBooking(singleBooking);
   }, [singleBooking, dispatch, bookingId]);
 
-  const handleInput = (event) => {
+  const handleInput = (event: any): void => {
     const { name, value } = event.target;
-    setCurrentBooking((prevState) => ({ ...prevState, [name]: value }));
+    setCurrentBooking((prevState: BookingInt) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     setCurrentBooking({});
     navigate("/bookings");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     dispatch(editBooking(currentBooking));
     setCurrentBooking({});
     navigate("/bookings");
   };
+
   return !currentBooking ? (
     <Loader />
   ) : (

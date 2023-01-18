@@ -1,9 +1,8 @@
 // React & Router
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 // Redux
-import { useDispatch } from "react-redux";
 import { deleteBooking } from "../../features/bookings/bookingsSlice";
 
 // Styled Components
@@ -19,21 +18,32 @@ import {
   DropDown,
 } from "./BookingRowStyled";
 
+// TypeScript
+import { useAppDispatch } from "../../app/hooks";
+import { BookingInt } from "../../interfaces/BookingInt";
+
+type BookingsType = {
+  singleBooking: BookingInt | null | undefined;
+};
+
 // Component that creates a table row for the bookings table
-export const BookingRow = ({ booking, handleOpenModal }) => {
+export const BookingRow = ({
+  booking,
+  handleOpenModal,
+}: BookingsType | any) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
-  const goToSingleBooking = (id) => {
+  const goToSingleBooking = (id: string): void => {
     navigate("/bookings/" + id);
   };
-  const editSingleBooking = (e, bookingID) => {
+  const editSingleBooking = (e: any, bookingID: string): void => {
     e.preventDefault();
     navigate("/editBooking/" + bookingID);
   };
-  const deleteCurrentBooking = (e, bookingID) => {
+  const deleteCurrentBooking = (e: any, bookingID: number): void => {
     e.preventDefault();
     dispatch(deleteBooking(bookingID));
   };
@@ -71,7 +81,7 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
       </DataContainer>
       <td>
         <NotesButton
-          type={booking.specialRequest}
+          request={booking.specialRequest}
           onClick={(e) => {
             handleOpenModal(booking.userName, booking.specialRequest, e);
           }}
@@ -84,7 +94,7 @@ export const BookingRow = ({ booking, handleOpenModal }) => {
         <p>{booking.roomType}</p>
       </DataContainer>
       <td>
-        <Status $type={booking.status}>{booking.status}</Status>
+        <Status status={booking.status}>{booking.status}</Status>
       </td>
       <DataContainerButton style={{ position: "relative" }}>
         <button>

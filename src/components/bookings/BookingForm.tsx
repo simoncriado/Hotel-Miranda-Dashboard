@@ -15,6 +15,13 @@ import {
   InputCancel,
 } from "../../pages/login/LoginStyled";
 
+// TypeScript
+import { BookingInt } from "../../interfaces/BookingInt";
+
+type BookingType = {
+  currentBooking: BookingInt | null | undefined;
+};
+
 // This form gets used from editBooking and newBooking. If used for editing a booking it will be preloaded with the data from the currentBooking to edit
 const BookingForm = ({
   currentBooking,
@@ -22,7 +29,7 @@ const BookingForm = ({
   handleSubmit,
   formTitle,
   handleCancel,
-}) => {
+}: BookingType | any) => {
   return (
     <>
       <LoginContainer style={{ minHeight: "80%" }}>

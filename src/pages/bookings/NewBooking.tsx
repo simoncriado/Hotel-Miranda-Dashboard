@@ -1,20 +1,23 @@
 // React
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 // Redux
-import { useDispatch } from "react-redux";
 import { createNewBooking } from "../../features/bookings/bookingsSlice";
 
 // Components
 import BookingForm from "../../components/bookings/BookingForm";
 
+// TypeScript
+import { useAppDispatch } from "../../app/hooks";
+import { BookingInt } from "../../interfaces/BookingInt";
+
 const NewBooking = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const formTitle = "Please fill the form to create a new booking";
-  const [currentBooking, setCurrentBooking] = useState({
+  const formTitle: string = "Please fill the form to create a new booking";
+  const [currentBooking, setCurrentBooking] = useState<BookingInt>({
     id: Math.floor(Math.random() * 100000),
     bookingID: Math.floor(Math.random() * 10000000),
     orderDate: new Date().toLocaleString("en-GB"),
@@ -27,12 +30,16 @@ const NewBooking = () => {
     status: "",
   });
 
-  const handleInput = (event) => {
+  const handleInput = (event: any): void => {
     const { name, value } = event.target;
     setCurrentBooking((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleCancel = (): void => {
+    navigate("/bookings");
+  };
+
+  const handleSubmit = (): void => {
     dispatch(createNewBooking(currentBooking));
     navigate("/bookings");
   };
@@ -42,6 +49,7 @@ const NewBooking = () => {
       currentBooking={currentBooking}
       handleInput={handleInput}
       handleSubmit={handleSubmit}
+      handleCancel={handleCancel}
     />
   );
 };
