@@ -15,7 +15,7 @@ const DropdownMenuStyled = styled.select`
       case "white":
         return css`
           background-color: white;
-          border-radius: 1px solid #135846;
+          border: 1px solid #135846;
           color: #135846;
           width: fit-content;
         `;
@@ -26,9 +26,10 @@ const DropdownMenuStyled = styled.select`
   border-radius: 8px;
   font-weight: 500;
   font-family: var(--font-poppins);
-  padding: 13px 25px;
+  padding: 1.3rem 4rem;
   height: 50px;
   cursor: pointer;
+  appearance: none;
   &:focus {
     outline: none;
   }
@@ -37,16 +38,28 @@ const DropdownMenuStyled = styled.select`
 // Dropdown component. It is given a number of options depending on in which page the dropdown is being used
 const DropdownMenu = ({ type, options, setActiveFilter }) => {
   return (
-    <DropdownMenuStyled
-      $type={type}
-      onChange={(e) => {
-        setActiveFilter(e.target.value);
-      }}
-    >
-      {options.map((option, index) => {
-        return <option key={index}>{option}</option>;
-      })}
-    </DropdownMenuStyled>
+    <div style={{ position: "relative" }}>
+      <DropdownMenuStyled
+        $type={type}
+        onChange={(e) => {
+          setActiveFilter(e.target.value);
+        }}
+      >
+        {options.map((option, index) => {
+          return <option key={index}>{option}</option>;
+        })}
+      </DropdownMenuStyled>
+      <svg
+        style={{ position: "absolute", top: "15%", right: "5%" }}
+        xmlns="http://www.w3.org/2000/svg"
+        height="25"
+        width="25"
+        viewBox="0 0 48 48"
+        fill="#135846"
+      >
+        <path d="M24 31.9 10.8 18.7l3.35-3.35 9.85 9.9 9.85-9.85 3.35 3.35Z" />
+      </svg>
+    </div>
   );
 };
 
