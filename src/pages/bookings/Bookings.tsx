@@ -71,7 +71,6 @@ const Bookings = () => {
   };
 
   useEffect(() => {
-    // STILL WORKING ON THE FILTERS BY DATE! ONLY THE ONE BY GUESTNAME WORDS ATM!
     const orderedBookings: BookingInt[] = [...bookingsList];
     switch (activeFilter) {
       case "Order Date":

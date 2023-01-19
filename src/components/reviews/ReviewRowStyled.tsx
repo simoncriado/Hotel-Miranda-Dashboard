@@ -81,9 +81,9 @@ const DataContainerButton = styled.td`
   }
 `;
 
-const NotesButton = styled.button`
+const NotesButton = styled.button<{ request: String }>`
   ${(props) => {
-    if (props.type == null) {
+    if (props.request === "") {
       return css`
         background-color: white;
         font-family: var(--font-poppins);
@@ -122,65 +122,6 @@ const NotesButton = styled.button`
   }}
 `;
 
-const Status = styled.p`
-  ${(props) => {
-    switch (props.$type) {
-      case "Check In":
-        return css`
-          background-color: rgba(38, 166, 91, 0.5);
-          font-family: var(--font-poppins);
-          color: #393939;
-          font-size: 1rem;
-          font-weight: 600;
-          letter-spacing: 0.05rem;
-          transition: background-color 0.3s;
-          :hover {
-            background-color: rgba(38, 166, 91, 1);
-          }
-        `;
-      case "Check Out":
-        return css`
-          background-color: rgba(236, 100, 75, 0.5);
-          font-family: var(--font-poppins);
-          color: #393939;
-          font-size: 1rem;
-          font-weight: 600;
-          letter-spacing: 0.05rem;
-          transition: background-color 0.3s;
-          :hover {
-            background-color: rgba(236, 100, 75, 1);
-          }
-        `;
-      case "In Progress":
-        return css`
-          background-color: rgba(254, 241, 96, 0.5);
-          font-family: var(--font-poppins);
-          color: #393939;
-          font-size: 1rem;
-          font-weight: 600;
-          letter-spacing: 0.05rem;
-          transition: background-color 0.3s;
-          :hover {
-            background-color: rgba(254, 241, 96, 1);
-          }
-        `;
-      default:
-        return css`
-          background-color: blue;
-          font-family: var(--font-poppins);
-          color: #393939;
-          font-size: 1rem;
-          font-weight: 600;
-          letter-spacing: 0.05rem;
-        `;
-    }
-  }}
-  padding: 13px 25px;
-  border-radius: 12px;
-  text-align: center;
-  margin-left: 30px;
-`;
-
 export {
   Row,
   GuestContainer,
@@ -189,5 +130,4 @@ export {
   DataContainer,
   DataContainerButton,
   NotesButton,
-  Status,
 };

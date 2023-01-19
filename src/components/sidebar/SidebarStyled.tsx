@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 // Maybe I will have to add min-width here so that the menu does not shrink
-const SidebarContainer = styled.div`
+const SidebarContainer = styled.div<{
+  display: string;
+  adjustHeight: string | number;
+}>`
   width: ${(props) => props.display};
   min-width: ${(props) => props.display};
   max-height: ${(props) => props.adjustHeight};
@@ -46,7 +49,10 @@ const Navigation = styled.nav`
   }
 `;
 
-const Link = styled.li`
+const Link = styled.li<{
+  route: string;
+  current: string;
+}>`
   width: 70%;
   transition: all 0.2s;
   &:hover p,
@@ -98,21 +104,21 @@ const Link = styled.li`
   }
 `;
 
-const NewRoom = styled.div`
-  height: ${(props) => props.newRoom};
-  transition: height 0.3s ease-out;
-  overflow: hidden;
-  font-family: var(--font-poppins);
-  font-size: 1.8rem;
-  display: relative;
-  border-radius: 6px;
-  cursor: pointer;
-  padding-left: 13rem;
-  color: #799283;
-  :hover {
-    color: #e23428;
-  }
-`;
+// const NewRoom = styled.div`
+//   height: ${(props) => props.newRoom};
+//   transition: height 0.3s ease-out;
+//   overflow: hidden;
+//   font-family: var(--font-poppins);
+//   font-size: 1.8rem;
+//   display: relative;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   padding-left: 13rem;
+//   color: #799283;
+//   :hover {
+//     color: #e23428;
+//   }
+// `;
 
 const UserCard = styled.div`
   padding-bottom: 5rem;
@@ -161,5 +167,4 @@ export {
   NavigationRights,
   NavigationAuthor,
   Link,
-  NewRoom,
 };

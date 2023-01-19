@@ -1,12 +1,9 @@
-// React
-import React from "react";
-
 // Styled Components
 import styled, { css } from "styled-components";
 
-const DropdownMenuStyled = styled.select`
+const DropdownMenuStyled = styled.select<{ filter: any }>`
   ${(props) => {
-    switch (props.$type) {
+    switch (props.filter) {
       case "green":
         return css`
           background-color: #135846;
@@ -35,15 +32,15 @@ const DropdownMenuStyled = styled.select`
 `;
 
 // Dropdown component. It is given a number of options depending on in which page the dropdown is being used
-const DropdownMenu = ({ type, options, setActiveFilter }) => {
+const DropdownMenu = ({ type, options, setActiveFilter }: any) => {
   return (
     <DropdownMenuStyled
-      $type={type}
-      onChange={(e) => {
+      filter={type}
+      onChange={(e: React.MouseEvent<HTMLButtonElement> | any) => {
         setActiveFilter(e.target.value);
       }}
     >
-      {options.map((option, index) => {
+      {options.map((option: string[], index: number) => {
         return <option key={index}>{option}</option>;
       })}
     </DropdownMenuStyled>

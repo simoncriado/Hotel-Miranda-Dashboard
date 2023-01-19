@@ -1,6 +1,3 @@
-// React
-import React from "react";
-
 // Styled Components
 import {
   Nav,
@@ -21,15 +18,15 @@ const Pagination = ({
   totalRooms,
   indexOfLastImage,
   indexOfFirstImage,
-}) => {
-  // Creates an array that holds all the page numbers from 1 to the total number of pages (this variable coming from the parent component)
-  const pageNumbers = [...Array(nPages + 1).keys()].slice(1);
+}: any) => {
+  // Creates an array that holds all the page numbers from 1 to the total number of pages (this variable is coming from the parent component)
+  const pageNumbers: number[] = [...Array(nPages + 1).keys()].slice(1);
 
   // Goes to next or prev page if the user is not at the last page or first page respectively
-  const nextPage = () => {
+  const nextPage = (): void => {
     if (currentPage !== nPages) setCurrentPage(currentPage + 1);
   };
-  const prevPage = () => {
+  const prevPage = (): void => {
     if (currentPage !== 1) setCurrentPage(currentPage - 1);
   };
 
@@ -51,7 +48,7 @@ const Pagination = ({
         {pageNumbers.map((pgNumber) => (
           <LiPageNumber key={pgNumber}>
             <LiPageBtn
-              $type={
+              currentPage={
                 currentPage === pgNumber ? "currentPage" : "notCurrentPage"
               }
               onClick={() => setCurrentPage(pgNumber)}

@@ -108,7 +108,7 @@ const Divider = styled.div`
   margin-top: 5rem;
 `;
 
-const BookingsContainer = styled.div`
+const BookingsContainer = styled.div<{ viewMore: boolean }>`
   max-height: ${(props) => (props.viewMore === true ? "150rem" : "35rem")};
   overflow: hidden;
   margin-top: 3rem;
@@ -118,7 +118,7 @@ const BookingsContainer = styled.div`
   }
 `;
 
-const ViewMoreBtn = styled.button`
+const ViewMoreBtn = styled.button<{ viewMore: boolean }>`
   border: none;
   background: linear-gradient(
     to top,

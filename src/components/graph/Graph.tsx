@@ -1,5 +1,5 @@
 // React
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 // D3
 import { scaleLinear, select, axisBottom, scaleBand, scaleOrdinal } from "d3";
@@ -7,12 +7,7 @@ import { axisLeft } from "d3";
 import { axisRight } from "d3";
 
 // Styled components
-import {
-  FilterContainer,
-  StatsContainer,
-  Stat,
-  Square,
-} from "./GraphStyled.jsx";
+import { FilterContainer, StatsContainer, Stat, Square } from "./GraphStyled";
 // import { TableFilters, FilterButton } from "../styled/Tables.jsx";
 
 // Local Data
@@ -57,20 +52,20 @@ const data = [
 const Statistics = () => {
   // ATM the graph width is hard coded... I was trying to make it responsive but did not manage. InnerWidth gives me unexpected behaviour when resizing the window
   // const [graphWidth, setGraphWidth] = useState((window.innerWidth * 40) / 100);
-  const graphWidth = 750;
+  const graphWidth: number = 750;
 
-  const ref = useRef();
+  const ref: any = useRef();
 
-  const margin = {
+  const margin: any = {
     top: 30,
     right: 40,
     bottom: 30,
     left: 35,
   };
-  const width = graphWidth - margin.left - margin.right;
-  const height = 400 - margin.top - margin.bottom;
+  const width: number = graphWidth - margin.left - margin.right;
+  const height: number = 400 - margin.top - margin.bottom;
 
-  const days = [
+  const days: string[] = [
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -80,19 +75,19 @@ const Statistics = () => {
     "Sunday",
   ];
 
-  const dataTypes = ["sales", "percentage"];
+  const dataTypes: string[] = ["sales", "percentage"];
 
   useEffect(() => {
-    const svgElement = select(ref.current);
+    const svgElement: any = select(ref.current);
 
-    setTimeout(() => {
+    setTimeout((): void => {
       createGraph(svgElement);
     }, 200);
   });
 
-  const createGraph = (svgElement) => {
+  const createGraph = (svgElement: any) => {
     // X scale. Creating a group with the days array. Taking the whole width from 0 to the width of the graph
-    const scaleDays = scaleBand().domain(days).range([0, width]);
+    const scaleDays: any = scaleBand().domain(days).range([0, width]);
     svgElement
       .append("g")
       .attr("color", "#6E6E6E")
@@ -100,12 +95,12 @@ const Statistics = () => {
       .call(axisBottom(scaleDays));
 
     // Y scale (sales). Creating a group with the sales data. Taking the height based on the total sales collected from the data
-    const scaleSales = scaleLinear()
+    const scaleSales: any = scaleLinear()
       .domain([0, getMaxSales()])
       .range([height, 0]);
-    const axisYLeft = axisLeft(scaleSales);
+    const axisYLeft: any = axisLeft(scaleSales);
     // The max sales will be divided in 10 "ticks"
-    axisYLeft.ticks(10).tickFormat((value) => {
+    axisYLeft.ticks(10).tickFormat((value: number) => {
       return value + " €";
     });
     svgElement
@@ -115,10 +110,12 @@ const Statistics = () => {
       .call(axisYLeft);
 
     // Y scale (occupancy). As this is a % it goes from 0 to 100
-    const scaleOccupancy = scaleLinear().domain([0, 100]).range([height, 0]);
-    const axisYRight = axisRight(scaleOccupancy);
+    const scaleOccupancy: any = scaleLinear()
+      .domain([0, 100])
+      .range([height, 0]);
+    const axisYRight: any = axisRight(scaleOccupancy);
     // Divided in 5 ticks (20%)
-    axisYRight.ticks(5).tickFormat((value) => {
+    axisYRight.ticks(5).tickFormat((value: number) => {
       return value + " %";
     });
     svgElement
@@ -128,22 +125,22 @@ const Statistics = () => {
       .call(axisYRight);
 
     // Scale for the sales and occupancy sub-categories
-    const scaleProperties = scaleBand()
+    const scaleProperties: any = scaleBand()
       .domain(dataTypes)
       .range([0, scaleDays.bandwidth()])
-      .padding([0.05]);
+      .padding(0.05);
 
     // Color for the sales and occupancy
-    const color = scaleOrdinal()
+    const color: any = scaleOrdinal()
       .domain(dataTypes)
       .range(["#135846", "#E23428"]);
 
-    const colorHover = scaleOrdinal()
+    const colorHover: any = scaleOrdinal()
       .domain(dataTypes)
       .range(["#4A8A76", "#E09B8D"]);
 
     // popUp to display the data related to each rect
-    const popUp = select("body")
+    const popUp: any = select("body")
       .append("div")
       .style("opacity", 0)
       .style("background-color", "#FFFFFF")
@@ -162,11 +159,11 @@ const Statistics = () => {
       .data(data)
       .enter()
       .append("g")
-      .attr("transform", (d) => {
+      .attr("transform", (d: any) => {
         return "translate(" + scaleDays(d.day) + ",0)";
       })
       .selectAll("rect")
-      .data((d) => {
+      .data((d: any) => {
         return dataTypes.map((item) => {
           return {
             item: item,
@@ -177,29 +174,30 @@ const Statistics = () => {
       // Entering the rect and giving it x & y to set the position where it is displayed and width & height based on the data
       .enter()
       .append("rect")
-      .attr("x", (d) => {
+      .attr("x", (d: any) => {
         return scaleProperties(d.item) + margin.left + 8;
       })
-      .attr("y", (d) => {
+      .attr("y", (d: any) => {
         return d.item === dataTypes[0]
           ? scaleSales(d.value) + margin.top
           : scaleOccupancy(d.value) + margin.top;
       })
       .attr("width", scaleProperties.bandwidth() - 16)
-      .attr("height", (d) => {
+      .attr("height", (d: any) => {
         return d.item === dataTypes[0]
           ? height - scaleSales(d.value)
           : height - scaleOccupancy(d.value);
       })
-      .attr("fill", (d) => {
+      .attr("fill", (d: any) => {
         return color(d.item);
       })
+      .style("mouse", "pointer")
       // Showing the popUp on mouse enter
-      .on("mouseenter", (e, d) => {
+      .on("mouseenter", (e: any, d: any) => {
         select(e.srcElement)
           .transition()
-          .duration("100")
-          .attr("fill", (d) => colorHover(d.item));
+          .duration(100)
+          .attr("fill", (d: any) => colorHover(d.item));
 
         popUp.transition().duration("100").style("opacity", 1);
         popUp
@@ -214,11 +212,11 @@ const Statistics = () => {
           .style("top", e.pageY - 5 + "px")
           .style("padding", "1rem");
       })
-      .on("mouseleave", (e, d) => {
+      .on("mouseleave", (e: any) => {
         select(e.srcElement)
           .transition()
-          .duration("100")
-          .attr("fill", (d) => color(d.item));
+          .duration(100)
+          .attr("fill", (d: any) => color(d.item));
 
         popUp.transition().duration("100").style("opacity", 0);
       });

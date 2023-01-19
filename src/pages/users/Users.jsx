@@ -35,7 +35,6 @@ const Users = () => {
   };
 
   useEffect(() => {
-    // STILL WORKING ON THE FILTERS BY DATE! ONLY THE ONE BY USERNAME WORDS ATM!
     const orderedUsers = [...UsersList];
     switch (activeFilter) {
       case "Start Date":

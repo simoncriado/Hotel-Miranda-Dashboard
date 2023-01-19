@@ -1,5 +1,5 @@
 // React & Router
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 // Styled Components
@@ -13,35 +13,33 @@ import {
   NavigationRights,
   NavigationAuthor,
   Link,
-  NewRoom,
 } from "./SidebarStyled";
 
 // Components & Assets
 import CurrentUser from "./CurrentUser";
 import Logo from "../logo/Logo";
-import Portrait from "../../assets/images/user-one.jpg";
-import Heart from "../../assets/icons/heart-icon.svg";
-import MenuOpen from "../../assets/icons/open-menu-icon.svg";
-import Menu from "../../assets/icons/menu-icon.svg";
+const Portrait = require("../../assets/images/user-one.jpg");
+// const Heart = require("../../assets/icons/heart-icon.svg");
+// const MenuOpen = require("../../assets/icons/heart-icon.svg");
+// const Menu = require("../../assets/icons/heart-icon.svg");
+// import Portrait from "../../assets/images/user-one.jpg";
+// import Heart from "../../assets/icons/heart-icon.svg";
+// import MenuOpen from "../../assets/icons/heart-icon.svg";
+// import Menu from "../../assets/icons/heart-icon.svg";
 
 // Sidebar component. When hidden the width and height get reduced to 0 so that it is not visible
 const Sidebar = () => {
-  let user = {
+  let user: object = {
     photo: Portrait,
     name: "User One",
     email: "user.one@gmail.com",
   };
 
-  const [display, setDisplay] = useState(false);
-  const [newRoom, setNewRoom] = useState(false);
+  const [display, setDisplay] = useState<boolean>(false);
   const location = useLocation();
 
-  const displayMenu = () => {
+  const displayMenu = (): void => {
     setDisplay(!display);
-  };
-
-  const displayNewRoom = () => {
-    setNewRoom(!newRoom);
   };
 
   return (
@@ -51,9 +49,23 @@ const Sidebar = () => {
     >
       <ArrowButton onClick={displayMenu}>
         {!display ? (
-          <img src={Menu} alt="Menu icon" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="30"
+            width="30"
+            viewBox="0 0 48 48"
+          >
+            <path d="M5.15 37.4v-4.7h37.7v4.7Zm0-11.05v-4.7h37.7v4.7Zm0-11.05v-4.75h37.7v4.75Z" />
+          </svg>
         ) : (
-          <img src={MenuOpen} alt="Menu icon" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="30"
+            width="30"
+            viewBox="0 0 48 48"
+          >
+            <path d="M4 37.4v-4.7h27.7v4.7Zm36.75-2.8L30.1 23.95l10.6-10.6 3.35 3.35-7.25 7.25 7.3 7.3ZM4 26.25v-4.7h21.7v4.7ZM4 15.3v-4.75h27.7v4.75Z" />
+          </svg>
         )}
       </ArrowButton>
       <LogoContainer>
@@ -103,20 +115,7 @@ const Sidebar = () => {
                 <path d="M14 27.4q-1.4 0-2.4-1t-1-2.4q0-1.4 1-2.4t2.4-1q1.4 0 2.4 1t1 2.4q0 1.4-1 2.4t-2.4 1Zm0 8.6q-5 0-8.5-3.5T2 24q0-5 3.5-8.5T14 12q3.6 0 6.3 1.7 2.7 1.7 4.25 5.15h17.8L48 24.5l-8.35 7.65-4.4-3.2-4.4 3.2-3.75-3h-2.55q-1.25 3-3.925 4.925Q17.95 36 14 36Zm0-3q2.9 0 5.35-1.925 2.45-1.925 3.15-4.925h5.7l2.7 2.25 4.4-3.15 4.1 3.1 4.25-3.95-2.55-2.55H22.5q-.6-2.8-3-4.825Q17.1 15 14 15q-3.75 0-6.375 2.625T5 24q0 3.75 2.625 6.375T14 33Z" />
               </svg>
               <p>Rooms</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="30"
-                width="30"
-                viewBox="0 0 48 48"
-                style={{ paddingLeft: 20 }}
-                onClick={displayNewRoom}
-              >
-                <path d="m24 30.75-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z" />
-              </svg>
             </NavLink>
-            {/* <NavLink newRoom={!newRoom ? "30px" : "0px"} to="newRoom">
-              New Room
-            </NavLink> */}
           </Link>
 
           <Link route="/contact" current={location.pathname}>
@@ -162,7 +161,15 @@ const Sidebar = () => {
       <NavigationAuthor>
         Made with{" "}
         <span>
-          <img src={Heart} alt="Heart icon" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="2rem"
+            width="2rem"
+            viewBox="0 0 48 48"
+            fill="#799283"
+          >
+            <path d="m24 41.95-2.05-1.85q-5.3-4.85-8.75-8.375-3.45-3.525-5.5-6.3T4.825 20.4Q4 18.15 4 15.85q0-4.5 3.025-7.525Q10.05 5.3 14.5 5.3q2.85 0 5.275 1.35Q22.2 8 24 10.55q2.1-2.7 4.45-3.975T33.5 5.3q4.45 0 7.475 3.025Q44 11.35 44 15.85q0 2.3-.825 4.55T40.3 25.425q-2.05 2.775-5.5 6.3T26.05 40.1Z" />
+          </svg>
         </span>{" "}
         by Simon Criado
       </NavigationAuthor>

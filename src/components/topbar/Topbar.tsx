@@ -1,12 +1,9 @@
 // React & Router
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 
 // React Context
 import { useLogout } from "../../hooks/useLogout";
-
-// Redux
-import { useSelector } from "react-redux";
 
 // Styled Components
 import {
@@ -16,18 +13,28 @@ import {
   Icon,
 } from "./TopbarStyled";
 
+// TypeScript
+import { useAppSelector } from "../../app/hooks";
+import { BookingInt } from "../../interfaces/BookingInt";
+
+type BookingsType = {
+  bookingsList: BookingInt[];
+};
+
 // Topbar component. It gets the title from the url dinamically to update the current page header. To logOut the authContext gets used
 const Topbar = () => {
   let location = useLocation();
-  const [title, setTitle] = useState("");
-  const [count, setCount] = useState(0);
+  const [title, setTitle] = useState<string>("");
+  const [count, setCount] = useState<number>(0);
   const { logout } = useLogout();
   const ref = useRef(null);
-  const { bookingsList } = useSelector((state) => state.bookingsReducer);
+  const { bookingsList } = useAppSelector<BookingsType>(
+    (state) => state.bookingsReducer
+  );
 
   useEffect(() => {
-    const ring = ref.current;
-    setCount((c) => {
+    const ring: any = ref.current;
+    setCount((c: number) => {
       return c + 1;
     });
     ring.classList.add("ring");
@@ -36,7 +43,7 @@ const Topbar = () => {
     }, 7000);
   }, [bookingsList]);
 
-  const logOut = () => {
+  const logOut = (): void => {
     localStorage.removeItem("auth");
     // Dispatch the logout action
     logout();

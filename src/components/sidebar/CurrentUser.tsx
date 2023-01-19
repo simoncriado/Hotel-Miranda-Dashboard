@@ -1,5 +1,4 @@
 // React & Router
-import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 
@@ -10,11 +9,11 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { Card, UserName, UserEmail, LinkButton } from "./CurrentUserStyled";
 
 // User section in sidebar. This gets updated based on the authContext
-const LoguedUser = ({ photo }) => {
+const LoguedUser = ({ photo }: any) => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  const goToSingleUser = (id) => {
+  const goToSingleUser = (id: string) => {
     navigate("/users/" + id);
   };
 
@@ -28,7 +27,7 @@ const LoguedUser = ({ photo }) => {
           goToSingleUser(user.email);
         }}
       >
-        <Link>Edit user</Link>
+        <Link to={"#"}>Edit user</Link>
       </LinkButton>
     </Card>
   );

@@ -62,22 +62,28 @@ const hardCodedDates = [
   },
 ];
 
+interface SingleDate {
+  checkIn: string;
+  checkOut: string;
+}
+
 export const Calendar = () => {
-  const [checkIns, setCheckIns] = useState([]);
-  const [checkOuts, setCheckOuts] = useState([]);
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const [selectedEndDate, setSelectedEndDate] = useState(null);
-  const [currentMonth, setCurrentMonth] = useState("");
-  const [viewMore, setViewMore] = useState(false);
+  const [checkIns, setCheckIns] = useState<SingleDate[]>([]);
+  const [checkOuts, setCheckOuts] = useState<SingleDate[]>([]);
+  const [selectedStartDate, setSelectedStartDate] = useState<Date | any>(null);
+  const [selectedEndDate, setSelectedEndDate] = useState<Date | any>(null);
+  const [currentMonth, setCurrentMonth] = useState<string>("");
+  const [viewMore, setViewMore] = useState<boolean>(false);
 
   // Function that gets the currently displayed month and checks which checkIns and checkOuts are happening in that month. This is the default displayed data under the calendar
-  const getCurrentMonthEvents = (currentMonth) => {
-    let currentMonthStart = currentMonth.activeStart;
-    let currentMonthEnd = currentMonth.activeEnd;
-    const checkInsBetweenRange = [];
-    const checkOutsBetweenRange = [];
+  // Type any because it is a very specific type of object. Does not work giving type object
+  const getCurrentMonthEvents = (currentMonth: any) => {
+    let currentMonthStart: Date = currentMonth.activeStart;
+    let currentMonthEnd: Date = currentMonth.activeEnd;
+    const checkInsBetweenRange: SingleDate[] = [];
+    const checkOutsBetweenRange: SingleDate[] = [];
 
-    hardCodedDates.map((date) => {
+    hardCodedDates.map((date: SingleDate) => {
       if (
         new Date(date.checkIn) > currentMonthStart &&
         new Date(date.checkIn) < currentMonthEnd
@@ -99,13 +105,13 @@ export const Calendar = () => {
   };
 
   // Function that gets the user´s selected dates and checks which checkIns or checkOuts are between those dates
-  const handleEventClick = (clickInfo) => {
-    let userSelectStart = clickInfo.start;
-    let userSelectEnd = clickInfo.end;
-    const checkInsBetweenRange = [];
-    const checkOutsBetweenRange = [];
+  const handleEventClick = (clickInfo: any) => {
+    let userSelectStart: Date = clickInfo.start;
+    let userSelectEnd: Date = clickInfo.end;
+    const checkInsBetweenRange: SingleDate[] = [];
+    const checkOutsBetweenRange: SingleDate[] = [];
 
-    hardCodedDates.map((date) => {
+    hardCodedDates.map((date: SingleDate) => {
       if (
         new Date(date.checkIn) > userSelectStart &&
         new Date(date.checkIn) < userSelectEnd
@@ -128,51 +134,53 @@ export const Calendar = () => {
   };
 
   // Function to get the days where we only have checkIns, checkOuts or both
-  const datesCalendarGroupHandler = (calendarEventDates) => {
-    const sameDayCheckInCheckOut = [];
-    const onlyCheckIn = [];
-    const onlyCheckOut = [];
+  const datesCalendarGroupHandler = (calendarEventDates: any) => {
+    const sameDayCheckInCheckOut: string[] = [];
+    const onlyCheckIn: string[] = [];
+    const onlyCheckOut: string[] = [];
 
-    const checkInDates = calendarEventDates.map(
-      (calendarEvent) => calendarEvent.checkIn
+    const checkInDates: string[] = calendarEventDates.map(
+      (calendarEvent: any) => calendarEvent.checkIn
     );
-    const checkOutDates = calendarEventDates.map(
-      (calendarEvent) => calendarEvent.checkOut
+    const checkOutDates: string[] = calendarEventDates.map(
+      (calendarEvent: any) => calendarEvent.checkOut
     );
 
-    checkInDates.forEach((date) => {
+    checkInDates.forEach((date: string) => {
       checkOutDates.includes(date)
         ? sameDayCheckInCheckOut.push(date)
         : onlyCheckIn.push(date);
     });
 
-    checkOutDates.forEach((date) => {
+    checkOutDates.forEach((date: string) => {
       !sameDayCheckInCheckOut.includes(date) && onlyCheckOut.push(date);
     });
 
     return { sameDayCheckInCheckOut, onlyCheckIn, onlyCheckOut };
   };
 
-  const renderEventesHandler = (calendarEventDates) => {
+  const renderEventesHandler = (calendarEventDates: any) => {
     const { sameDayCheckInCheckOut, onlyCheckIn, onlyCheckOut } =
       datesCalendarGroupHandler(calendarEventDates);
 
     // Creating the different events that will be displayed in the calendar
-    const eventsWhenCheckInCheckOut = sameDayCheckInCheckOut.map((date) => ({
-      start: date,
-      end: date,
-      overlap: true,
-      display: "background",
-      backgroundColor: "#FF9C3A",
-    }));
-    const eventsOnlyCheckIn = onlyCheckIn.map((date) => ({
+    const eventsWhenCheckInCheckOut = sameDayCheckInCheckOut.map(
+      (date: string) => ({
+        start: date,
+        end: date,
+        overlap: true,
+        display: "background",
+        backgroundColor: "#FF9C3A",
+      })
+    );
+    const eventsOnlyCheckIn = onlyCheckIn.map((date: string) => ({
       start: date,
       end: date,
       overlap: true,
       display: "background",
       backgroundColor: "#135846",
     }));
-    const eventsOnlyCheckOut = onlyCheckOut.map((date) => ({
+    const eventsOnlyCheckOut = onlyCheckOut.map((date: string) => ({
       start: date,
       end: date,
       overlap: true,
@@ -187,7 +195,7 @@ export const Calendar = () => {
   };
 
   // Changes the state for showing more or less bookings
-  const handleViewMore = () => {
+  const handleViewMore = (): void => {
     setViewMore(!viewMore);
   };
 
@@ -227,7 +235,7 @@ export const Calendar = () => {
                 Check Ins between {selectedStartDate.toLocaleDateString()} &{" "}
                 {selectedEndDate.toLocaleDateString()}
               </p>
-              {checkIns.map((d, index) => (
+              {checkIns.map((d: SingleDate, index: number) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}
@@ -242,7 +250,7 @@ export const Calendar = () => {
                 Check Outs between {selectedStartDate.toLocaleDateString()} &{" "}
                 {selectedEndDate.toLocaleDateString()}
               </p>
-              {checkOuts.map((d, index) => (
+              {checkOuts.map((d: SingleDate, index: number) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}
@@ -257,7 +265,7 @@ export const Calendar = () => {
           {checkIns.length ? (
             <>
               <p>Check Ins in {currentMonth}</p>
-              {checkIns.map((d, index) => (
+              {checkIns.map((d: SingleDate, index: number) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}
@@ -269,7 +277,7 @@ export const Calendar = () => {
           {checkOuts.length ? (
             <>
               <p style={{ marginTop: 10 }}>Check Outs</p>
-              {checkOuts.map((d, index) => (
+              {checkOuts.map((d: SingleDate, index: number) => (
                 <SingleBookingCard
                   key={index}
                   checkIn={d.checkIn}

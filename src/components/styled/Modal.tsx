@@ -1,5 +1,6 @@
 // Styled Components
 import styled from "styled-components";
+import { JsxElement } from "typescript";
 
 const BackDrop = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -54,7 +55,7 @@ const XCloseContainer = styled.div`
 `;
 
 // Opens a modal to show the user´s special request (if there is any)
-export const Modal = ({ closeModalHandler, name, request }) => {
+export const Modal = ({ closeModalHandler, name, request }: any) => {
   return (
     <div>
       <BackDrop onClick={closeModalHandler}>

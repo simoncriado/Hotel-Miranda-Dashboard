@@ -1,6 +1,3 @@
-// React
-import React from "react";
-
 // Styled Components
 import { LogoStyled, LogoIcon, LogoLetter, LogoText } from "./LogoStyled";
 
