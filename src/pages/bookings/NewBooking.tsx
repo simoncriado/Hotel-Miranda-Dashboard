@@ -17,6 +17,7 @@ const NewBooking = () => {
   const navigate = useNavigate();
 
   const formTitle: string = "Please fill the form to create a new booking";
+
   const [currentBooking, setCurrentBooking] = useState<BookingInt>({
     id: Math.floor(Math.random() * 100000),
     bookingID: Math.floor(Math.random() * 10000000),

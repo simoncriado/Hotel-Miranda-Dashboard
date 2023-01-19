@@ -1,6 +1,3 @@
-// React
-import React from "react";
-
 // Styled Components
 import {
   LoginContainer,
@@ -15,6 +12,13 @@ import {
   InputCancel,
 } from "../../pages/login/LoginStyled";
 
+// TypeScript
+import { RoomInt } from "../../interfaces/RoomInt";
+
+type RoomType = {
+  currentRoom: RoomInt | null | undefined;
+};
+
 // This form gets used from editRoom and newRoom. If used for editing a room it will be preloaded with the data from the currentRoom to edit
 const RoomForm = ({
   currentRoom,
@@ -22,8 +26,8 @@ const RoomForm = ({
   handleSubmit,
   formTitle,
   handleCancel,
-}) => {
-  const listOfAmenities = [
+}: RoomType | any) => {
+  const listOfAmenities: string[] = [
     "Air Conditioner",
     "Kitchen",
     "Grocery",
@@ -48,7 +52,7 @@ const RoomForm = ({
         >
           <FormTitle>{formTitle}</FormTitle>
           <form
-            onSubmit={(e) => {
+            onSubmit={(e: any) => {
               e.preventDefault();
               handleSubmit();
             }}

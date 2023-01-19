@@ -1,6 +1,3 @@
-// React
-import React from "react";
-
 // Styled Components
 import {
   LoginContainer,
@@ -38,7 +35,7 @@ const BookingForm = ({
         >
           <FormTitle>{formTitle}</FormTitle>
           <form
-            onSubmit={(e) => {
+            onSubmit={(e: any) => {
               e.preventDefault();
               handleSubmit();
             }}

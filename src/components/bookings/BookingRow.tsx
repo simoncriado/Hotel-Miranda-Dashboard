@@ -39,11 +39,17 @@ export const BookingRow = ({
   const goToSingleBooking = (id: string): void => {
     navigate("/bookings/" + id);
   };
-  const editSingleBooking = (e: any, bookingID: string): void => {
+  const editSingleBooking = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    bookingID: string
+  ): void => {
     e.preventDefault();
     navigate("/editBooking/" + bookingID);
   };
-  const deleteCurrentBooking = (e: any, bookingID: number): void => {
+  const deleteCurrentBooking = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    bookingID: number
+  ): void => {
     e.preventDefault();
     dispatch(deleteBooking(bookingID));
   };

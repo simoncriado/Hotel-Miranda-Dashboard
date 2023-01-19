@@ -1,9 +1,8 @@
 // React & Router
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import { getRoom } from "../../features/rooms/roomsSlice";
 
 // Styled Components
@@ -27,16 +26,26 @@ import {
 } from "../../components/bookings/BookingRowStyled";
 import SingleBookingSwiper from "../../components/bookings/SingleBookingSwiper";
 
+// TypeScript
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { RoomInt } from "../../interfaces/RoomInt";
+
+type RoomsType = {
+  singleRoom: RoomInt | null | undefined;
+};
+
 // Component that displays the data for the selected room
 const SingleRoom = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const params = useParams();
   const { roomId } = params;
-  const { singleRoom } = useSelector((state) => state.roomsReducer);
-  const [currentRoom, setCurrentRoom] = useState(singleRoom);
+  const { singleRoom } = useAppSelector<RoomsType>(
+    (state) => state.roomsReducer
+  );
+  const [currentRoom, setCurrentRoom] = useState<RoomInt | any>(singleRoom);
 
   useEffect(() => {
-    dispatch(getRoom(roomId));
+    dispatch(getRoom(String(roomId)));
 
     setCurrentRoom(singleRoom);
   }, [singleRoom, dispatch, roomId]);
@@ -105,16 +114,18 @@ const SingleRoom = () => {
             <BookingDataSubcontainer style={{ width: "100%" }}>
               <Title>Facilities</Title>
               <Facilities>
-                {currentRoom.room_facilities.map((facility) => (
-                  <div>{facility}</div>
-                ))}
+                {currentRoom.room_facilities.map(
+                  (facility: string, index: number) => (
+                    <div key={index}>{facility}</div>
+                  )
+                )}
               </Facilities>
             </BookingDataSubcontainer>
           </BookingDataContainer>
         </Subcontainer>
         <Subcontainer style={{ padding: 0 }}>
           <SwiperContainer>
-            <Tag $type={currentRoom.room_status} className="tag">
+            <Tag currentStatus={currentRoom.room_status} className="tag">
               {currentRoom.room_status}
             </Tag>
             <SingleBookingSwiper />

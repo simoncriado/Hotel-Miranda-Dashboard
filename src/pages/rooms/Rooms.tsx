@@ -1,12 +1,11 @@
 // React
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 // DnD
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import { getDataRooms } from "../../features/rooms/roomsSlice";
 
 // Styled Components
@@ -27,14 +26,28 @@ import { Loader } from "../../components/styled/Loader";
 import { RoomRow } from "../../components/rooms/RoomRow";
 import { Pagination } from "../../components/pagination/Pagination";
 
+// TypeScript
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { RoomInt } from "../../interfaces/RoomInt";
+
+type RoomsType = {
+  roomsList: RoomInt[];
+};
+type StatusType = {
+  status: string;
+};
+
 // Component that creates a table and add a row for each item in the data base
 const Rooms = () => {
-  const dispatch = useDispatch();
-  const { roomsList, status } = useSelector((state) => state.roomsReducer);
+  const dispatch = useAppDispatch();
+  const { roomsList } = useAppSelector<RoomsType>(
+    (state) => state.roomsReducer
+  );
+  const { status } = useAppSelector<StatusType>((state) => state.roomsReducer);
 
-  const [rooms, setRooms] = useState(roomsList);
-  const [activeFilter, setActiveFilter] = useState("Room Nr.");
-  const [currentRooms, setCurrentRooms] = useState([]);
+  const [rooms, setRooms] = useState<RoomInt[]>(roomsList);
+  const [activeFilter, setActiveFilter] = useState<string>("Room Nr.");
+  const [currentRooms, setCurrentRooms] = useState<RoomInt[]>([]);
 
   // Faking a delay on data fetch
   useEffect(() => {
@@ -46,26 +59,56 @@ const Rooms = () => {
     setRooms(roomsList);
   }, [roomsList, dispatch]);
 
-  const getAllRooms = () => {
+  const getAllRooms = (): void => {
     setRooms(roomsList);
   };
 
-  const filterByType = (type) => {
+  const filterByType = (type: string): void => {
     setRooms(roomsList.filter((room) => room.room_status === type));
   };
 
   useEffect(() => {
     // Filtering by dropdown selection based on the filtered by search input array (in case the user used the search bar)
-    const orderedRooms = [...roomsList];
+    const orderedRooms: RoomInt[] = [...roomsList];
     switch (activeFilter) {
       case "Room Nr.":
-        orderedRooms.sort((a, b) => a.room_number - b.room_number);
+        orderedRooms.sort((a: RoomInt, b: RoomInt) => {
+          const roomA: string = a.room_number;
+          const roomB: string = b.room_number;
+          if (roomA < roomB) {
+            return -1;
+          }
+          if (roomA > roomB) {
+            return 1;
+          }
+          return 0;
+        });
         break;
       case "Highest rate first":
-        orderedRooms.sort((a, b) => b.room_rate - a.room_rate);
+        orderedRooms.sort((a: RoomInt, b: RoomInt) => {
+          const rateA: string = a.room_rate;
+          const rateB: string = b.room_rate;
+          if (rateA < rateB) {
+            return -1;
+          }
+          if (rateA > rateB) {
+            return 1;
+          }
+          return 0;
+        });
         break;
       case "Lowest rate first":
-        orderedRooms.sort((a, b) => a.room_rate - b.room_rate);
+        orderedRooms.sort((a: RoomInt, b: RoomInt) => {
+          const rateA: string = a.room_rate;
+          const rateB: string = b.room_rate;
+          if (rateA > rateB) {
+            return -1;
+          }
+          if (rateA < rateB) {
+            return 1;
+          }
+          return 0;
+        });
         break;
       default:
         break;
@@ -74,30 +117,31 @@ const Rooms = () => {
   }, [activeFilter, roomsList]);
 
   // Variables for the pagination component
-  const [currentPage, setCurrentPage] = useState(1);
-  const [roomsPerPage] = useState(10);
-  const indexOfLastImage = currentPage * roomsPerPage; // For example: let´s say we have 17 pages. indexOfLastImage = 17 * roomsPerPage
-  const indexOfFirstImage = indexOfLastImage - roomsPerPage; // Following same example: indexOfFirstImage = indexOfLastPage – roomsPerPage
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [roomsPerPage] = useState<number>(10);
+  const indexOfLastImage: number = currentPage * roomsPerPage; // For example: let´s say we have 17 pages. indexOfLastImage = 17 * roomsPerPage
+  const indexOfFirstImage: number = indexOfLastImage - roomsPerPage; // Following same example: indexOfFirstImage = indexOfLastPage – roomsPerPage
   // Setting the current displayed images
   useEffect(() => {
     setCurrentRooms(rooms.slice(indexOfFirstImage, indexOfLastImage));
   }, [rooms, indexOfFirstImage, indexOfLastImage]);
 
   // Images to be displayed on the current page. slice(96, 102) will return images from index 96 to 101
-  const nPages = Math.ceil(rooms.length / roomsPerPage);
+  const nPages: number = Math.ceil(rooms.length / roomsPerPage);
 
   // Function to help with reordering the result after dragging
-  const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
+  const reorder = (list: RoomInt[], startIndex: number, endIndex: number) => {
+    // Check AQUI NO FUNCIONA
+    const result: RoomInt[] = Array.from(list);
+    const [removed]: RoomInt[] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
 
     return result;
   };
 
   // Function to manage the drag event
-  const onDragEnd = (result) => {
-    const { source, destination } = result;
+  const onDragEnd = (result: RoomInt[] | any): void => {
+    const { source, destination }: any = result;
     if (!destination) {
       return;
     }

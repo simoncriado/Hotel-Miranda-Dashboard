@@ -1,58 +1,70 @@
 // React
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import { getRoom, editRoom } from "../../features/rooms/roomsSlice";
 
 // Components
 import RoomForm from "../../components/rooms/RoomForm";
 import { Loader } from "../../components/styled/Loader";
 
+// TypeScript
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { RoomInt } from "../../interfaces/RoomInt";
+
+type RoomsType = {
+  singleRoom: RoomInt | null | undefined;
+};
+
 const EditRoom = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const { roomId } = params;
-  const { singleRoom } = useSelector((state) => state.roomsReducer);
+  const { singleRoom } = useAppSelector<RoomsType>(
+    (state) => state.roomsReducer
+  );
 
-  const [currentRoom, setCurrentRoom] = useState(null);
-  const formTitle =
+  const [currentRoom, setCurrentRoom] = useState<RoomInt | any>(null);
+  const formTitle: string =
     "Here you can edit the fields needed and save them to update the original room";
 
   useEffect(() => {
-    dispatch(getRoom(roomId));
+    dispatch(getRoom(String(roomId)));
 
     setCurrentRoom(singleRoom);
   }, [singleRoom, dispatch, roomId]);
 
-  const handleInput = (event) => {
+  const handleInput = (event: any) => {
     const { name, value, type, checked } = event.target;
-    let valToUpdate;
+    let valToUpdate: string | string[];
     if (type === "checkbox") {
-      const newVal = [...currentRoom[name]];
+      const newVal: string[] = [...currentRoom[name]];
       if (checked) {
         newVal.push(value);
       } else {
-        const index = newVal.indexOf(value);
+        const index: number = newVal.indexOf(value);
         newVal.splice(index, 1);
       }
       valToUpdate = newVal;
     } else {
       valToUpdate = value;
     }
-    setCurrentRoom((prevState) => ({ ...prevState, [name]: valToUpdate }));
+    setCurrentRoom((prevState: RoomInt) => ({
+      ...prevState,
+      [name]: valToUpdate,
+    }));
   };
 
-  const handleCancel = (e) => {
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setCurrentRoom({});
     navigate("/rooms");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     dispatch(editRoom(currentRoom));
     setCurrentRoom({});
     navigate("/rooms");

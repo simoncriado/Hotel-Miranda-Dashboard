@@ -1,12 +1,11 @@
 // React & Router
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 // DnD
 import { Draggable } from "react-beautiful-dnd";
 
 // Redux
-import { useDispatch } from "react-redux";
 import { deleteRoom } from "../../features/rooms/roomsSlice";
 
 // Styled Components
@@ -23,28 +22,42 @@ import {
   DropDown,
 } from "./RoomRowStyled";
 
+// TypeScript
+import { useAppDispatch } from "../../app/hooks";
+import { RoomInt } from "../../interfaces/RoomInt";
+
+type RoomsType = {
+  singleRoom: RoomInt | null | undefined;
+};
+
 // Component that creates a table row for the rooms table
-export const RoomRow = ({ room, index, number }) => {
+export const RoomRow = ({ room, index }: RoomsType | any) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
-  const goToSingleRoom = (id) => {
+  const goToSingleRoom = (id: string): void => {
     navigate("/rooms/" + id);
   };
 
-  const editSingleRoom = (e, id) => {
+  const editSingleRoom = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ): void => {
     e.preventDefault();
     navigate("/editRoom/" + id);
   };
-  const deleteCurrentRoom = (e, id) => {
+  const deleteCurrentRoom = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ): void => {
     e.preventDefault();
     dispatch(deleteRoom(id));
   };
 
   // Some styles for when we are dragging an element
-  const getItemStyle = (isDragging, draggableStyle) => ({
+  const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     userSelect: "none",
 
     // Change background colour if dragging
@@ -81,7 +94,7 @@ export const RoomRow = ({ room, index, number }) => {
           </DataContainer>
           <DataContainer>
             <RoomText>
-              {room.room_facilities.map((facility, index) => (
+              {room.room_facilities.map((facility: string, index: number) => (
                 <span key={index}>
                   {/* Small logic to includes ",", "." and "&" in the right places of the displayed array. */}
                   {(index && index !== room.room_facilities.length - 1

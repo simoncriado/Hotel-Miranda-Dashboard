@@ -38,6 +38,7 @@ const EditBooking = () => {
     setCurrentBooking(singleBooking);
   }, [singleBooking, dispatch, bookingId]);
 
+  // Using type "any" for the event as I found no other working option
   const handleInput = (event: any): void => {
     const { name, value } = event.target;
     setCurrentBooking((prevState: BookingInt) => ({

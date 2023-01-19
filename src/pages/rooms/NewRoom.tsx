@@ -1,20 +1,24 @@
 // React
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 // Redux
-import { useDispatch } from "react-redux";
 import { createNewRoom } from "../../features/rooms/roomsSlice";
 
 // Components
 import RoomForm from "../../components/rooms/RoomForm";
 
+// TypeScript
+import { useAppDispatch } from "../../app/hooks";
+import { RoomInt } from "../../interfaces/RoomInt";
+
 const NewRoom = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const formTitle = "Please fill the form to create a new room";
-  const [currentRoom, setCurrentRoom] = useState({
+  const formTitle: string = "Please fill the form to create a new room";
+
+  const [currentRoom, setCurrentRoom] = useState<RoomInt>({
     id: String(Math.floor(Math.random() * 100000)),
     room_number: "",
     bed_type: "",
@@ -25,6 +29,7 @@ const NewRoom = () => {
     photoFive: "",
     description: "",
     discountPercent: "",
+    // Using string cause I dont want to give a default value of 0
     room_rate: "",
     discount: "",
     room_offer: "",
@@ -33,15 +38,15 @@ const NewRoom = () => {
     room_facilities: [],
   });
 
-  const handleInput = (event) => {
-    const { name, value, type, checked } = event.target;
-    let valToUpdate;
-    if (type === "checkbox") {
-      const newVal = [...currentRoom[name]];
+  const handleInput = (event: any): void => {
+    const { name, value, checked } = event.target;
+    let valToUpdate: string | string[];
+    if (name === "room_facilities") {
+      const newVal: string[] = [...currentRoom.room_facilities];
       if (checked) {
         newVal.push(value);
       } else {
-        const index = newVal.indexOf(value);
+        const index: number = newVal.indexOf(value);
         newVal.splice(index, 1);
       }
       valToUpdate = newVal;
@@ -51,7 +56,7 @@ const NewRoom = () => {
     setCurrentRoom((prevState) => ({ ...prevState, [name]: valToUpdate }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     dispatch(createNewRoom(currentRoom));
     navigate("/rooms");
   };

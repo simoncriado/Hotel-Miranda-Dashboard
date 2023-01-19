@@ -14,7 +14,6 @@ interface BookingState {
 interface ActionInt {
   type: string;
   payload: any;
-  meta: any;
 }
 
 export const getDataBookings = createAsyncThunk(
