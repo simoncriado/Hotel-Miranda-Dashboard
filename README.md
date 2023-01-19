@@ -14,7 +14,8 @@ A more detailed description will follow as I develop further functionalities.
 
 ## Tech used
 
-React, React Router, Redux, Styled Components (will be completed as the project is still under construction!)
+React, React Router, Redux, TypeScript (all TS is added on the TypeScript branch of this project), Styled Components.
+I will be completing this section as the project is still under construction!
 
 ## You can visit the website by clicking the link below
 
