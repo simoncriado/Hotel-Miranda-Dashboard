@@ -43,6 +43,7 @@ const BookingForm = ({
             <InputContainer>
               <RadioDescription>User name</RadioDescription>
               <Input
+                required
                 type="text"
                 className="input-user"
                 value={currentBooking.userName}
@@ -64,6 +65,7 @@ const BookingForm = ({
             <InputContainer>
               <RadioDescription>Check in</RadioDescription>
               <Input
+                required
                 style={{ color: "#777777" }}
                 type="date"
                 className="input-user"
@@ -76,6 +78,7 @@ const BookingForm = ({
             <InputContainer>
               <RadioDescription>Check out</RadioDescription>
               <Input
+                required
                 style={{ color: "#777777" }}
                 type="date"
                 className="input-user"
@@ -99,6 +102,7 @@ const BookingForm = ({
             <InputContainer>
               <RadioDescription>Select the Room Type</RadioDescription>
               <RadioInput
+                required
                 type="radio"
                 id="singleBed"
                 value="Single Bed"
@@ -108,6 +112,7 @@ const BookingForm = ({
               />
               <RadioLabel htmlFor="singleBed">Single Bed</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="doubleBed"
                 value="Double Bed"
@@ -117,6 +122,7 @@ const BookingForm = ({
               />
               <RadioLabel htmlFor="doubleBed">Double Bed</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="doubleSuperior"
                 value="Double Superior"
@@ -126,6 +132,7 @@ const BookingForm = ({
               />
               <RadioLabel htmlFor="doubleSuperior">Double Superior</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="suite"
                 value="Suite"
@@ -138,6 +145,7 @@ const BookingForm = ({
             <InputContainer>
               <RadioDescription>Select the Booking Status</RadioDescription>
               <RadioInput
+                required
                 type="radio"
                 id="checkIn"
                 value="Check In"
@@ -147,6 +155,7 @@ const BookingForm = ({
               />
               <RadioLabel htmlFor="checkIn">Check In</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="checkOut"
                 value="Check Out"
@@ -156,6 +165,7 @@ const BookingForm = ({
               />
               <RadioLabel htmlFor="checkOut">Check Out</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="inProgress"
                 value="In Progress"
@@ -175,7 +185,13 @@ const BookingForm = ({
               }}
             >
               <InputSubmit type="submit" value={"Save"} />
-              <InputCancel onClick={handleCancel}>Cancel</InputCancel>
+              <InputCancel
+                onClick={(e) => {
+                  handleCancel(e);
+                }}
+              >
+                Cancel
+              </InputCancel>
             </div>
           </form>
         </LoginCard>

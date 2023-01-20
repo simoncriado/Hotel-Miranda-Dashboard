@@ -36,7 +36,8 @@ const NewBooking = () => {
     setCurrentBooking((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleCancel = (): void => {
+  const handleCancel = (e: Event): void => {
+    e.preventDefault();
     navigate("/bookings");
   };
 

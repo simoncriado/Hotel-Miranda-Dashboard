@@ -19,13 +19,6 @@ import {
 import CurrentUser from "./CurrentUser";
 import Logo from "../logo/Logo";
 const Portrait = require("../../assets/images/user-one.jpg");
-// const Heart = require("../../assets/icons/heart-icon.svg");
-// const MenuOpen = require("../../assets/icons/heart-icon.svg");
-// const Menu = require("../../assets/icons/heart-icon.svg");
-// import Portrait from "../../assets/images/user-one.jpg";
-// import Heart from "../../assets/icons/heart-icon.svg";
-// import MenuOpen from "../../assets/icons/heart-icon.svg";
-// import Menu from "../../assets/icons/heart-icon.svg";
 
 // Sidebar component. When hidden the width and height get reduced to 0 so that it is not visible
 const Sidebar = () => {

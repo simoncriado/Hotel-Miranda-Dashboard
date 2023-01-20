@@ -13,8 +13,8 @@ const LoguedUser = ({ photo }: any) => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  const goToSingleUser = (id: string) => {
-    navigate("/users/" + id);
+  const goToSingleUser = (): void => {
+    navigate("/editOwnUser");
   };
 
   return (
@@ -24,7 +24,7 @@ const LoguedUser = ({ photo }: any) => {
       <UserEmail>{user.email}</UserEmail>
       <LinkButton
         onClick={() => {
-          goToSingleUser(user.email);
+          goToSingleUser();
         }}
       >
         <Link to={"#"}>Edit user</Link>

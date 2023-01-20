@@ -155,7 +155,7 @@ const Contact = () => {
               </thead>
               <tbody className="task-container">
                 {currentReviews.length > 0 &&
-                  currentReviews.map((review: ReviewInt, index) => (
+                  currentReviews.map((review: ReviewInt) => (
                     <ReviewRow key={review.id} review={review} />
                   ))}
               </tbody>

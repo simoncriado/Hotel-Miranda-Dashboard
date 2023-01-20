@@ -115,6 +115,7 @@ const RoomForm = ({
             <InputContainer>
               <RadioDescription>Select the Room Type</RadioDescription>
               <RadioInput
+                required
                 type="radio"
                 id="singleBed"
                 value="Single Bed"
@@ -124,6 +125,7 @@ const RoomForm = ({
               />
               <RadioLabel htmlFor="singleBed">Single Bed</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="doubleBed"
                 value="Double Bed"
@@ -133,6 +135,7 @@ const RoomForm = ({
               />
               <RadioLabel htmlFor="doubleBed">Double Bed</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="doubleSuperior"
                 value="Double Superior"
@@ -142,6 +145,7 @@ const RoomForm = ({
               />
               <RadioLabel htmlFor="doubleSuperior">Double Superior</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="suite"
                 value="Suite"
@@ -154,6 +158,7 @@ const RoomForm = ({
             <InputContainer>
               <RadioDescription>Room number</RadioDescription>
               <Input
+                required
                 type="text"
                 className="input-user"
                 name="room_number"
@@ -176,6 +181,7 @@ const RoomForm = ({
             <InputContainer>
               <RadioDescription>Offer</RadioDescription>
               <RadioInput
+                required
                 type="radio"
                 id="yes"
                 value="Yes"
@@ -185,6 +191,7 @@ const RoomForm = ({
               />
               <RadioLabel htmlFor="yes">Yes</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="no"
                 value="No"
@@ -197,6 +204,7 @@ const RoomForm = ({
             <InputContainer>
               <RadioDescription>Room rate</RadioDescription>
               <Input
+                required
                 type="number"
                 className="input-user"
                 placeholder="Price per night"
@@ -209,6 +217,7 @@ const RoomForm = ({
               <InputContainer>
                 <RadioDescription>Discount %</RadioDescription>
                 <Input
+                  required
                   type="number"
                   className="input-user"
                   name="discountPercent"
@@ -262,6 +271,7 @@ const RoomForm = ({
             <InputContainer>
               <RadioDescription>Room status</RadioDescription>
               <RadioInput
+                required
                 type="radio"
                 id="available"
                 value="Available"
@@ -271,6 +281,7 @@ const RoomForm = ({
               />
               <RadioLabel htmlFor="available">Available</RadioLabel>
               <RadioInput
+                required
                 type="radio"
                 id="booked"
                 value="Booked"

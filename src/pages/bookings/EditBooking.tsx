@@ -47,7 +47,8 @@ const EditBooking = () => {
     }));
   };
 
-  const handleCancel = (): void => {
+  const handleCancel = (e: Event): void => {
+    e.preventDefault();
     setCurrentBooking({});
     navigate("/bookings");
   };

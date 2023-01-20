@@ -88,10 +88,10 @@ const Rooms = () => {
         orderedRooms.sort((a: RoomInt, b: RoomInt) => {
           const rateA: string = a.room_rate;
           const rateB: string = b.room_rate;
-          if (rateA < rateB) {
+          if (rateA > rateB) {
             return -1;
           }
-          if (rateA > rateB) {
+          if (rateA < rateB) {
             return 1;
           }
           return 0;
@@ -101,10 +101,10 @@ const Rooms = () => {
         orderedRooms.sort((a: RoomInt, b: RoomInt) => {
           const rateA: string = a.room_rate;
           const rateB: string = b.room_rate;
-          if (rateA > rateB) {
+          if (rateA < rateB) {
             return -1;
           }
-          if (rateA < rateB) {
+          if (rateA > rateB) {
             return 1;
           }
           return 0;

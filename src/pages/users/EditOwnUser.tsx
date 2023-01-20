@@ -1,5 +1,5 @@
 // React
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 // React Context
@@ -63,9 +63,7 @@ const SingleUser = () => {
               onChange={(e) => setEmail(e.target.value)}
             ></Input>
           </InputContainer>
-          <LoginButton type="login" text="LOGIN" onClick={() => validateEdit()}>
-            Save
-          </LoginButton>
+          <LoginButton onClick={() => validateEdit()}>Save</LoginButton>
         </form>
       </LoginCard>
     </LoginContainer>

@@ -56,6 +56,11 @@ const NewRoom = () => {
     setCurrentRoom((prevState) => ({ ...prevState, [name]: valToUpdate }));
   };
 
+  const handleCancel = (e: Event): void => {
+    e.preventDefault();
+    navigate("/rooms");
+  };
+
   const handleSubmit = (): void => {
     dispatch(createNewRoom(currentRoom));
     navigate("/rooms");
@@ -66,6 +71,7 @@ const NewRoom = () => {
       currentRoom={currentRoom}
       handleInput={handleInput}
       handleSubmit={handleSubmit}
+      handleCancel={handleCancel}
     />
   );
 };

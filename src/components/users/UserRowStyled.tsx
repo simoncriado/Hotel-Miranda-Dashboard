@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 const Row = styled.tr`
   border-top: 1px solid #d4d4d4;
   transition: box-shadow 0.2s;
+  cursor: pointer;
   &:hover {
     box-shadow: 0px 4px 30px #00000014;
   }
@@ -58,9 +59,9 @@ const DataContainer = styled.td`
   }
 `;
 
-const Status = styled.p`
+const Status = styled.p<{ state: string }>`
   ${(props) => {
-    switch (props.$type) {
+    switch (props.state) {
       case "ACTIVE":
         return css`
           font-family: var(--font-poppins);
