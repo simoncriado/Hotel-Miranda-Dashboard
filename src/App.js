@@ -17,6 +17,9 @@ import NewRoom from "./pages/rooms/NewRoom";
 import EditRoom from "./pages/rooms/EditRoom";
 import Users from "./pages/users/Users";
 import SingleUser from "./pages/users/SingleUser";
+import EditOwnUser from "./pages/users/EditOwnUser";
+import EditUser from "./pages/users/EditUser";
+import NewUser from "./pages/users/NewUser";
 import Contact from "./pages/contact/Contact";
 import Login from "./pages/login/Login";
 
@@ -63,7 +66,10 @@ function App() {
               <Route path="editRoom/:roomId" element={<EditRoom />} />
               <Route path="newRoom" element={<NewRoom />} />
               <Route path="users" element={<Users />} />
-              <Route path="users/:userId" element={<SingleUser />} />
+              <Route path="editOwnUser" element={<EditOwnUser />} />
+              <Route path="newUser" element={<NewUser />} />
+              <Route path="editUser/:id" element={<EditUser />} />
+              <Route path="users/:id" element={<SingleUser />} />
               <Route path="contact" element={<Contact />} />
             </Route>
           </Routes>

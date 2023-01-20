@@ -28,7 +28,7 @@ export const reviewsSlice = createSlice({
       })
       .addCase(getDataReviews.rejected, (state) => {
         state.status = "failed";
-        console.error("Not possible to fetch the bookings");
+        console.error("Not possible to fetch the reviews");
       });
   },
 });

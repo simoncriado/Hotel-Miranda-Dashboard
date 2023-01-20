@@ -32,6 +32,11 @@ const NewBooking = () => {
     setCurrentBooking((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate("/bookings");
+  };
+
   const handleSubmit = () => {
     dispatch(createNewBooking(currentBooking));
     navigate("/bookings");
@@ -42,6 +47,7 @@ const NewBooking = () => {
       currentBooking={currentBooking}
       handleInput={handleInput}
       handleSubmit={handleSubmit}
+      handleCancel={handleCancel}
     />
   );
 };

@@ -1,8 +1,10 @@
-// React
+// React & Router
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
-// Local data
-import UsersList from "../../data/users";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getDataUsers } from "../../features/users/usersSlice";
 
 // Styled Components
 import {
@@ -15,6 +17,8 @@ import {
 } from "../../components/styled/Tables";
 import { Container } from "../../components/styled/Containers";
 import { DropdownMenu } from "../../components/styled/DropdownMenu";
+import { Loader } from "../../components/styled/Loader";
+import { CreateButton } from "../../components/styled/Buttons";
 
 // Components
 import { UserRow } from "../../components/users/UserRow";
@@ -22,28 +26,43 @@ import { Pagination } from "../../components/pagination/Pagination";
 
 // Component that creates a table and add a row for each item in the data base
 const Users = () => {
-  const [users, setUsers] = useState(UsersList);
-  const [activeFilter, setActiveFilter] = useState("Name");
+  const dispatch = useDispatch();
+  const { usersList, status } = useSelector((state) => state.usersReducer);
+
+  const [users, setUsers] = useState(usersList);
+  const [activeFilter, setActiveFilter] = useState("Start date");
   const [currentUsers, setCurrentUsers] = useState([]);
 
+  // Faking a delay on data fetch
+  useEffect(() => {
+    if (usersList.length === 0) {
+      setTimeout(() => {
+        dispatch(getDataUsers());
+      }, 1000);
+    }
+    setUsers(usersList);
+  }, [usersList, dispatch]);
+
   const getAllUsers = () => {
-    setUsers(UsersList);
+    setUsers(usersList);
   };
 
   const filterByType = (type) => {
-    setUsers(UsersList.filter((user) => user.state === type));
+    setUsers(usersList.filter((user) => user.state === type));
   };
 
   useEffect(() => {
-    // STILL WORKING ON THE FILTERS BY DATE! ONLY THE ONE BY USERNAME WORDS ATM!
-    const orderedUsers = [...UsersList];
+    const orderedUsers = [...usersList];
     switch (activeFilter) {
-      case "Start Date":
+      case "Start date":
         orderedUsers.sort((a, b) => {
-          const date1 = new Date("Oct 30th 2022");
-          const date2 = new Date(b.orderDate);
-
-          return date1 - date2;
+          let dateA = a.date;
+          let dateB = b.date;
+          if (dateB.split("/").join() > dateA.split("/").join()) {
+            return -1;
+          } else {
+            return 1;
+          }
         });
         break;
       case "Name":
@@ -63,7 +82,7 @@ const Users = () => {
         break;
     }
     setUsers(orderedUsers);
-  }, [activeFilter]);
+  }, [activeFilter, usersList]);
 
   // Variables for the pagination component
   const [currentPage, setCurrentPage] = useState(1);
@@ -91,46 +110,55 @@ const Users = () => {
           </FilterButton>
         </TableFilters>
         <TableButtons>
+          <CreateButton>
+            <NavLink to="/newUser">+ New User</NavLink>
+          </CreateButton>
           <DropdownMenu
             setActiveFilter={setActiveFilter}
             type="white"
-            // options={["Order Date", "Guest", "Check In", "Check Out"]}
-            options={["Name"]}
+            options={["Start date", "Name"]}
           ></DropdownMenu>
         </TableButtons>
       </TableActions>
-      <Container>
-        <Table>
-          <thead>
-            <tr>
-              <HeaderTitle>Name</HeaderTitle>
-              <HeaderTitle>Job Desk</HeaderTitle>
-              <HeaderTitle>Contact</HeaderTitle>
-              <HeaderTitle>Status</HeaderTitle>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUsers.length > 0 &&
-              currentUsers.map((user, index) => (
-                <UserRow
-                  key={user.id}
-                  index={index}
-                  user={user}
-                  number={user.id}
-                />
-              ))}
-          </tbody>
-        </Table>
-      </Container>
-      <Pagination
-        nPages={nPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        dataDisplayed={"employees"}
-        totalRooms={users.length}
-        indexOfFirstImage={indexOfFirstImage}
-        indexOfLastImage={indexOfLastImage}
-      />
+
+      {status === "loading" ? (
+        <Loader />
+      ) : (
+        <>
+          <Container>
+            <Table>
+              <thead>
+                <tr>
+                  <HeaderTitle>Name</HeaderTitle>
+                  <HeaderTitle>Job Desk</HeaderTitle>
+                  <HeaderTitle>Contact</HeaderTitle>
+                  <HeaderTitle>Status</HeaderTitle>
+                </tr>
+              </thead>
+              <tbody>
+                {currentUsers.length > 0 &&
+                  currentUsers.map((user, index) => (
+                    <UserRow
+                      key={user.id}
+                      index={index}
+                      user={user}
+                      number={user.id}
+                    />
+                  ))}
+              </tbody>
+            </Table>
+          </Container>
+          <Pagination
+            nPages={nPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            dataDisplayed={"employees"}
+            totalRooms={users.length}
+            indexOfFirstImage={indexOfFirstImage}
+            indexOfLastImage={indexOfLastImage}
+          />
+        </>
+      )}
     </>
   );
 };

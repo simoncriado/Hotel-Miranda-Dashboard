@@ -36,13 +36,29 @@ const DropdownMenuStyled = styled.select`
 `;
 
 // Dropdown component. It is given a number of options depending on in which page the dropdown is being used
-const DropdownMenu = ({ type, options, setActiveFilter }) => {
+const DropdownMenu = ({
+  type,
+  options,
+  setActiveFilter,
+  handleInput,
+  selected,
+}) => {
   return (
     <div style={{ position: "relative" }}>
       <DropdownMenuStyled
+        defaultValue={selected ? selected : "Manager"}
         $type={type}
+        name="position"
         onChange={(e) => {
-          setActiveFilter(e.target.value);
+          if (
+            e.target.value !== "Manager" &&
+            e.target.value !== "Reception" &&
+            e.target.value !== "Room Service"
+          ) {
+            setActiveFilter(e.target.value);
+          } else {
+            handleInput(e);
+          }
         }}
       >
         {options.map((option, index) => {

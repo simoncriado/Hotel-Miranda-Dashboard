@@ -15,7 +15,7 @@ const LoguedUser = ({ photo }) => {
   const navigate = useNavigate();
 
   const goToSingleUser = (id) => {
-    navigate("/users/" + id);
+    navigate("/editOwnUser");
   };
 
   return (
