@@ -138,11 +138,7 @@ const Bookings = () => {
     setOpenModal(false);
   };
 
-  const handleOpenModal = (
-    name: string,
-    request: string,
-    e: React.MouseEvent<HTMLButtonElement>
-  ): void => {
+  const handleOpenModal = (name: string, request: string, e: any): void => {
     if (e && e.stopPropagation) e.stopPropagation();
     setOpenModal(true);
     setName(name);

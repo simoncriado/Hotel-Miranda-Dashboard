@@ -52,9 +52,13 @@ export const AuthContextProvider = ({ children }) => {
 //   type: string;
 //   payload: object;
 // }
+// const State={
+//   user: null,
+//   authIsReady: false
+// }
 
 // Here I create a new context. This to allow me to have access to the auth data in the whole app (to be used in different components)
-// export const AuthContext = createContext(null);
+// export const AuthContext = createContext<any>({state: State, dispatch: ()=>{}});
 
 // export const authReducer = (state: initialState, action: action) => {
 //   switch (action.type) {

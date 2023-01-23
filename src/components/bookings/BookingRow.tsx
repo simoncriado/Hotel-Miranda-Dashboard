@@ -20,28 +20,25 @@ import {
 
 // TypeScript
 import { useAppDispatch } from "../../app/hooks";
-import { BookingInt } from "../../interfaces/BookingInt";
+import { BookingInt, BookingRowInt } from "../../interfaces/BookingInt";
 
 type BookingsType = {
   singleBooking: BookingInt | null | undefined;
 };
 
 // Component that creates a table row for the bookings table
-export const BookingRow = ({
-  booking,
-  handleOpenModal,
-}: BookingsType | any) => {
+export const BookingRow = ({ booking, handleOpenModal }: BookingRowInt) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
-  const goToSingleBooking = (id: string): void => {
+  const goToSingleBooking = (id: number): void => {
     navigate("/bookings/" + id);
   };
   const editSingleBooking = (
     e: React.MouseEvent<HTMLButtonElement>,
-    bookingID: string
+    bookingID: number
   ): void => {
     e.preventDefault();
     navigate("/editBooking/" + bookingID);

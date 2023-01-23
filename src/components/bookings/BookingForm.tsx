@@ -13,20 +13,16 @@ import {
 } from "../../pages/login/LoginStyled";
 
 // TypeScript
-import { BookingInt } from "../../interfaces/BookingInt";
-
-type BookingType = {
-  currentBooking: BookingInt | null | undefined;
-};
+import { BookingFormInt } from "../../interfaces/BookingInt";
 
 // This form gets used from editBooking and newBooking. If used for editing a booking it will be preloaded with the data from the currentBooking to edit
 const BookingForm = ({
   currentBooking,
+  formTitle,
   handleInput,
   handleSubmit,
-  formTitle,
   handleCancel,
-}: BookingType | any) => {
+}: BookingFormInt) => {
   return (
     <>
       <LoginContainer style={{ minHeight: "80%" }}>
@@ -35,7 +31,7 @@ const BookingForm = ({
         >
           <FormTitle>{formTitle}</FormTitle>
           <form
-            onSubmit={(e: any) => {
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
               handleSubmit();
             }}
@@ -59,7 +55,9 @@ const BookingForm = ({
                 value={currentBooking.userPicture}
                 placeholder="Copy your photo URL"
                 name="userPicture"
-                onChange={(e) => handleInput(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleInput(e)
+                }
               ></Input>
             </InputContainer>
             <InputContainer>
@@ -186,7 +184,7 @@ const BookingForm = ({
             >
               <InputSubmit type="submit" value={"Save"} />
               <InputCancel
-                onClick={(e) => {
+                onClick={(e: any) => {
                   handleCancel(e);
                 }}
               >
