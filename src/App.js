@@ -34,7 +34,7 @@ function App() {
   const { authIsReady } = useAuthContext();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Layout>
         {authIsReady ? <Sidebar /> : <></>}
 
