@@ -14,7 +14,7 @@ A more detailed description will follow as I develop further functionalities.
 
 ## Tech used
 
-React, React Router, Redux, TypeScript (all TS is added on the TypeScript branch of this project), Styled Components.
+React, React Router, Redux, TypeScript (all TS is added on the TypeScript branch of this project. Click [HERE](https://github.com/simoncriado/Hotel-Miranda-Dashboard/tree/typescript) to visit the TS branch) and Styled Components.
 I will be completing this section as the project is still under construction!
 
 ## You can visit the website by clicking the link below
