@@ -22,6 +22,9 @@ import {
 import { useAppDispatch } from "../../app/hooks";
 import { BookingInt, BookingRowInt } from "../../interfaces/BookingInt";
 
+// Helpers
+import formatDate from "../../helpers/date";
+
 type BookingsType = {
   singleBooking: BookingInt | null | undefined;
 };
@@ -74,13 +77,13 @@ export const BookingRow = ({ booking, handleOpenModal }: BookingRowInt) => {
         </GuestContainer>
       </td>
       <DataContainer className="data-container__text">
-        <p>{booking.orderDate}</p>
+        <p>{formatDate(booking.orderDate)}</p>
       </DataContainer>
       <DataContainer className="data-container__text">
-        <p>{booking.checkIn}</p>
+        <p>{formatDate(booking.checkIn)}</p>
       </DataContainer>
       <DataContainer className="data-container__text">
-        <p>{booking.checkOut}</p>
+        <p>{formatDate(booking.checkOut)}</p>
       </DataContainer>
       <td>
         <NotesButton

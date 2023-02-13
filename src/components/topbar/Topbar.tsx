@@ -45,6 +45,7 @@ const Topbar = () => {
 
   const logOut = (): void => {
     localStorage.removeItem("auth");
+
     // Dispatch the logout action
     logout();
   };

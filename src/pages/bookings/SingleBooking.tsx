@@ -29,6 +29,10 @@ import SingleBookingSwiper from "../../components/bookings/SingleBookingSwiper";
 // TypeScript
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { BookingInt } from "../../interfaces/BookingInt";
+import { current } from "@reduxjs/toolkit";
+
+// Helpers
+import formatDate from "../../helpers/date";
 
 type BookingsType = {
   singleBooking: BookingInt | null | undefined;
@@ -47,10 +51,21 @@ const SingleBooking = () => {
   );
 
   useEffect(() => {
-    dispatch(getBooking(Number(bookingId)));
+    if (singleBooking === null) {
+      dispatch(getBooking(Number(bookingId)));
+    } else if (
+      currentBooking !== null &&
+      currentBooking.bookingID !== Number(bookingId)
+    ) {
+      dispatch(getBooking(Number(bookingId)));
+    }
 
     setCurrentBooking(singleBooking);
-  }, [singleBooking, dispatch, bookingId]);
+  }, [singleBooking, currentBooking, dispatch, bookingId]);
+  if (currentBooking) {
+    const d = new Date(currentBooking.checkIn);
+    console.log(d.getDay());
+  }
 
   if (currentBooking) {
     return (
@@ -70,11 +85,11 @@ const SingleBooking = () => {
           <BookingDataContainer>
             <BookingDataSubcontainer>
               <Title>Check In</Title>
-              <Data>{currentBooking.checkIn}</Data>
+              <Data>{formatDate(currentBooking.checkIn)}</Data>
             </BookingDataSubcontainer>
             <BookingDataSubcontainer>
               <Title>Check Out</Title>
-              <Data>{currentBooking.checkOut}</Data>
+              <Data>{formatDate(currentBooking.checkOut)}</Data>
             </BookingDataSubcontainer>
           </BookingDataContainer>
           <Divider />
@@ -86,7 +101,7 @@ const SingleBooking = () => {
             <BookingDataSubcontainer>
               <Title>Price</Title>
               <Data>
-                $145
+                ${currentBooking.roomRate / 100}
                 <span> /night</span>
               </Data>
             </BookingDataSubcontainer>
@@ -102,7 +117,12 @@ const SingleBooking = () => {
             <BookingDataSubcontainer style={{ width: "100%" }}>
               <Title>Facilities</Title>
               <Facilities>
-                <div>
+                {currentBooking.roomFacilities.map(
+                  (facility: string, index: number) => (
+                    <div key={index}>{facility}</div>
+                  )
+                )}
+                {/* <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="25"
@@ -137,7 +157,7 @@ const SingleBooking = () => {
                 </div>
                 <div>2 Bathroom</div>
                 <div>Air Conditioner</div>
-                <div>Television</div>
+                <div>Television</div> */}
               </Facilities>
             </BookingDataSubcontainer>
           </BookingDataContainer>
@@ -147,18 +167,10 @@ const SingleBooking = () => {
             <Tag currentStatus={currentBooking.status} className="tag">
               {currentBooking.status}
             </Tag>
-            <SingleBookingSwiper />
+            <SingleBookingSwiper photos={currentBooking.roomPhotos} />
             <div className="roomData">
               <h2>{currentBooking.roomType}</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum
-              </p>
+              <p>{currentBooking.roomDescription}</p>
             </div>
           </SwiperContainer>
         </Subcontainer>

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import fetchAPI from "../fetchAPI";
 import { fetchData } from "../fetchData";
 import type { BookingInt } from "../../interfaces/BookingInt";
 
@@ -19,19 +20,19 @@ interface ActionInt {
 export const getDataBookings = createAsyncThunk(
   "bookings/fetchBookings",
   async () => {
-    return await fetchData("Bookings");
+    return await fetchAPI("bookings", "GET", null);
   }
 );
 export const getBooking = createAsyncThunk(
   "booking/GetBookingDetails",
   async (idBooking: number) => {
-    return await idBooking;
+    return await fetchAPI(`bookings/${idBooking}`, "GET", null);
   }
 );
 export const createNewBooking = createAsyncThunk(
   "bookings/CreateBooking",
   async (newBooking: BookingInt) => {
-    return await newBooking;
+    return await fetchAPI(`bookings/newBooking`, "POST", newBooking);
   }
 );
 export const editBooking = createAsyncThunk(
@@ -85,9 +86,7 @@ export const bookingsSlice = createSlice({
         getBooking.fulfilled,
         (state: BookingState, action: ActionInt) => {
           state.singleBookingStatus = "success";
-          state.singleBooking = state.bookingsList.find(
-            (booking) => booking.bookingID === action.payload
-          );
+          state.singleBooking = action.payload;
         }
       )
       .addCase(getBooking.rejected, (state: BookingState) => {

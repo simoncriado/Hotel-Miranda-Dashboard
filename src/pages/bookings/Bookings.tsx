@@ -74,13 +74,22 @@ const Bookings = () => {
     const orderedBookings: BookingInt[] = [...bookingsList];
     switch (activeFilter) {
       case "Order Date":
+        // orderedBookings.sort((a: BookingInt, b: BookingInt) => {
+        //   let dateA: string = a.orderDate.slice(0, 10);
+        //   let dateB: string = b.orderDate.slice(0, 10);
+        //   if (
+        //     dateB.split("/").reverse().join() <
+        //     dateA.split("/").reverse().join()
+        //   ) {
+        //     return -1;
+        //   } else {
+        //     return 1;
+        //   }
+        // });
         orderedBookings.sort((a: BookingInt, b: BookingInt) => {
-          let dateA: string = a.orderDate.slice(0, 10);
-          let dateB: string = b.orderDate.slice(0, 10);
-          if (
-            dateB.split("/").reverse().join() <
-            dateA.split("/").reverse().join()
-          ) {
+          let dateA: Date = new Date(a.orderDate);
+          let dateB: Date = new Date(b.orderDate);
+          if (dateB < dateA) {
             return -1;
           } else {
             return 1;
@@ -102,12 +111,9 @@ const Bookings = () => {
         break;
       case "Check In":
         orderedBookings.sort((a: BookingInt, b: BookingInt) => {
-          let dateA: string = a.checkIn;
-          let dateB: string = b.checkIn;
-          if (
-            dateB.split("/").reverse().join() <
-            dateA.split("/").reverse().join()
-          ) {
+          let dateA: Date = new Date(a.checkIn);
+          let dateB: Date = new Date(b.checkIn);
+          if (dateB < dateA) {
             return -1;
           } else {
             return 1;
@@ -116,12 +122,9 @@ const Bookings = () => {
         break;
       case "Check Out":
         orderedBookings.sort((a: BookingInt, b: BookingInt) => {
-          let dateA: string = a.checkOut;
-          let dateB: string = b.checkOut;
-          if (
-            dateB.split("/").reverse().join() <
-            dateA.split("/").reverse().join()
-          ) {
+          let dateA: Date = new Date(a.checkOut);
+          let dateB: Date = new Date(b.checkOut);
+          if (dateB < dateA) {
             return -1;
           } else {
             return 1;
