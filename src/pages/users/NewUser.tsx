@@ -17,8 +17,8 @@ const NewUser = () => {
   const navigate = useNavigate();
 
   const formTitle: string = "Please fill the form to create a new user";
+
   const [currentUser, setCurrentUser] = useState<UserInt>({
-    id: Math.floor(Math.random() * 100000),
     photo: "",
     name: "",
     position: "",

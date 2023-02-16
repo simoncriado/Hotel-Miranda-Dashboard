@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { UserInt } from "../../interfaces/UserInt";
 
 type UsersType = {
-  singleUser: UserInt | null | undefined;
+  singleUser: UserInt | null | undefined | any;
 };
 
 const EditUser = () => {
@@ -32,7 +32,11 @@ const EditUser = () => {
     "Here you can edit the fields needed and save them to update the original user";
 
   useEffect(() => {
-    dispatch(getUser(Number(id)));
+    if (singleUser === null) {
+      dispatch(getUser(Number(id)));
+    } else if (singleUser !== null && singleUser.userID !== Number(id)) {
+      dispatch(getUser(Number(id)));
+    }
 
     setCurrentUser(singleUser);
   }, [singleUser, dispatch, id]);

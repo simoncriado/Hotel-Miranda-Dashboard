@@ -37,20 +37,20 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
-  const goToSingleRoom = (id: string): void => {
+  const goToSingleRoom = (id: number): void => {
     navigate("/rooms/" + id);
   };
 
   const editSingleRoom = (
     e: React.MouseEvent<HTMLButtonElement>,
-    id: string
+    id: number
   ): void => {
     e.preventDefault();
     navigate("/editRoom/" + id);
   };
   const deleteCurrentRoom = (
     e: React.MouseEvent<HTMLButtonElement>,
-    id: string
+    id: number
   ): void => {
     e.preventDefault();
     dispatch(deleteRoom(id));
@@ -68,10 +68,14 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
   });
 
   return (
-    <Draggable key={room.id} draggableId={room.id} index={index}>
+    <Draggable
+      key={room.roomID}
+      draggableId={String(room.roomID)}
+      index={index}
+    >
       {(draggableProvided, snapshot) => (
         <Row
-          key={room.id}
+          key={room.roomID}
           {...draggableProvided.draggableProps}
           ref={draggableProvided.innerRef}
           {...draggableProvided.dragHandleProps}
@@ -82,9 +86,16 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
         >
           <td>
             <RoomNameContainer>
-              <img src={room.photo} alt="Room Img" />
+              <img
+                src={
+                  room.photo === ""
+                    ? "https://mktmarketingdigital.com/wp-content/plugins/elementor/assets/images/placeholder.png"
+                    : room.photo
+                }
+                alt="Room Img"
+              />
               <div>
-                <RoomId>#{room.id}</RoomId>
+                <RoomId>#{room.roomID}</RoomId>
                 <RoomNumber>Room Nr: {room.room_number}</RoomNumber>
               </div>
             </RoomNameContainer>
@@ -111,7 +122,7 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
           </DataContainer>
           <DataContainer>
             <RoomPrice>
-              ${room.room_rate}
+              ${room.room_rate / 100}
               <span>/night</span>
             </RoomPrice>
           </DataContainer>
@@ -119,10 +130,7 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
             <RoomPrice>
               $
               {room.discount === "Yes"
-                ? (
-                    room.room_rate -
-                    (room.room_rate * room.discountPercent) / 100
-                  ).toFixed(2)
+                ? (room.room_offer / 100).toFixed(2)
                 : "-"}
               <span>/night</span>
             </RoomPrice>
@@ -159,7 +167,7 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
                   <li>
                     <button
                       onClick={() => {
-                        goToSingleRoom(room.id);
+                        goToSingleRoom(room.roomID);
                       }}
                     >
                       Room details
@@ -168,7 +176,7 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
                   <li>
                     <button
                       onClick={(e) => {
-                        editSingleRoom(e, room.id);
+                        editSingleRoom(e, room.roomID);
                       }}
                     >
                       Edit room
@@ -177,7 +185,7 @@ export const RoomRow = ({ room, index }: RoomsType | any) => {
                   <li>
                     <button
                       onClick={(e) => {
-                        deleteCurrentRoom(e, room.id);
+                        deleteCurrentRoom(e, room.roomID);
                       }}
                     >
                       Delete room

@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RoomInt } from "../../interfaces/RoomInt";
 
 type RoomsType = {
-  singleRoom: RoomInt | null | undefined;
+  singleRoom: RoomInt | null | undefined | any;
 };
 
 const EditRoom = () => {
@@ -32,7 +32,11 @@ const EditRoom = () => {
     "Here you can edit the fields needed and save them to update the original room";
 
   useEffect(() => {
-    dispatch(getRoom(String(roomId)));
+    if (singleRoom === null) {
+      dispatch(getRoom(Number(roomId)));
+    } else if (singleRoom !== null && singleRoom.roomID !== Number(roomId)) {
+      dispatch(getRoom(Number(roomId)));
+    }
 
     setCurrentRoom(singleRoom);
   }, [singleRoom, dispatch, roomId]);

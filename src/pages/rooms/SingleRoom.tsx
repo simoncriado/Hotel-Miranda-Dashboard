@@ -45,10 +45,14 @@ const SingleRoom = () => {
   const [currentRoom, setCurrentRoom] = useState<RoomInt | any>(singleRoom);
 
   useEffect(() => {
-    dispatch(getRoom(String(roomId)));
+    if (singleRoom === null) {
+      dispatch(getRoom(Number(roomId)));
+    } else if (currentRoom !== null && currentRoom.roomID !== Number(roomId)) {
+      dispatch(getRoom(Number(roomId)));
+    }
 
     setCurrentRoom(singleRoom);
-  }, [singleRoom, dispatch, roomId]);
+  }, [singleRoom, dispatch, roomId, currentRoom]);
 
   if (currentRoom) {
     return (
@@ -62,7 +66,7 @@ const SingleRoom = () => {
             />
             <div>
               <GuestName>Room Nr. {currentRoom.room_number}</GuestName>
-              <BookingID>ID {currentRoom.id}</BookingID>
+              <BookingID>ID {currentRoom.roomID}</BookingID>
             </div>
           </GuestContainer>
           <BookingDataContainer>
@@ -73,7 +77,7 @@ const SingleRoom = () => {
             <BookingDataSubcontainer>
               <Title>Room rate</Title>
               <Data>
-                {currentRoom.room_rate}
+                {currentRoom.room_rate / 100}
                 <span> /night</span>
               </Data>
             </BookingDataSubcontainer>
@@ -99,8 +103,7 @@ const SingleRoom = () => {
               <Data>
                 {currentRoom.discount === ""
                   ? "-"
-                  : currentRoom.room_rate -
-                    (currentRoom.room_rate * currentRoom.discountPercent) / 100}
+                  : (currentRoom.room_offer / 100).toFixed(2)}
                 <span> /night</span>
               </Data>
             </BookingDataSubcontainer>
@@ -128,7 +131,15 @@ const SingleRoom = () => {
             <Tag currentStatus={currentRoom.room_status} className="tag">
               {currentRoom.room_status}
             </Tag>
-            <SingleBookingSwiper />
+            <SingleBookingSwiper
+              photos={[
+                currentRoom.photo,
+                currentRoom.photoTwo,
+                currentRoom.photoThree,
+                currentRoom.photoFour,
+                currentRoom.photoFive,
+              ]}
+            />
             <div className="roomData">
               <h2>{currentRoom.bed_type}</h2>
               {currentRoom.description ? (

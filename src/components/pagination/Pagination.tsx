@@ -20,7 +20,29 @@ const Pagination = ({
   indexOfFirstImage,
 }: any) => {
   // Creates an array that holds all the page numbers from 1 to the total number of pages (this variable is coming from the parent component)
-  const pageNumbers: number[] = [...Array(nPages + 1).keys()].slice(1);
+  const pageNumbersTotal: number[] = [...Array(nPages + 1).keys()].slice(1);
+  const last = pageNumbersTotal.length;
+
+  const paginate = (current: number, max: number) => {
+    if (!current || !max) return null;
+
+    let items: any = [1];
+
+    if (current === 1 && max === 1) return { current, items };
+    if (current > 4) items.push("...");
+
+    let r = 2,
+      r1 = current - r,
+      r2 = current + r;
+
+    for (let i = r1 > 2 ? r1 : 2; i <= Math.min(max, r2); i++) items.push(i);
+
+    if (r2 + 1 < max) items.push("...");
+    if (r2 < max) items.push(max);
+
+    return { current, items };
+  };
+  const pageNumbersShort = paginate(currentPage, last);
 
   // Goes to next or prev page if the user is not at the last page or first page respectively
   const nextPage = (): void => {
@@ -45,18 +67,23 @@ const Pagination = ({
           </LiNextBtn>
         </LiNext>
         {/* Creating a button with the number of the page for each page */}
-        {pageNumbers.map((pgNumber) => (
-          <LiPageNumber key={pgNumber}>
-            <LiPageBtn
-              currentPage={
-                currentPage === pgNumber ? "currentPage" : "notCurrentPage"
-              }
-              onClick={() => setCurrentPage(pgNumber)}
-            >
-              {pgNumber}
-            </LiPageBtn>
-          </LiPageNumber>
-        ))}
+        {pageNumbersShort &&
+          pageNumbersShort.items.map((pgNumber: any, index: number) => (
+            <LiPageNumber key={index}>
+              <LiPageBtn
+                currentPage={
+                  currentPage === pgNumber ? "currentPage" : "notCurrentPage"
+                }
+                onClick={() => {
+                  if (pgNumber !== "...") {
+                    setCurrentPage(pgNumber);
+                  }
+                }}
+              >
+                {pgNumber}
+              </LiPageBtn>
+            </LiPageNumber>
+          ))}
 
         <LiNext>
           <LiNextBtn onClick={nextPage} style={{ marginLeft: 20 }}>

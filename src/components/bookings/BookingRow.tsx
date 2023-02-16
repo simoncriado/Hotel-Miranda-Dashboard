@@ -20,14 +20,14 @@ import {
 
 // TypeScript
 import { useAppDispatch } from "../../app/hooks";
-import { BookingInt, BookingRowInt } from "../../interfaces/BookingInt";
+import { BookingRowInt } from "../../interfaces/BookingInt";
 
 // Helpers
 import formatDate from "../../helpers/date";
 
-type BookingsType = {
-  singleBooking: BookingInt | null | undefined;
-};
+// type BookingsType = {
+//   singleBooking: BookingInt | null | undefined;
+// };
 
 // Component that creates a table row for the bookings table
 export const BookingRow = ({ booking, handleOpenModal }: BookingRowInt) => {

@@ -37,6 +37,10 @@ type StatusType = {
   status: string;
 };
 
+type UpdateType = {
+  update: boolean;
+};
+
 // Component that creates a table and add a row for each item in the data base
 const Rooms = () => {
   const dispatch = useAppDispatch();
@@ -45,19 +49,20 @@ const Rooms = () => {
   );
   const { status } = useAppSelector<StatusType>((state) => state.roomsReducer);
 
+  const { update } = useAppSelector<UpdateType>((state) => state.roomsReducer);
+
   const [rooms, setRooms] = useState<RoomInt[]>(roomsList);
   const [activeFilter, setActiveFilter] = useState<string>("Room Nr.");
   const [currentRooms, setCurrentRooms] = useState<RoomInt[]>([]);
 
   // Faking a delay on data fetch
   useEffect(() => {
-    if (roomsList.length === 0) {
-      setTimeout(() => {
-        dispatch(getDataRooms());
-      }, 1000);
+    if (update) {
+      dispatch(getDataRooms());
     }
+
     setRooms(roomsList);
-  }, [roomsList, dispatch]);
+  }, [roomsList, dispatch, update]);
 
   const getAllRooms = (): void => {
     setRooms(roomsList);
@@ -205,13 +210,8 @@ const Rooms = () => {
                     className="task-container"
                   >
                     {currentRooms.length > 0 &&
-                      currentRooms.map((room, index) => (
-                        <RoomRow
-                          key={room.id}
-                          index={index}
-                          room={room}
-                          number={room.id}
-                        />
+                      currentRooms.map((room, index: number) => (
+                        <RoomRow key={index} index={index} room={room} />
                       ))}
                     {droppableProvided.placeholder}
                   </tbody>

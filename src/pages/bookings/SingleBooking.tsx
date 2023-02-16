@@ -29,7 +29,6 @@ import SingleBookingSwiper from "../../components/bookings/SingleBookingSwiper";
 // TypeScript
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { BookingInt } from "../../interfaces/BookingInt";
-import { current } from "@reduxjs/toolkit";
 
 // Helpers
 import formatDate from "../../helpers/date";
@@ -62,10 +61,6 @@ const SingleBooking = () => {
 
     setCurrentBooking(singleBooking);
   }, [singleBooking, currentBooking, dispatch, bookingId]);
-  if (currentBooking) {
-    const d = new Date(currentBooking.checkIn);
-    console.log(d.getDay());
-  }
 
   if (currentBooking) {
     return (

@@ -1,8 +1,6 @@
 import { MouseEventHandler } from "react";
 
 export interface BookingInt {
-  id: number;
-  bookingID: number;
   userName: string;
   userPicture: string;
   orderDate: string;
@@ -27,6 +25,6 @@ export interface BookingFormInt {
 }
 
 export interface BookingRowInt {
-  booking: BookingInt;
+  booking: BookingInt | any;
   handleOpenModal: (userName: string, specialRequest: string, e: any) => void;
 }

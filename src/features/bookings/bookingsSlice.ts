@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import fetchAPI from "../fetchAPI";
-import { fetchData } from "../fetchData";
 import type { BookingInt } from "../../interfaces/BookingInt";
 
 // Defining types for the slice state
@@ -9,6 +8,7 @@ interface BookingState {
   singleBooking: BookingInt | null | undefined;
   status: string;
   singleBookingStatus: string;
+  update: boolean;
 }
 
 // Defining types for the slice actions
@@ -37,14 +37,18 @@ export const createNewBooking = createAsyncThunk(
 );
 export const editBooking = createAsyncThunk(
   "bookings/EditBooking",
-  async (idBooking: number) => {
-    return await idBooking;
+  async (currentBooking: any) => {
+    return await fetchAPI(
+      `bookings/editBooking/${currentBooking.bookingID}`,
+      "PUT",
+      currentBooking
+    );
   }
 );
 export const deleteBooking = createAsyncThunk(
   "bookings/DeleteBooking",
-  async (bookingID: number) => {
-    return await bookingID;
+  async (idBooking: number) => {
+    return await fetchAPI(`bookings/${idBooking}`, "DELETE", null);
   }
 );
 
@@ -54,6 +58,7 @@ const initialState: BookingState = {
   status: "loading",
   singleBooking: null,
   singleBookingStatus: "loading",
+  update: true,
 };
 
 export const bookingsSlice = createSlice({
@@ -70,6 +75,7 @@ export const bookingsSlice = createSlice({
         (state: BookingState, action: ActionInt) => {
           state.status = "success";
           state.bookingsList = action.payload;
+          state.update = false;
         }
       )
       .addCase(getDataBookings.rejected, (state: BookingState) => {
@@ -97,7 +103,9 @@ export const bookingsSlice = createSlice({
     builder.addCase(
       createNewBooking.fulfilled,
       (state: BookingState, action: ActionInt) => {
-        state.bookingsList = [...state.bookingsList, action.payload];
+        // state.bookingsList = [...state.bookingsList, action.payload.newbooking];
+        state.bookingsList = [];
+        state.update = true;
       }
     );
 
@@ -105,20 +113,23 @@ export const bookingsSlice = createSlice({
       deleteBooking.fulfilled,
       (state: BookingState, action: ActionInt) => {
         state.bookingsList = state.bookingsList.filter(
-          (booking) => booking.bookingID !== action.payload
+          (booking: any) =>
+            booking.bookingID !== action.payload.oldbooking.bookingID
         );
+        state.update = true;
       }
     );
 
     builder.addCase(
       editBooking.fulfilled,
       (state: BookingState, action: ActionInt) => {
-        state.bookingsList = state.bookingsList.map((booking) => {
-          return booking.bookingID === action.payload.bookingID
-            ? action.payload
+        state.bookingsList = state.bookingsList.map((booking: any) => {
+          return booking.bookingID === action.payload.newbooking.bookingID
+            ? action.payload.newbooking
             : booking;
         });
         state.singleBooking = null;
+        state.update = true;
       }
     );
   },

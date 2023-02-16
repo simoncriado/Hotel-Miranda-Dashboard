@@ -1,9 +1,8 @@
 // React & Router
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 // Redux
-import { useDispatch } from "react-redux";
 import { deleteUser } from "../../features/users/usersSlice";
 
 // Styled Components
@@ -22,6 +21,9 @@ import { DataContainerButton, DropDown } from "../bookings/BookingRowStyled";
 import { useAppDispatch } from "../../app/hooks";
 import { UserInt } from "../../interfaces/UserInt";
 
+// Helpers
+import formatDate from "../../helpers/date";
+
 type UsersType = {
   singleUser: UserInt | null | undefined;
 };
@@ -33,14 +35,14 @@ export const UserRow = ({ user }: UsersType | any) => {
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
-  const goToSingleUser = (id: number) => {
+  const goToSingleUser = (id: number): void => {
     navigate("/users/" + id);
   };
-  const editSingleUser = (e: Event, id: number) => {
+  const editSingleUser = (e: Event, id: number): void => {
     e.preventDefault();
     navigate("/editUser/" + id);
   };
-  const deleteCurrentUser = (e: Event, id: number) => {
+  const deleteCurrentUser = (e: Event, id: number): void => {
     e.preventDefault();
     dispatch(deleteUser(id));
   };
@@ -48,16 +50,23 @@ export const UserRow = ({ user }: UsersType | any) => {
   return (
     <Row
       onClick={() => {
-        goToSingleUser(user.id);
+        goToSingleUser(user.userID);
       }}
     >
       <td>
         <UserContainer>
-          <img src={user.photo} alt="User portrait" />
+          <img
+            src={
+              user.photo === ""
+                ? "https://corporate.bestbuy.com/wp-content/uploads/2022/06/Image-Portrait-Placeholder.jpg"
+                : user.photo
+            }
+            alt="User portrait"
+          />
           <div>
             <UserName>{user.name}</UserName>
-            <UserID>#{user.id}</UserID>
-            <UserJoinDate>Joined on {user.date}</UserJoinDate>
+            <UserID>#{user.userID}</UserID>
+            <UserJoinDate>Joined on {formatDate(user.date)}</UserJoinDate>
           </div>
         </UserContainer>
       </td>
@@ -118,7 +127,7 @@ export const UserRow = ({ user }: UsersType | any) => {
                 <button
                   onClick={(e: any) => {
                     if (e && e.stopPropagation) e.stopPropagation();
-                    editSingleUser(e, user.id);
+                    editSingleUser(e, user.userID);
                   }}
                 >
                   Edit user
@@ -128,7 +137,7 @@ export const UserRow = ({ user }: UsersType | any) => {
                 <button
                   onClick={(e: any) => {
                     if (e && e.stopPropagation) e.stopPropagation();
-                    deleteCurrentUser(e, user.id);
+                    deleteCurrentUser(e, user.userID);
                   }}
                 >
                   Delete user

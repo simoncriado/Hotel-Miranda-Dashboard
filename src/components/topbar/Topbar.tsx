@@ -31,6 +31,7 @@ const Topbar = () => {
   const { bookingsList } = useAppSelector<BookingsType>(
     (state) => state.bookingsReducer
   );
+  const [listLenght, setListLenght] = useState(bookingsList.length);
 
   useEffect(() => {
     const ring: any = ref.current;
@@ -41,7 +42,7 @@ const Topbar = () => {
     setTimeout(() => {
       ring.classList.remove("ring");
     }, 7000);
-  }, [bookingsList]);
+  }, [listLenght]);
 
   const logOut = (): void => {
     localStorage.removeItem("auth");

@@ -33,6 +33,9 @@ type UsersType = {
 type StatusType = {
   status: string;
 };
+type UpdateType = {
+  update: boolean;
+};
 
 // Component that creates a table and add a row for each item in the data base
 const Users = () => {
@@ -42,19 +45,19 @@ const Users = () => {
   );
   const { status } = useAppSelector<StatusType>((state) => state.usersReducer);
 
+  const { update } = useAppSelector<UpdateType>((state) => state.usersReducer);
+
   const [users, setUsers] = useState<UserInt[]>(usersList);
   const [activeFilter, setActiveFilter] = useState<string>("Start date");
   const [currentUsers, setCurrentUsers] = useState<UserInt[]>([]);
 
   // Faking a delay on data fetch
   useEffect(() => {
-    if (usersList.length === 0) {
-      setTimeout(() => {
-        dispatch(getDataUsers());
-      }, 1000);
+    if (update) {
+      dispatch(getDataUsers());
     }
     setUsers(usersList);
-  }, [usersList, dispatch]);
+  }, [usersList, dispatch, update]);
 
   const getAllUsers = (): void => {
     setUsers(usersList);
@@ -69,9 +72,9 @@ const Users = () => {
     switch (activeFilter) {
       case "Start date":
         orderedUsers.sort((a: UserInt, b: UserInt) => {
-          let dateA: string = a.date;
-          let dateB: string = b.date;
-          if (dateB.split("/").join() > dateA.split("/").join()) {
+          let dateA: Date = new Date(a.date);
+          let dateB: Date = new Date(b.date);
+          if (dateB < dateA) {
             return -1;
           } else {
             return 1;
@@ -150,8 +153,8 @@ const Users = () => {
               </thead>
               <tbody>
                 {currentUsers.length > 0 &&
-                  currentUsers.map((user) => (
-                    <UserRow key={user.id} user={user} />
+                  currentUsers.map((user: any, index: number) => (
+                    <UserRow key={index} user={user} />
                   ))}
               </tbody>
             </Table>

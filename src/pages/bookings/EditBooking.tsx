@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { BookingInt } from "../../interfaces/BookingInt";
 
 type BookingsType = {
-  singleBooking: BookingInt | null | undefined;
+  singleBooking: BookingInt | null | undefined | any;
 };
 
 const EditBooking = () => {
@@ -33,7 +33,14 @@ const EditBooking = () => {
     "Here you can edit the fields needed and save them to update the original booking";
 
   useEffect(() => {
-    dispatch(getBooking(Number(bookingId)));
+    if (singleBooking === null) {
+      dispatch(getBooking(Number(bookingId)));
+    } else if (
+      singleBooking !== null &&
+      singleBooking.bookingID !== Number(bookingId)
+    ) {
+      dispatch(getBooking(Number(bookingId)));
+    }
 
     setCurrentBooking(singleBooking);
   }, [singleBooking, dispatch, bookingId]);

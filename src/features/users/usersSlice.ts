@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchData } from "../fetchData";
+import fetchAPI from "../fetchAPI";
 import type { UserInt } from "../../interfaces/UserInt";
 
 // Defining types for the slice state
@@ -8,6 +8,7 @@ interface UserState {
   singleUser: UserInt | null | undefined;
   status: string;
   singleUserStatus: string;
+  update: boolean;
 }
 
 // Defining types for the slice actions
@@ -17,30 +18,34 @@ interface ActionInt {
 }
 
 export const getDataUsers = createAsyncThunk("users/fetchUsers", async () => {
-  return await fetchData("Users");
+  return await fetchAPI("users", "GET", null);
 });
 export const getUser = createAsyncThunk(
   "user/GetUserDetails",
   async (id: number) => {
-    return await id;
+    return await fetchAPI(`users/${id}`, "GET", null);
   }
 );
 export const createNewUser = createAsyncThunk(
   "users/CreateUser",
   async (newUser: UserInt) => {
-    return await newUser;
+    return await fetchAPI(`users/newUser`, "POST", newUser);
   }
 );
 export const editUser = createAsyncThunk(
   "users/EditUser",
-  async (id: number) => {
-    return await id;
+  async (currentUser: any) => {
+    return await fetchAPI(
+      `users/editUser/${currentUser.userID}`,
+      "PUT",
+      currentUser
+    );
   }
 );
 export const deleteUser = createAsyncThunk(
   "users/DeleteUser",
   async (id: number) => {
-    return await id;
+    return await fetchAPI(`users/${id}`, "DELETE", null);
   }
 );
 
@@ -50,6 +55,7 @@ const initialState: UserState = {
   status: "loading",
   singleUser: null,
   singleUserStatus: "loading",
+  update: true,
 };
 
 export const usersSlice = createSlice({
@@ -66,6 +72,7 @@ export const usersSlice = createSlice({
         (state: UserState, action: ActionInt) => {
           state.status = "success";
           state.usersList = action.payload;
+          state.update = false;
         }
       )
       .addCase(getDataUsers.rejected, (state: UserState) => {
@@ -80,9 +87,7 @@ export const usersSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state: UserState, action: ActionInt) => {
         state.singleUserStatus = "success";
-        state.singleUser = state.usersList.find(
-          (user) => user.id === action.payload
-        );
+        state.singleUser = action.payload;
       })
       .addCase(getUser.rejected, (state: UserState) => {
         state.singleUserStatus = "failed";
@@ -92,7 +97,9 @@ export const usersSlice = createSlice({
     builder.addCase(
       createNewUser.fulfilled,
       (state: UserState, action: ActionInt) => {
-        state.usersList = [...state.usersList, action.payload];
+        // state.usersList = [...state.usersList, action.payload.newuser];
+        state.usersList = [];
+        state.update = true;
       }
     );
 
@@ -100,7 +107,7 @@ export const usersSlice = createSlice({
       deleteUser.fulfilled,
       (state: UserState, action: ActionInt) => {
         state.usersList = state.usersList.filter(
-          (user) => user.id !== action.payload
+          (user: any) => user.userID !== action.payload.olduser.userID
         );
       }
     );
@@ -108,10 +115,13 @@ export const usersSlice = createSlice({
     builder.addCase(
       editUser.fulfilled,
       (state: UserState, action: ActionInt) => {
-        state.usersList = state.usersList.map((user) => {
-          return user.id === action.payload.id ? action.payload : user;
+        state.usersList = state.usersList.map((user: any) => {
+          return user.userID === action.payload.newuser.userID
+            ? action.payload.newuser
+            : user;
         });
         state.singleUser = null;
+        state.update = true;
       }
     );
   },

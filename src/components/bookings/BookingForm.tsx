@@ -23,6 +23,17 @@ const BookingForm = ({
   handleSubmit,
   handleCancel,
 }: BookingFormInt) => {
+  const editFormDate = (date: string) => {
+    if (date === "") {
+      return "";
+    }
+    const newDate = new Date(date);
+    const month = ("0" + (newDate.getMonth() + 1)).slice(-2);
+    const day = ("0" + newDate.getDate()).slice(-2);
+    const year = newDate.getFullYear();
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <>
       <LoginContainer style={{ minHeight: "80%" }}>
@@ -69,7 +80,7 @@ const BookingForm = ({
                 className="input-user"
                 placeholder="dd-mm-yyyy"
                 name="checkIn"
-                value={currentBooking.checkIn}
+                value={editFormDate(currentBooking.checkIn)}
                 onChange={handleInput}
               ></Input>
             </InputContainer>
@@ -82,7 +93,7 @@ const BookingForm = ({
                 className="input-user"
                 placeholder="dd-mm-yyyy"
                 name="checkOut"
-                value={currentBooking.checkOut}
+                value={editFormDate(currentBooking.checkOut)}
                 onChange={handleInput}
               ></Input>
             </InputContainer>

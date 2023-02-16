@@ -6,7 +6,12 @@ interface SingleDate {
   checkOut: string;
 }
 
-export const SingleBookingCard = (checkIn: SingleDate) => {
+export const SingleBookingCard = ({
+  checkIn,
+  checkOut,
+  userName,
+  bedType,
+}: any) => {
   return (
     <Card>
       <img
@@ -14,12 +19,12 @@ export const SingleBookingCard = (checkIn: SingleDate) => {
         alt="Room img"
       />
       <CardData>
-        <h2>Single Bed</h2>
-        <p>Mr. Example</p>
+        <h2>{userName}</h2>
+        <p>{bedType}</p>
       </CardData>
       <CardData style={{ marginLeft: "auto" }}>
-        <p>Check In: {checkIn.checkIn}</p>
-        <p>Check Out: {checkIn.checkOut}</p>
+        <p>Check In: {checkIn}</p>
+        <p>Check Out: {checkOut}</p>
       </CardData>
     </Card>
   );

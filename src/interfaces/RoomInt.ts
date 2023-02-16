@@ -1,5 +1,4 @@
 export interface RoomInt {
-  id: string;
   room_number: string;
   photo: string;
   photoTwo: string;

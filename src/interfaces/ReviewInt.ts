@@ -1,18 +1,9 @@
-type user = {
+export interface ReviewInt {
+  date: string;
   name: string;
   email: string;
   phone: string;
-};
-type comment = {
-  subject: string;
-  body: string;
-};
-
-export interface ReviewInt {
-  id: number;
-  date: string;
-  user: user;
-  message: comment;
+  comment: string;
   stars: number;
   archived: boolean;
 }

@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchData } from "../fetchData";
+import fetchAPI from "../fetchAPI";
 import type { ReviewInt } from "../../interfaces/ReviewInt";
 
 // Defining types for the slice state
 interface ReviewState {
   reviewsList: ReviewInt[] | [];
   status: string;
+  update: boolean;
 }
 
 // Defining types for the slice actions
@@ -17,7 +18,7 @@ interface ActionInt {
 export const getDataReviews = createAsyncThunk(
   "reviews/fetchReviews",
   async () => {
-    return await fetchData("Reviews");
+    return await fetchAPI("contact", "GET", null);
   }
 );
 
@@ -25,6 +26,7 @@ export const getDataReviews = createAsyncThunk(
 const initialState: ReviewState = {
   reviewsList: [],
   status: "loading",
+  update: true,
 };
 
 export const reviewsSlice = createSlice({
@@ -41,6 +43,7 @@ export const reviewsSlice = createSlice({
         (state: ReviewState, action: ActionInt) => {
           state.status = "success";
           state.reviewsList = action.payload;
+          state.update = false;
         }
       )
       .addCase(getDataReviews.rejected, (state: ReviewState) => {

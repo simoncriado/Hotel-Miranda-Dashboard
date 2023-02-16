@@ -25,6 +25,9 @@ import {
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { UserInt } from "../../interfaces/UserInt";
 
+// Helpers
+import formatDate from "../../helpers/date";
+
 type UsersType = {
   singleUser: UserInt | null | undefined;
 };
@@ -40,10 +43,14 @@ const SingleUser = () => {
   const [currentUser, setCurrentUser] = useState<UserInt | any>(singleUser);
 
   useEffect(() => {
-    dispatch(getUser(Number(id)));
+    if (singleUser === null) {
+      dispatch(getUser(Number(id)));
+    } else if (currentUser !== null && currentUser.userID !== Number(id)) {
+      dispatch(getUser(Number(id)));
+    }
 
     setCurrentUser(singleUser);
-  }, [singleUser, dispatch, id]);
+  }, [singleUser, dispatch, id, currentUser]);
 
   if (currentUser) {
     return (
@@ -52,12 +59,16 @@ const SingleUser = () => {
           <GuestContainer>
             <img
               style={{ width: 150, height: 150 }}
-              src={currentUser.photo}
+              src={
+                currentUser.photo === ""
+                  ? "https://corporate.bestbuy.com/wp-content/uploads/2022/06/Image-Portrait-Placeholder.jpg"
+                  : currentUser.photo
+              }
               alt="User portrait"
             />
             <div>
               <GuestName>{currentUser.name}</GuestName>
-              <BookingID>ID {currentUser.id}</BookingID>
+              <BookingID>ID {currentUser.userID}</BookingID>
             </div>
             <div style={{ marginLeft: "18rem" }}>
               <BookingID>{currentUser.email}</BookingID>
@@ -67,7 +78,7 @@ const SingleUser = () => {
           <BookingDataContainer>
             <BookingDataSubcontainer>
               <Title>Start date</Title>
-              <Data>{currentUser.date}</Data>
+              <Data>{formatDate(currentUser.date)}</Data>
             </BookingDataSubcontainer>
             <BookingDataSubcontainer>
               <Title>Current position</Title>

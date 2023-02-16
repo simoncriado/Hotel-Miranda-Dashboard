@@ -34,6 +34,9 @@ type BookingsType = {
 type StatusType = {
   status: string;
 };
+type UpdateType = {
+  update: boolean;
+};
 
 // Component that creates a table and add a row for each item in the data base
 const Bookings = () => {
@@ -42,6 +45,9 @@ const Bookings = () => {
     (state) => state.bookingsReducer
   );
   const { status } = useAppSelector<StatusType>(
+    (state) => state.bookingsReducer
+  );
+  const { update } = useAppSelector<UpdateType>(
     (state) => state.bookingsReducer
   );
 
@@ -54,13 +60,13 @@ const Bookings = () => {
 
   // Faking a delay on data fetch
   useEffect(() => {
-    if (bookingsList.length === 0) {
-      setTimeout(() => {
-        dispatch(getDataBookings());
-      }, 1000);
+    if (update) {
+      // setTimeout(() => {
+      dispatch(getDataBookings());
+      // }, 500);
     }
     setBookings(bookingsList);
-  }, [bookingsList, dispatch]);
+  }, [bookingsList, dispatch, update]);
 
   const getAllBookings = (): void => {
     setBookings(bookingsList);
@@ -74,18 +80,6 @@ const Bookings = () => {
     const orderedBookings: BookingInt[] = [...bookingsList];
     switch (activeFilter) {
       case "Order Date":
-        // orderedBookings.sort((a: BookingInt, b: BookingInt) => {
-        //   let dateA: string = a.orderDate.slice(0, 10);
-        //   let dateB: string = b.orderDate.slice(0, 10);
-        //   if (
-        //     dateB.split("/").reverse().join() <
-        //     dateA.split("/").reverse().join()
-        //   ) {
-        //     return -1;
-        //   } else {
-        //     return 1;
-        //   }
-        // });
         orderedBookings.sort((a: BookingInt, b: BookingInt) => {
           let dateA: Date = new Date(a.orderDate);
           let dateB: Date = new Date(b.orderDate);
@@ -214,9 +208,9 @@ const Bookings = () => {
               </thead>
               <tbody>
                 {currentBookings.length > 0 &&
-                  currentBookings.map((booking: BookingInt) => (
+                  currentBookings.map((booking: any, index: number) => (
                     <BookingRow
-                      key={booking.id}
+                      key={index}
                       booking={booking}
                       handleOpenModal={handleOpenModal}
                     />

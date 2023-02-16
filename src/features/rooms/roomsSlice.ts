@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchData } from "../fetchData";
+import fetchAPI from "../fetchAPI";
 import type { RoomInt } from "../../interfaces/RoomInt";
 
 // This could be an alternative to have the fake delay in the rooms page
@@ -17,6 +17,7 @@ interface RoomState {
   singleRoom: RoomInt | null | undefined;
   status: string;
   singleRoomStatus: string;
+  update: boolean;
 }
 
 // Defining types for the slice actions
@@ -26,35 +27,39 @@ interface ActionInt {
 }
 
 export const getDataRooms = createAsyncThunk("rooms/fetchRooms", async () => {
-  return await fetchData("Rooms");
+  return await fetchAPI("rooms", "GET", null);
   // return await fakeDelay(fetchData("Rooms"));
 });
 
 export const getRoom = createAsyncThunk(
   "room/GetRoomDetails",
-  async (id: string) => {
-    return await id;
+  async (id: number) => {
+    return await fetchAPI(`rooms/${id}`, "GET", null);
   }
 );
 
 export const createNewRoom = createAsyncThunk(
   "rooms/CreateRoom",
   async (newRoom: RoomInt) => {
-    return await newRoom;
+    return await fetchAPI(`rooms/newRoom`, "POST", newRoom);
   }
 );
 
 export const editRoom = createAsyncThunk(
   "rooms/EditRoom",
-  async (id: string) => {
-    return await id;
+  async (currentRoom: any) => {
+    return await fetchAPI(
+      `rooms/editRoom/${currentRoom.roomID}`,
+      "PUT",
+      currentRoom
+    );
   }
 );
 
 export const deleteRoom = createAsyncThunk(
   "rooms/DeleteRooms",
-  async (id: string) => {
-    return await id;
+  async (id: number) => {
+    return await fetchAPI(`rooms/${id}`, "DELETE", null);
   }
 );
 
@@ -63,6 +68,7 @@ const initialState: RoomState = {
   status: "loading",
   singleRoom: null,
   singleRoomStatus: "loading",
+  update: true,
 };
 
 export const roomsSlice = createSlice({
@@ -79,6 +85,7 @@ export const roomsSlice = createSlice({
         (state: RoomState, action: ActionInt) => {
           state.status = "success";
           state.roomsList = action.payload;
+          state.update = false;
         }
       )
       .addCase(getDataRooms.rejected, (state: RoomState) => {
@@ -93,9 +100,7 @@ export const roomsSlice = createSlice({
       })
       .addCase(getRoom.fulfilled, (state: RoomState, action: ActionInt) => {
         state.singleRoomStatus = "success";
-        state.singleRoom = state.roomsList.find(
-          (room) => room.id === action.payload
-        );
+        state.singleRoom = action.payload;
       })
       .addCase(getRoom.rejected, (state: RoomState) => {
         state.singleRoomStatus = "failed";
@@ -105,7 +110,9 @@ export const roomsSlice = createSlice({
     builder.addCase(
       createNewRoom.fulfilled,
       (state: RoomState, action: ActionInt) => {
-        state.roomsList = [...state.roomsList, action.payload];
+        // state.roomsList = [...state.roomsList, action.payload.newroom];
+        state.roomsList = [];
+        state.update = true;
       }
     );
 
@@ -113,20 +120,23 @@ export const roomsSlice = createSlice({
       deleteRoom.fulfilled,
       (state: RoomState, action: ActionInt) => {
         state.roomsList = state.roomsList.filter(
-          (room) => room.id !== action.payload
+          (room: any) => room.roomID !== action.payload.oldroom.roomID
         );
+        state.update = true;
       }
     );
 
     builder.addCase(
       editRoom.fulfilled,
       (state: RoomState, action: ActionInt) => {
-        state.roomsList = state.roomsList.map((room) => {
-          return room.id === action.payload.id ? action.payload : room;
+        state.roomsList = state.roomsList.map((room: any) => {
+          return room.roomID === action.payload.newroom.roomID
+            ? action.payload.newRoom
+            : room;
         });
-        // CAUTION!! Is this even allowed? When finishing editing I remove the singleRoom data because otherwise when I try to edit the same room, the singleRoom data is still available
-        // and it gets used to render the edit form
+
         state.singleRoom = null;
+        state.update = true;
       }
     );
   },

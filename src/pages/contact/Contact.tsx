@@ -33,6 +33,9 @@ type ReviewsType = {
 type StatusType = {
   status: string;
 };
+type UpdateType = {
+  update: boolean;
+};
 
 const Contact = () => {
   const dispatch = useAppDispatch();
@@ -43,19 +46,23 @@ const Contact = () => {
     (state) => state.contactReducer
   );
 
+  const { update } = useAppSelector<UpdateType>(
+    (state) => state.contactReducer
+  );
+
   const [reviews, setReviews] = useState<ReviewInt[]>(reviewsList);
   const [activeFilter, setActiveFilter] = useState<string>("Date");
   const [currentReviews, setCurrentReviews] = useState<ReviewInt[]>([]);
 
   // Faking a delay on data fetch
   useEffect(() => {
-    if (reviewsList.length === 0) {
+    if (update) {
       setTimeout(() => {
         dispatch(getDataReviews());
       }, 1000);
     }
     setReviews(reviewsList);
-  }, [reviewsList, dispatch]);
+  }, [reviewsList, dispatch, update]);
 
   const getAllReviews = (): void => {
     setReviews(reviewsList);
@@ -70,9 +77,9 @@ const Contact = () => {
     switch (activeFilter) {
       case "Date":
         orderedReviews.sort((a: ReviewInt, b: ReviewInt) => {
-          let dateA: string = a.date;
-          let dateB: string = b.date;
-          if (dateB.split("-").join() < dateA.split("-").join()) {
+          let dateA: Date = new Date(a.date);
+          let dateB: Date = new Date(b.date);
+          if (dateB < dateA) {
             return -1;
           } else {
             return 1;
@@ -81,8 +88,8 @@ const Contact = () => {
         break;
       case "User":
         orderedReviews.sort((a: ReviewInt, b: ReviewInt) => {
-          const nameA: string = a.user.name.toUpperCase().replace(/\s/g, "");
-          const nameB: string = b.user.name.toUpperCase().replace(/\s/g, "");
+          const nameA: string = a.name.toUpperCase().replace(/\s/g, "");
+          const nameB: string = b.name.toUpperCase().replace(/\s/g, "");
           if (nameA < nameB) {
             return -1;
           }
@@ -155,8 +162,8 @@ const Contact = () => {
               </thead>
               <tbody className="task-container">
                 {currentReviews.length > 0 &&
-                  currentReviews.map((review: ReviewInt) => (
-                    <ReviewRow key={review.id} review={review} />
+                  currentReviews.map((review: any, index: number) => (
+                    <ReviewRow key={index} review={review} />
                   ))}
               </tbody>
             </Table>

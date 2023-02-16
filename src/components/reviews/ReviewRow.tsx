@@ -1,6 +1,9 @@
 // Styled Components
 import { Row, DataContainer, DataContainerButton } from "./ReviewRowStyled";
 
+// Helpers
+import formatDate from "../../helpers/date";
+
 // Component that creates a table row for the bookings table
 export const ReviewRow = ({ review }: any) => {
   // Here I display a star based on the user´s given rating
@@ -22,19 +25,19 @@ export const ReviewRow = ({ review }: any) => {
   }
 
   return (
-    <Row key={review.id}>
+    <Row>
       <DataContainer className="data-container__text">
-        <p>#{review.id}</p>
+        <p>#{review.reviewID}</p>
       </DataContainer>
       <DataContainer className="data-container__text">
-        <p>{review.date}</p>
+        <p>{formatDate(review.date)}</p>
       </DataContainer>
       <DataContainer className="data-container__text">
-        <p>{review.user.name}</p>
+        <p>{review.name}</p>
       </DataContainer>
       <DataContainer className="data-container__text">
         <div>{stars}</div>
-        <p>{review.message.body}</p>
+        <p>{review.comment}</p>
       </DataContainer>
       <DataContainerButton>
         <button className="green">Publish</button>

@@ -1,5 +1,4 @@
-// Example POST method implementation:
-const url = process.env.REACT_APP_URI;
+// const url = process.env.REACT_APP_URL;
 
 async function fetchAPI(direction: string, method: string, data: {} | null) {
   let tokenStored: string | any = localStorage.getItem("auth");

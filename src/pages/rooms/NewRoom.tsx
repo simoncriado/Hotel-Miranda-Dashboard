@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 
 // Redux
-import { createNewRoom } from "../../features/rooms/roomsSlice";
+import { createNewRoom, getDataRooms } from "../../features/rooms/roomsSlice";
 
 // Components
 import RoomForm from "../../components/rooms/RoomForm";
@@ -19,7 +19,6 @@ const NewRoom = () => {
   const formTitle: string = "Please fill the form to create a new room";
 
   const [currentRoom, setCurrentRoom] = useState<RoomInt>({
-    id: String(Math.floor(Math.random() * 100000)),
     room_number: "",
     bed_type: "",
     photo: "",
