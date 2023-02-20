@@ -1,3 +1,6 @@
+// React & Router
+import { useNavigate } from "react-router";
+
 // Styled Components
 import { Card, CardData } from "./SingleBookingCardStyled";
 
@@ -11,20 +14,35 @@ export const SingleBookingCard = ({
   checkOut,
   userName,
   bedType,
+  id,
+  photo,
 }: any) => {
+  const navigate = useNavigate();
+
+  const goToSingleBooking = (id: number): void => {
+    navigate("/bookings/" + id);
+  };
+
   return (
-    <Card>
-      <img
-        src="https://images.unsplash.com/flagged/photo-1556438758-8d49568ce18e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80"
-        alt="Room img"
-      />
+    <Card
+      onClick={() => {
+        goToSingleBooking(id);
+      }}
+    >
+      <img src={photo} alt="Room img" />
       <CardData>
         <h2>{userName}</h2>
         <p>{bedType}</p>
       </CardData>
       <CardData style={{ marginLeft: "auto" }}>
-        <p>Check In: {checkIn}</p>
-        <p>Check Out: {checkOut}</p>
+        <p>
+          <span style={{ color: "#393939" }}>Check In: </span>
+          {checkIn}
+        </p>
+        <p>
+          <span style={{ color: "#393939" }}>Check Out: </span>
+          {checkOut}
+        </p>
       </CardData>
     </Card>
   );

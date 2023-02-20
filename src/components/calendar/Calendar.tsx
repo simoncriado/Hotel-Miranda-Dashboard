@@ -59,7 +59,7 @@ export const Calendar = () => {
   const { update } = useAppSelector<UpdateType>(
     (state) => state.bookingsReducer
   );
-  const [bookings, setBookings] = useState<BookingInt[]>(bookingsList);
+  const [bookings, setBookings] = useState<BookingInt[] | any>(bookingsList);
   const [dates, setDates] = useState<any>([]);
 
   useEffect(() => {
@@ -83,12 +83,14 @@ export const Calendar = () => {
   useEffect(() => {
     if (bookings.length !== 0) {
       const datesAux: any = [];
-      bookings.map((booking) => {
+      bookings.map((booking: any) => {
         datesAux.push({
           checkIn: formatCalendarDate(booking.checkIn),
           checkOut: formatCalendarDate(booking.checkOut),
           userName: booking.userName,
           bedType: booking.roomType,
+          id: booking.bookingID,
+          photo: booking.roomPhotos[0],
         });
       });
       setDates(datesAux);
@@ -274,6 +276,8 @@ export const Calendar = () => {
                       checkOut={d.checkOut}
                       userName={d.userName}
                       bedType={d.bedType}
+                      id={d.id}
+                      photo={d.photo}
                     ></SingleBookingCard>
                   ))}
                 </>
@@ -291,6 +295,8 @@ export const Calendar = () => {
                       checkOut={d.checkOut}
                       userName={d.userName}
                       bedType={d.bedType}
+                      id={d.id}
+                      photo={d.photo}
                     ></SingleBookingCard>
                   ))}
                 </>
@@ -308,6 +314,8 @@ export const Calendar = () => {
                       checkOut={d.checkOut}
                       userName={d.userName}
                       bedType={d.bedType}
+                      id={d.id}
+                      photo={d.photo}
                     ></SingleBookingCard>
                   ))}
                 </>
@@ -322,6 +330,8 @@ export const Calendar = () => {
                       checkOut={d.checkOut}
                       userName={d.userName}
                       bedType={d.bedType}
+                      id={d.id}
+                      photo={d.photo}
                     ></SingleBookingCard>
                   ))}
                 </>

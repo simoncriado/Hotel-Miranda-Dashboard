@@ -1,11 +1,11 @@
-// const url = process.env.REACT_APP_URL;
+const url = process.env.REACT_APP_URL;
 
 async function fetchAPI(direction: string, method: string, data: {} | null) {
   let tokenStored: string | any = localStorage.getItem("auth");
   if (localStorage.getItem("auth")) {
     tokenStored = JSON.parse(tokenStored).token;
   }
-  const response = await fetch("http://localhost:3001/" + direction, {
+  const response = await fetch(url + direction, {
     method: method,
     mode: "cors",
     cache: "no-cache",

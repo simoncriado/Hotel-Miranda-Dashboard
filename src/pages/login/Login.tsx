@@ -53,6 +53,9 @@ const Login = (): JSX.Element => {
 
     const token = await response.json();
 
+    // TODO
+    // It is not good practice to store the token in localStorage. Instead I would receive a cookie from the server where the token its encrypted
+    // Then both back and front would recognise each other based on that encrypted cookie
     if (token) {
       login(userName, email);
       localStorage.setItem(

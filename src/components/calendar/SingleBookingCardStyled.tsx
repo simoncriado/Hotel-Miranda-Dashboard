@@ -7,11 +7,15 @@ const Card = styled.div`
   align-items: center;
   max-heigth: 100px;
   margin-bottom: 1.5rem;
+  cursor: pointer;
   img {
     border-radius: 8px;
     width: 150px;
     height: 77px;
     object-fit: cover;
+  }
+  &:hover {
+    box-shadow: 0px 4px 30px #00000014;
   }
 `;
 const CardData = styled.div`
