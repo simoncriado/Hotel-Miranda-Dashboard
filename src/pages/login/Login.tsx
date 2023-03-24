@@ -35,21 +35,24 @@ const Login = (): JSX.Element => {
     e.preventDefault();
     // const url = process.env.REACT_APP_URI;
 
-    const response = await fetch("http://localhost:3001/login", {
-      method: "POST",
-      mode: "cors",
-      cache: "default",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+    const response = await fetch(
+      "https://ec2-13-48-195-43.eu-north-1.compute.amazonaws.com:8080/login",
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "default",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      }
+    );
 
     const token = await response.json();
 
